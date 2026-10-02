@@ -1,31 +1,31 @@
-﻿<!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="light">
+<!DOCTYPE html>
+<html lang="ru" dir="ltr" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Clinical diagnosis workspace with backend AI outputs and patient-safe guidance." />
-  <title>Digital Ophthalmology Assistant | Diagnosis</title>
+  <meta name="description" content="Клиническая рабочая область диагностики с результатами ИИ-бэкенда и безопасными для пациента рекомендациями." />
+  <title>Цифровой ассистент офтальмолога | Диагностика</title>
   <link rel="stylesheet" href="../styles/styles.css" />
   <script defer src="../assets/icons.js"></script>
   <script defer src="../js/app.js"></script>
 </head>
 <body data-page="diagnose">
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">Перейти к содержимому</a>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Digital Ophthalmology Assistant" class="brand-logo" /></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation"><span class="icon" data-icon="settings"></span><span>Menu</span></button>
-      <nav id="site-nav" class="nav" aria-label="Primary">
-        <a href="index.html">Home</a>
-        <a href="diseases.html">Disease Library</a>
-        <a href="education.html">Education</a>
-        <a href="safety.html">Safety</a>
-        <a href="about.html">About</a>
+      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Цифровой ассистент офтальмолога" class="brand-logo" /></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню навигации"><span class="icon" data-icon="settings"></span><span>Меню</span></button>
+      <nav id="site-nav" class="nav" aria-label="Основная навигация">
+        <a href="index.html">Главная</a>
+        <a href="diseases.html">Библиотека заболеваний</a>
+        <a href="education.html">Обучение</a>
+        <a href="safety.html">Безопасность</a>
+        <a href="about.html">О проекте</a>
       </nav>
       <div class="topbar-actions">
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme"><span class="icon theme-icon" data-icon="sun"></span></button>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему"><span class="icon theme-icon" data-icon="sun"></span></button>
         <a class="btn btn-primary btn-sm header-btn" href="diagnose.html">
-          Start Diagnosis
+          Начать диагностику
         </a>
       </div>
     </div>
@@ -35,16 +35,16 @@
     <section class="diagnose-shell">
       <div class="diagnose-hero reveal reveal-up">
         <div class="diagnose-hero-copy">
-          <div class="section-label">Diagnosis Workspace</div>
-          <h1>AI Eye Image Analysis</h1>
-          <p>Upload a retinal or anterior eye image for backend inference review. The page now separates confident matches from low-confidence or out-of-scope cases.</p>
+          <div class="section-label">Рабочая область диагностики</div>
+          <h1>ИИ-анализ изображений глаза</h1>
+          <p>Загрузите изображение сетчатки или переднего отдела глаза для выполнения инференса на бэкенде. Страница разделяет уверенные совпадения и случаи с низкой уверенностью или вне зоны обучения модели.</p>
         </div>
         <div class="diagnose-hero-note card">
-          <h3>Review flow</h3>
+          <h3>Процесс проверки</h3>
           <ul class="plain-list diagnose-checklist">
-            <li><span class="icon" data-icon="check"></span>Upload a clear single-eye image</li>
-            <li><span class="icon" data-icon="check"></span>Check confidence and runner-up class</li>
-            <li><span class="icon" data-icon="check"></span>Treat <code>unrecognized</code> as review-required</li>
+            <li><span class="icon" data-icon="check"></span>Загрузите чёткое изображение одного глаза</li>
+            <li><span class="icon" data-icon="check"></span>Проверьте уверенность и второй по вероятности класс</li>
+            <li><span class="icon" data-icon="check"></span>Считайте <code>unrecognized</code> случаем, требующим проверки</li>
           </ul>
         </div>
       </div>
@@ -54,27 +54,27 @@
       <section class="upload-panel panel-card card">
         <div class="panel-head">
           <div>
-            <p class="eyebrow">Input</p>
-            <h2>Image Upload</h2>
+            <p class="eyebrow">Входные данные</p>
+            <h2>Загрузка изображения</h2>
           </div>
-          <span class="panel-tag">Step 1</span>
+          <span class="panel-tag">Шаг 1</span>
         </div>
         <input id="image-input" type="file" accept="image/png,image/jpeg,image/jpg" hidden />
-        <div id="dropzone" class="dropzone diagnose-dropzone" role="button" tabindex="0" aria-label="Upload image by click or drag and drop">
+        <div id="dropzone" class="dropzone diagnose-dropzone" role="button" tabindex="0" aria-label="Загрузите изображение кликом или перетаскиванием">
           <div class="dropzone-mark" aria-hidden="true">◌</div>
-          <h3>Drop image here or click to browse</h3>
-          <p>Supports PNG, JPG and JPEG files up to 10MB.</p>
+          <h3>Перетащите изображение сюда или нажмите для выбора</h3>
+          <p>Поддерживаются файлы PNG, JPG и JPEG до 10 МБ.</p>
         </div>
-        <div id="preview-box" class="preview-box diagnose-preview" role="button" tabindex="0" aria-label="Click to zoom">
+        <div id="preview-box" class="preview-box diagnose-preview" role="button" tabindex="0" aria-label="Нажмите для увеличения">
           <div class="preview-placeholder">
-            <span class="preview-kicker">Preview</span>
-            <strong>Image preview will appear here</strong>
-            <span>Use a centered, well-lit image for the cleanest signal.</span>
+            <span class="preview-kicker">Предпросмотр</span>
+            <strong>Здесь появится предпросмотр изображения</strong>
+            <span>Используйте центрированное, хорошо освещённое изображение для наилучшего результата.</span>
           </div>
         </div>
         <div class="quality-card">
           <div class="quality-head">
-            <span>Estimated image readiness</span>
+            <span>Оценка готовности изображения</span>
             <span id="quality-text">—</span>
           </div>
           <div class="quality-track">
@@ -85,33 +85,33 @@
         <div class="actions diagnose-actions">
           <button id="analyze-btn" class="btn btn-primary diagnose-btn" type="button" disabled>
             <span class="icon" data-icon="play"></span>
-            Analyze Image →
+            Анализировать изображение →
           </button>
           <button id="reset-btn" class="btn btn-ghost diagnose-btn-secondary" type="button" disabled>
             <span class="icon" data-icon="refresh"></span>
-            Reset
+            Сбросить
           </button>
         </div>
-        <p class="panel-footnote">Images are sent to the backend for inference. Use this output as review support, not final diagnosis.</p>
+        <p class="panel-footnote">Изображения отправляются на бэкенд для инференса. Используйте результат как помощь при проверке, а не как окончательный диагноз.</p>
       </section>
 
       <!-- Right Panel: Status & Results -->
       <section class="results-panel panel-card card">
         <div class="panel-head">
           <div>
-            <p class="eyebrow">Output</p>
-            <h2>Analysis Results</h2>
+            <p class="eyebrow">Результат</p>
+            <h2>Результаты анализа</h2>
           </div>
-          <span class="panel-tag">Step 2</span>
+          <span class="panel-tag">Шаг 2</span>
         </div>
         <div id="status-indicator" class="status idle status-block" role="status" aria-live="polite">
           <span class="dot"></span>
-          <span>Waiting for image upload and analysis</span>
+          <span>Ожидание загрузки изображения и анализа</span>
         </div>
         <div id="status-loading" class="diagnose-loading hidden">
           <div class="diagnose-loading-row">
             <div class="diagnose-spinner"></div>
-            Analyzing image — please wait...
+            Анализ изображения — подождите...
           </div>
         </div>
         <div id="result-skeleton" class="hidden" aria-hidden="true">
@@ -123,7 +123,7 @@
         </div>
         <div id="result-content">
           <p class="muted text-center diagnose-empty">
-            Upload an image and click Analyze to see results
+            Загрузите изображение и нажмите «Анализировать», чтобы увидеть результаты
           </p>
         </div>
         <div id="loading-line" class="loading-line hidden" aria-hidden="true"><span></span></div>
@@ -132,13 +132,13 @@
     </section>
   </main>
 
-  <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Image zoom preview">
-    <button id="lightbox-close" class="btn btn-ghost" type="button">Close</button>
-    <img id="lightbox-image" alt="Zoomed eye preview" />
+  <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Увеличенный предпросмотр изображения">
+    <button id="lightbox-close" class="btn btn-ghost" type="button">Закрыть</button>
+    <img id="lightbox-image" alt="Увеличенный предпросмотр глаза" />
   </div>
 
-  <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top"><span class="icon" data-icon="chevron"></span></button>
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Наверх"><span class="icon" data-icon="chevron"></span></button>
   <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
-  <footer class="footer"><div class="container"><p>Educational platform interface only. Not a substitute for licensed medical diagnosis.</p></div></footer>
+  <footer class="footer"><div class="container"><p>Только образовательный интерфейс платформы. Не заменяет лицензированную медицинскую диагностику.</p></div></footer>
 </body>
 </html>
