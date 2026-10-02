@@ -1,131 +1,134 @@
-# Digital Ophthalmology Assistant
+# Цифровой ассистент офтальмолога
 
-AI-powered ophthalmology assistant for anterior eye disease classification using deep learning.
+ИИ-ассистент для классификации заболеваний переднего отдела глаза с использованием глубокого обучения.
 
-> **A project by the Faculty of Artificial Intelligence, Delta University for Science and Technology**
-
----
-
-## 📋 Table of Contents
-
-1. [Overview](#overview)
-2. [Quick Start](#quick-start)
-3. [Project Structure](#project-structure)
-4. [Backend Setup](#backend-setup)
-5. [Frontend Setup](#frontend-setup)
-6. [API Documentation](#api-documentation)
-7. [Model Information](#model-information)
-8. [Team](#team)
+> **Проект Факультета искусственного интеллекта, Университета Дельта для науки и технологий**
 
 ---
 
-## ✨ Overview
+## 📋 Оглавление
 
-This project provides an AI-based classification system for anterior eye diseases using MobileNetV2 architecture. It includes:
-
-- **Backend API**: FastAPI server with ML inference capabilities
-- **Frontend**: Responsive web application with image upload and prediction display
-- **Database**: SQLite (development) / PostgreSQL (production)
-- **Disease Library**: Comprehensive information about eye diseases in English and Arabic
-
-### Supported Conditions
-
-| Condition | Arabic | Risk Level |
-|-----------|--------|------------|
-| Healthy Eye | طبيعي | Low |
-| Conjunctivitis | التهاب الملتحمة | Moderate |
-| Cataract | المياه البيضاء | Moderate |
-| Pterygium | الظفرة | Moderate |
-| Keratitis | التهاب القرنية | High |
+1. [Обзор](#обзор)
+2. [Быстрый старт](#быстрый-старт)
+3. [Структура проекта](#структура-проекта)
+4. [Настройка бэкенда](#настройка-бэкенда)
+5. [Настройка фронтенда](#настройка-фронтенда)
+6. [Документация API](#документация-api)
+7. [Информация о модели](#информация-о-модели)
+8. [Команда](#команда)
 
 ---
 
-## 🚀 Quick Start
+## ✨ Обзор
 
-### Prerequisites
+Этот проект предоставляет систему классификации заболеваний переднего отдела глаза на базе ИИ с использованием архитектуры MobileNetV2. Он включает:
+
+- **Бэкенд API**: FastAPI-сервер с возможностями ML-инференса
+- **Фронтенд**: Адаптивное веб-приложение с загрузкой изображений и отображением предсказаний
+- **База данных**: SQLite (разработка) / PostgreSQL (продакшн)
+- **Библиотека заболеваний**: Подробная информация о заболеваниях глаза на английском и арабском языках
+
+### Поддерживаемые состояния
+
+| Состояние | Арабское название | Уровень риска |
+|-----------|-------------------|---------------|
+| Здоровый глаз | طبيعي | Низкий |
+| Конъюнктивит | التهاب الملتحمة | Средний |
+| Катаракта | المياه البيضاء | Средний |
+| Птеригий | الظفرة | Средний |
+| Кератит | التهاب القرنية | Высокий |
+
+---
+
+## 🚀 Быстрый старт
+
+### Предварительные требования
 
 - Python 3.11+
-- pip (comes with Python)
-- Modern web browser
+- pip (входит в состав Python)
+- Современный веб-браузер
 
-### Run Everything
+### Запуск всего сразу
 
-**Terminal 1 - Start Backend:**
+**Терминал 1 — Запуск бэкенда:**
+
 ```bash
-# Navigate to backend
+# Переход в папку бэкенда
 cd backend
 
-# Create virtual environment
+# Создание виртуального окружения
 python -m venv .venv
 
-# Activate virtual environment
+# Активация виртуального окружения
 # macOS/Linux:
 source .venv/bin/activate
 # Windows:
 .venv\Scripts\activate
 
-# Install dependencies
+# Установка зависимостей
 pip install -r requirements.txt
 
-# Copy environment file (optional)
+# Копирование файла окружения (опционально)
 cp .env.example .env
 
-# Start the server
+# Запуск сервера
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-**Terminal 2 - Start Frontend:**
+**Терминал 2 — Запуск фронтенда:**
+
 ```bash
-# Navigate to frontend
+# Переход в папку фронтенда
 cd frontend
 
-# Start simple HTTP server
+# Запуск простого HTTP-сервера
 python -m http.server 8080
 ```
 
-**Open Browser:**
-- Frontend: http://127.0.0.1:8080/pages/index.html
-- Backend API Docs: http://127.0.0.1:8000/docs
+**Открытие в браузере:**
+
+- Фронтенд: http://127.0.0.1:8080/pages/index.html
+- Документация Backend API: http://127.0.0.1:8000/docs
 
 ---
 
-## 📁 Project Structure
+## 📁 Структура проекта
 
 ```
 digital-ophthalmology-assistant/
-├── backend/                    # FastAPI backend
+├── backend/                    # FastAPI бэкенд
 │   ├── app/
 │   │   ├── __init__.py
-│   │   ├── main.py             # FastAPI application
-│   │   ├── config.py           # Configuration management
-│   │   ├── database/           # Database setup
-│   │   ├── models/             # SQLAlchemy models
-│   │   ├── routes/             # API endpoints
-│   │   └── services/           # Business logic (ML, seeding)
-│   ├── models/                 # ML model files (add manually)
-│   ├── uploads/                # Uploaded images
-│   ├── requirements.txt        # Python dependencies
-│   ├── .env.example           # Configuration template
-│   ├── Dockerfile             # Docker configuration (optional)
-│   └── README.md              # Backend documentation
+│   │   ├── main.py             # FastAPI приложение
+│   │   ├── config.py           # Управление конфигурацией
+│   │   ├── database/           # Настройка базы данных
+│   │   ├── models/             # SQLAlchemy модели
+│   │   ├── routes/             # API эндпоинты
+│   │   └── services/           # Бизнес-логика (ML, seeding)
+│   ├── models/                 # Файлы ML-модели (добавить вручную)
+│   ├── uploads/                # Загруженные изображения
+│   ├── requirements.txt        # Python-зависимости
+│   ├── .env.example           # Шаблон конфигурации
+│   ├── Dockerfile             # Docker конфигурация (опционально)
+│   └── README.md              # Документация бэкенда
 │
-├── frontend/                   # Static web frontend
-│   ├── pages/                 # HTML pages
-│   ├── styles/                # CSS styles
+├── frontend/                   # Статический веб-фронтенд
+│   ├── pages/                 # HTML страницы
+│   ├── styles/                # CSS стили
 │   ├── js/                    # JavaScript (app.js)
-│   ├── assets/                # Icons and assets
-│   └── README.md              # Frontend documentation
+│   ├── assets/                # Иконки и ассеты
+│   └── README.md              # Документация фронтенда
 │
-├── .gitignore                 # Git exclusions
-├── AUDIT_REPORT.md           # Detailed audit report
-└── README.md                 # This file
+├── .gitignore                 # Git исключения
+├── AUDIT_REPORT.md           # Подробный аудит-отчёт
+└── README.md                 # Этот файл
 ```
 
 ---
 
-## 🔧 Backend Setup
+## 🔧 Настройка бэкенда
 
-### Installation
+### Установка
 
 ```bash
 cd backend
@@ -134,110 +137,111 @@ source .venv/bin/activate  # macOS/Linux
 pip install -r requirements.txt
 ```
 
-### Configuration
+### Конфигурация
 
-Copy `.env.example` to `.env` and configure as needed:
+Скопируйте `.env.example` в `.env` и настройте при необходимости:
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `HOST` | Server host | `0.0.0.0` |
-| `PORT` | Server port | `8000` |
-| `DEBUG` | Debug mode | `false` |
-| `DATABASE_URL` | Database connection | SQLite |
-| `MODEL_PATH` | Path to ML model | `models/final_eye_model_optimized.h5` |
-| `UPLOAD_DIR` | Upload directory | `uploads/` |
-| `MAX_UPLOAD_SIZE_MB` | Max file size | `10` |
+| Переменная | Описание | По умолчанию |
+|------------|----------|--------------|
+| `HOST` | Хост сервера | `0.0.0.0` |
+| `PORT` | Порт сервера | `8000` |
+| `DEBUG` | Режим отладки | `false` |
+| `DATABASE_URL` | Подключение к БД | SQLite |
+| `MODEL_PATH` | Путь к ML-модели | `models/final_eye_model_optimized.h5` |
+| `UPLOAD_DIR` | Директория загрузок | `uploads/` |
+| `MAX_UPLOAD_SIZE_MB` | Макс. размер файла | `10` |
 
-### Add ML Model
+### Добавление ML-модели
 
-**Important**: The model file is NOT included in the repository. Place your trained model at:
+**Важно**: Файл модели НЕ включён в репозиторий. Разместите обученную модель по пути:
 
 ```
 backend/models/final_eye_model_optimized.h5
 ```
 
-### Run Backend
+### Запуск бэкенда
 
 ```bash
-# Development mode
+# Режим разработки
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
-# Production mode
+# Продакшн режим
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
 ```
 
-### Backend URLs
+### URL бэкенда
 
 - **API Root**: http://127.0.0.1:8000
 - **API Docs (Swagger)**: http://127.0.0.1:8000/docs
 - **ReDoc**: http://127.0.0.1:8000/redoc
 - **Health Check**: http://127.0.0.1:8000/health
 
-For detailed backend documentation, see [backend/README.md](backend/README.md).
+Подробную документацию бэкенда см. в [backend/README.md](backend/README.md).
 
 ---
 
-## 🖥️ Frontend Setup
+## 🖥️ Настройка фронтенда
 
-### Run Frontend
+### Запуск фронтенда
 
 ```bash
 cd frontend
 python -m http.server 8080
 ```
 
-Open: http://127.0.0.1:8080/pages/index.html
+Откройте: http://127.0.0.1:8080/pages/index.html
 
-### Configure API URL
+### Настройка URL API
 
-If your backend is not on the default URL, set it via:
+Если бэкенд не на стандартном URL, установите его через:
 
 ```javascript
-// In browser console:
+// В консоли браузера:
 localStorage.setItem("doa-api-base", "http://your-backend-url:8000");
 location.reload();
 ```
 
-### Pages
+### Страницы
 
-| Page | Description |
-|------|-------------|
-| Home | Project overview and featured diseases |
-| Diagnose | Upload eye image for AI analysis |
-| Diseases | Searchable disease library |
-| History | View and manage past predictions |
-| About | Project information and team |
-| Safety | Disclaimers and safety information |
-| Education | Patient education and tips |
+| Страница | Описание |
+|----------|----------|
+| Home | Обзор проекта и основные заболевания |
+| Diagnose | Загрузка изображения глаза для ИИ-анализа |
+| Diseases | Библиотека заболеваний с поиском |
+| History | Просмотр и управление прошлыми предсказаниями |
+| About | Информация о проекте и команде |
+| Safety | Дисклеймеры и информация о безопасности |
+| Education | Обучение пациентов и советы |
 
-For detailed frontend documentation, see [frontend/README.md](frontend/README.md).
+Подробную документацию фронтенда см. в [frontend/README.md](frontend/README.md).
 
 ---
 
-## 📖 API Documentation
+## 📖 Документация API
 
-### Key Endpoints
+### Основные эндпоинты
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | API information |
-| GET | `/health` | Health check |
-| POST | `/predict` | Upload image and get prediction |
-| GET | `/api/v1/results` | List all predictions |
-| GET | `/api/v1/results/{id}` | Get specific prediction |
-| DELETE | `/api/v1/results/{id}` | Delete prediction |
-| GET | `/api/v1/library` | List diseases (with search) |
-| GET | `/api/v1/library/{id}` | Get disease details |
-| GET | `/api/v1/content/{type}` | Get page content |
+| Метод | Эндпоинт | Описание |
+|-------|----------|----------|
+| GET | `/` | Информация об API |
+| GET | `/health` | Проверка здоровья сервиса |
+| POST | `/predict` | Загрузка изображения и получение предсказания |
+| GET | `/api/v1/results` | Список всех предсказаний |
+| GET | `/api/v1/results/{id}` | Получение конкретного предсказания |
+| DELETE | `/api/v1/results/{id}` | Удаление предсказания |
+| GET | `/api/v1/library` | Список заболеваний (с поиском) |
+| GET | `/api/v1/library/{id}` | Детали заболевания |
+| GET | `/api/v1/content/{type}` | Получение контента страницы |
 
-### Example: Predict Eye Disease
+### Пример: Предсказание заболевания глаза
 
 ```bash
 curl -X POST http://127.0.0.1:8000/predict \
   -F "file=@/path/to/eye_image.jpg"
 ```
 
-Response:
+Ответ:
+
 ```json
 {
   "label": "healthy_eye",
@@ -247,65 +251,67 @@ Response:
 
 ---
 
-## 🧠 Model Information
+## 🧠 Информация о модели
 
-### Architecture
+### Архитектура
 
-- **Model**: MobileNetV2-based CNN
-- **Input Size**: 224×224 pixels
-- **Input Type**: RGB images
-- **Format**: Keras (.keras)
+- **Модель**: MobileNetV2-based CNN
+- **Размер входа**: 224×224 пикселя
+- **Тип входа**: RGB изображения
+- **Формат**: Keras (.keras)
 
-### Preprocessing
+### Предобработка
 
-1. Center crop (60% of original image)
-2. Resize to 224×224
-3. Normalize pixel values to [0, 1] (divide by 255)
-4. Expand dimensions for batch inference
+1. Центральный кроп (60% от исходного изображения)
+2. Изменение размера до 224×224
+3. Нормализация значений пикселей в [0, 1] (деление на 255)
+4. Расширение измерений для батч-инференса
 
-### Classes
+### Классы
 
-The model classifies into 4 categories:
-1. `healthy_eye` - Normal/healthy eye
-2. `Conjunctivitis Recognition` - Conjunctivitis
-3. `Cataract dataset` - Cataract
-4. `keratitis` - Keratitis
+Модель классифицирует на 4 категории:
 
----
-
-## 👥 Team
-
-**Supervisor**: Dr. Eman Salah
-
-**Team Members**:
-- Fares Tamer Abdel Majeed - 4241097
-- Israa Eldsouky Ibrahim - 4241107
-- Mohamed Ayman Dorgham - 4241041
-- Mohamed Mahmoud Wahba - 4241543
-- Karim Saeed Ahmed - 4241153
-- Rawan Elsaid Elrasef - 4241331
-- Ohoud Abdelnaem Abdallah - 4241386
-- Sama Abdeltawab Elshaikh - 4241400
-- Waad Ahmed Gaffer - 4241415
-- Wesam Mohamed Maylo - 42411018
-- Zeyad Waleed Mohamed - 4232012
+1. `healthy_eye` — Нормальный/здоровый глаз
+2. `Conjunctivitis Recognition` — Конъюнктивит
+3. `Cataract dataset` — Катаракта
+4. `keratitis` — Кератит
 
 ---
 
-## 📄 Additional Documentation
+## 👥 Команда
 
-- [Backend README](backend/README.md) - Detailed backend setup and API reference
-- [Frontend README](frontend/README.md) - Frontend features and configuration
-- [Audit Report](AUDIT_REPORT.md) - Complete production audit details
+**Руководитель**: Dr. Eman Salah
+
+**Участники команды**:
+
+- Fares Tamer Abdel Majeed — 4241097
+- Israa Eldsouky Ibrahim — 4241107
+- Mohamed Ayman Dorgham — 4241041
+- Mohamed Mahmoud Wahba — 4241543
+- Karim Saeed Ahmed — 4241153
+- Rawan Elsaid Elrasef — 4241331
+- Ohoud Abdelnaem Abdallah — 4241386
+- Sama Abdeltawab Elshaikh — 4241400
+- Waad Ahmed Gaffer — 4241415
+- Wesam Mohamed Maylo — 42411018
+- Zeyad Waleed Mohamed — 4232012
 
 ---
 
-## ⚠️ Disclaimer
+## 📄 Дополнительная документация
 
-This platform is for **educational and demonstration purposes only**. The diagnostic output is generated by an AI model and should not replace professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified ophthalmologist for any eye-related concerns.
+- [Backend README](backend/README.md) — Подробная настройка бэкенда и справочник API
+- [Frontend README](frontend/README.md) — Возможности и конфигурация фронтенда
+- [Audit Report](AUDIT_REPORT.md) — Полный производственный аудит
 
 ---
 
-## 📄 License
+## ⚠️ Дисклеймер
 
-Proprietary - Delta University for Science and Technology
+Эта платформа предназначена **только для образовательных и демонстрационных целей**. Диагностический вывод генерируется ИИ-моделью и не должен заменять профессиональный медицинский совет, диагноз или лечение. Всегда обращайтесь к квалифицированному офтальмологу по любым вопросам, касающимся здоровья глаз.
+
+---
+
+## 📄 Лицензия
+
+Proprietary — Delta University for Science and Technology
