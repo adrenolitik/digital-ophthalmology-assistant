@@ -3,31 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Цифровой ассистент офтальмолога для триажа заболеваний переднего отдела глаза и обучения пациентов." />
-  <title>Цифровой ассистент офтальмолога | Главная</title>
+  <meta name="description" data-i18n-attr="content:home.meta" content="Цифровой ассистент офтальмолога для триажа заболеваний переднего отдела глаза и обучения пациентов." />
+  <title data-i18n="home.title">Цифровой ассистент офтальмолога | Главная</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles/styles.css" />
   <script defer src="../assets/icons.js"></script>
+  <script defer src="../js/i18n.js"></script>
   <script defer src="../js/app.js"></script>
 </head>
 <body data-page="home">
-  <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+  <a class="skip-link" href="#main-content" data-i18n="common.skip">Перейти к содержимому</a>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Цифровой ассистент офтальмолога" class="brand-logo" /></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню навигации"><span class="icon" data-icon="settings"></span><span>Меню</span></button>
-      <nav id="site-nav" class="nav" aria-label="Основная навигация">
-        <a href="index.html" aria-current="page">Главная</a>
-        <a href="diseases.html">Библиотека заболеваний</a>
-        <a href="education.html">Обучение</a>
-        <a href="safety.html">Безопасность</a>
-        <a href="about.html">О проекте</a>
+      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Цифровой ассистент офтальмолога" data-i18n-attr="alt:brand.name" class="brand-logo" /></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню навигации" data-i18n-attr="aria-label:nav.toggle"><span class="icon" data-icon="settings"></span><span data-i18n="nav.menu">Меню</span></button>
+      <nav id="site-nav" class="nav" aria-label="Основная навигация" data-i18n-attr="aria-label:nav.primary">
+        <a href="index.html" aria-current="page" data-i18n="nav.home">Главная</a>
+        <a href="diseases.html" data-i18n="nav.diseases">Библиотека заболеваний</a>
+        <a href="education.html" data-i18n="nav.education">Обучение</a>
+        <a href="safety.html" data-i18n="nav.safety">Безопасность</a>
+        <a href="about.html" data-i18n="nav.about">О проекте</a>
       </nav>
       <div class="topbar-actions">
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему"><span class="icon theme-icon" data-icon="sun"></span></button>
-        <a class="btn btn-primary btn-sm header-btn" href="diagnose.html">
+        <div id="lang-toggle" class="lang-toggle" role="group" aria-label="Язык интерфейса" data-i18n-attr="aria-label:common.language">
+          <button type="button" data-lang-btn="ru" class="lang-btn" aria-pressed="true">RU</button>
+          <button type="button" data-lang-btn="en" class="lang-btn" aria-pressed="false">EN</button>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему" data-i18n-attr="aria-label:common.theme"><span class="icon theme-icon" data-icon="sun"></span></button>
+        <a class="btn btn-primary btn-sm header-btn" href="diagnose.html" data-i18n="nav.startDiagnosis">
           Начать диагностику
         </a>
       </div>
@@ -38,25 +43,25 @@
     <section class="hero reveal reveal-up">
       <div class="container hero-grid">
         <div class="stack">
-          <div class="hero-tag"><span></span> Поддержка клинических решений на базе ИИ</div>
-          <h1>Смотрите ясно,<br>диагностируйте <em>умнее</em></h1>
-          <p class="lead">Продвинутый ИИ-анализ изображений сетчатки и патологий глаза. Разработан для офтальмологов и доступен всем медицинским специалистам на Ближнем Востоке.</p>
+          <div class="hero-tag"><span></span> <span data-i18n="home.heroTag">Поддержка клинических решений на базе ИИ</span></div>
+          <h1><span data-i18n="home.heroH1a">Смотрите ясно,</span><br><span data-i18n="home.heroH1b">диагностируйте</span> <em data-i18n="home.heroH1em">умнее</em></h1>
+          <p class="lead" data-i18n="home.heroLead">Продвинутый ИИ-анализ изображений сетчатки и патологий глаза. Разработан для офтальмологов и доступен всем медицинским специалистам на Ближнем Востоке.</p>
           <div class="actions">
-            <a class="btn btn-primary btn-md" href="diagnose.html">
+            <a class="btn btn-primary btn-md" href="diagnose.html" data-i18n="home.analyzeImage">
               Анализировать изображение
             </a>
-            <a class="btn btn-outline btn-md" href="diseases.html">
+            <a class="btn btn-outline btn-md" href="diseases.html" data-i18n="home.browseConditions">
               Смотреть заболевания
             </a>
           </div>
           <div class="hero-stats">
-            <div class="stat-item"><div class="stat-num">94,2%</div><div class="stat-label">Точность определения</div></div>
-            <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Охватываемые заболевания</div></div>
-            <div class="stat-item"><div class="stat-num">RU/AR</div><div class="stat-label">Двуязычная поддержка</div></div>
+            <div class="stat-item"><div class="stat-num">94,2%</div><div class="stat-label" data-i18n="home.statAccuracy">Точность определения</div></div>
+            <div class="stat-item"><div class="stat-num">12</div><div class="stat-label" data-i18n="home.statConditions">Охватываемые заболевания</div></div>
+            <div class="stat-item"><div class="stat-num">RU/AR</div><div class="stat-label" data-i18n="home.statBilingual">Двуязычная поддержка</div></div>
           </div>
         </div>
 
-        <aside class="stack reveal reveal-scale" aria-label="Медицинская иллюстрация">
+        <aside class="stack reveal reveal-scale" aria-label="Медицинская иллюстрация" data-i18n-attr="aria-label:home.illustration">
           <div class="hero-visual">
             <div class="eye-container">
               <div class="eye-ring ring-1"></div>
@@ -67,9 +72,9 @@
               </div>
               <div class="scan-line"></div>
               <div class="ai-badges">
-                <div class="ai-badge badge-1"><div class="dot dot-success"></div>Диабетическая ретинопатия</div>
-                <div class="ai-badge badge-2"><div class="dot dot-primary"></div>Диск зрительного нерва: норма</div>
-                <div class="ai-badge badge-3"><div class="dot dot-warning"></div>Уверенность: 89,4%</div>
+                <div class="ai-badge badge-1"><div class="dot dot-success"></div><span data-i18n="home.badgeRetinopathy">Диабетическая ретинопатия</span></div>
+                <div class="ai-badge badge-2"><div class="dot dot-primary"></div><span data-i18n="home.badgeOpticDisc">Диск зрительного нерва: норма</span></div>
+                <div class="ai-badge badge-3"><div class="dot dot-warning"></div><span data-i18n="home.badgeConfidence">Уверенность: 89,4%</span></div>
               </div>
             </div>
           </div>
@@ -80,21 +85,21 @@
     <section class="section reveal reveal-up">
       <div class="container">
         <div class="section-head">
-          <h2>Как это работает</h2>
-          <p>Создан для безопасной интерпретации результатов и понимания дальнейших шагов.</p>
+          <h2 data-i18n="home.howItWorks">Как это работает</h2>
+          <p data-i18n="home.howItWorksSub">Создан для безопасной интерпретации результатов и понимания дальнейших шагов.</p>
         </div>
         <div class="grid grid-3 stagger">
           <article class="card tilt-card stack">
-            <h3><span class="icon" data-icon="upload"></span>1) Получение изображения</h3>
-            <p class="small">Снимите и загрузите чёткое изображение переднего отдела глаза, желательно качества щелевой лампы.</p>
+            <h3><span class="icon" data-icon="upload"></span><span data-i18n="home.step1Title">1) Получение изображения</span></h3>
+            <p class="small" data-i18n="home.step1Text">Снимите и загрузите чёткое изображение переднего отдела глаза, желательно качества щелевой лампы.</p>
           </article>
           <article class="card tilt-card stack">
-            <h3><span class="icon" data-icon="activity"></span>2) Анализ</h3>
-            <p class="small">Формирование вероятностей классов и контекстной оценки риска для образовательного триажа.</p>
+            <h3><span class="icon" data-icon="activity"></span><span data-i18n="home.step2Title">2) Анализ</span></h3>
+            <p class="small" data-i18n="home.step2Text">Формирование вероятностей классов и контекстной оценки риска для образовательного триажа.</p>
           </article>
           <article class="card tilt-card stack">
-            <h3><span class="icon" data-icon="shield"></span>3) Безопасный разбор</h3>
-            <p class="small">Интерпретация результатов с клиническими оговорками и понятными путями дальнейших действий.</p>
+            <h3><span class="icon" data-icon="shield"></span><span data-i18n="home.step3Title">3) Безопасный разбор</span></h3>
+            <p class="small" data-i18n="home.step3Text">Интерпретация результатов с клиническими оговорками и понятными путями дальнейших действий.</p>
           </article>
         </div>
       </div>
@@ -103,8 +108,8 @@
     <section class="section reveal reveal-up">
       <div class="container">
         <div class="section-head">
-          <h2>Поддерживаемые заболевания</h2>
-          <p>Основные карточки заболеваний динамически загружаются из базы знаний бэкенда.</p>
+          <h2 data-i18n="home.supportedConditions">Поддерживаемые заболевания</h2>
+          <p data-i18n="home.supportedSub">Основные карточки заболеваний динамически загружаются из базы знаний бэкенда.</p>
         </div>
         <div id="home-diseases" class="grid grid-4 stagger"></div>
       </div>
@@ -113,14 +118,14 @@
     <section class="section reveal reveal-left">
       <div class="container">
         <div class="section-head">
-          <h2>Схема клинического процесса</h2>
-          <p>От приёма пациента до передачи врачу.</p>
+          <h2 data-i18n="home.timeline">Схема клинического процесса</h2>
+          <p data-i18n="home.timelineSub">От приёма пациента до передачи врачу.</p>
         </div>
         <ol class="timeline">
-          <li><strong>Загрузка</strong><span>Снятие и отправка изображения глаза.</span></li>
-          <li><strong>ИИ-анализ</strong><span>Классификация моделью с профилем уверенности.</span></li>
-          <li><strong>Клиническая интерпретация</strong><span>Оценка индикаторов риска и тревожных признаков.</span></li>
-          <li><strong>Контроль врача</strong><span>Передача специалисту при выявлении неотложных признаков.</span></li>
+          <li><strong data-i18n="home.timelineUpload">Загрузка</strong><span data-i18n="home.timelineUploadText">Снятие и отправка изображения глаза.</span></li>
+          <li><strong data-i18n="home.timelineAi">ИИ-анализ</strong><span data-i18n="home.timelineAiText">Классификация моделью с профилем уверенности.</span></li>
+          <li><strong data-i18n="home.timelineInterpret">Клиническая интерпретация</strong><span data-i18n="home.timelineInterpretText">Оценка индикаторов риска и тревожных признаков.</span></li>
+          <li><strong data-i18n="home.timelineFollowUp">Контроль врача</strong><span data-i18n="home.timelineFollowUpText">Передача специалисту при выявлении неотложных признаков.</span></li>
         </ol>
       </div>
     </section>
@@ -128,13 +133,13 @@
     <section class="section reveal reveal-right">
       <div class="container">
         <div class="section-head">
-          <h2>Отзывы клиницистов</h2>
-          <p>Впечатления пользователей с внутренних демонстраций системы.</p>
+          <h2 data-i18n="home.feedback">Отзывы клиницистов</h2>
+          <p data-i18n="home.feedbackSub">Впечатления пользователей с внутренних демонстраций системы.</p>
         </div>
         <div class="grid grid-3 stagger">
-          <blockquote class="card quote">«Структурированное описание результата снизило неопределённость для немедицинского персонала.»</blockquote>
-          <blockquote class="card quote">«Обучающие блоки на арабском языке улучшили понимание пациентов при триаже.»</blockquote>
-          <blockquote class="card quote">«Процесс выглядит профессионально и практически применим для обучения.»</blockquote>
+          <blockquote class="card quote" data-i18n="home.quote1">«Структурированное описание результата снизило неопределённость для немедицинского персонала.»</blockquote>
+          <blockquote class="card quote" data-i18n="home.quote2">«Обучающие блоки на арабском языке улучшили понимание пациентов при триаже.»</blockquote>
+          <blockquote class="card quote" data-i18n="home.quote3">«Процесс выглядит профессионально и практически применим для обучения.»</blockquote>
         </div>
       </div>
     </section>
@@ -142,18 +147,18 @@
     <section class="section reveal reveal-scale">
       <div class="container">
         <div class="card stack cta-card cta-card-center">
-          <h2>От загрузки изображения — к более безопасным решениям</h2>
-          <p class="small">Используйте рабочую область диагностики для просмотра результатов модели и рекомендаций пациенту.</p>
+          <h2 data-i18n="home.ctaTitle">От загрузки изображения — к более безопасным решениям</h2>
+          <p class="small" data-i18n="home.ctaText">Используйте рабочую область диагностики для просмотра результатов модели и рекомендаций пациенту.</p>
           <div class="actions actions-center">
-            <a class="btn btn-primary" href="diagnose.html">Открыть рабочую область диагностики</a>
+            <a class="btn btn-primary" href="diagnose.html" data-i18n="home.ctaButton">Открыть рабочую область диагностики</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <button id="back-to-top" class="back-to-top" type="button" aria-label="Наверх"><span class="icon" data-icon="chevron"></span></button>
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Наверх" data-i18n-attr="aria-label:common.backToTop"><span class="icon" data-icon="chevron"></span></button>
   <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
-  <footer class="footer"><div class="container"><p>Только образовательный интерфейс платформы. Не заменяет лицензированную медицинскую диагностику.</p></div></footer>
+  <footer class="footer"><div class="container"><p data-i18n="common.footer">Только образовательный интерфейс платформы. Не заменяет лицензированную медицинскую диагностику.</p></div></footer>
 </body>
 </html>

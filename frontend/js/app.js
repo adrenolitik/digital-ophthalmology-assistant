@@ -4,6 +4,7 @@
   const STORAGE_THEME = "doa-theme";
   const API_ROOT = (window.DOA_API_BASE || localStorage.getItem("doa-api-base") || "http://127.0.0.1:8000").replace(/\/+$/, "");
   const CONTENT_API_BASE = `${API_ROOT}/api/v1`;
+  const t = (key, params) => (window.DOA_I18N ? window.DOA_I18N.t(key, params) : key);
   const DISEASE_IMAGE_BY_ID = {
     cataract: "disease-cataract.png",
     conjunctivitis: "disease-conjunctivitis.png",
@@ -13,6 +14,7 @@
     healthy_eye: "disease-normal.png"
   };
   let diseases = null;
+  let lastPrediction = null;
 
   initIcons();
   initTheme();
@@ -22,6 +24,27 @@
   initRevealSystem();
   initTiltCards();
   initHeroParallax();
+
+  // Перерисовываем динамический контент при смене языка (без перезагрузки страницы)
+  window.DOA_ON_LANGUAGE_CHANGE = () => {
+    const page = document.body.dataset.page;
+    if (page === "home") renderHomeDiseases();
+    if (page === "diseases") initDiseasesPage();
+    if (page === "history") initHistoryPage();
+    if (page === "about") initAboutPage();
+    if (page === "safety") initSafetyPage();
+    if (page === "education") initEducationPage();
+    const result = byId("result-content");
+    if (page === "diagnose" && result && !result.querySelector(".diagnose-empty") && lastPrediction) {
+      result.innerHTML = renderPredictionResultContent(lastPrediction);
+      initIcons();
+      bindAccordions(result);
+      initRipple();
+    }
+    if (page === "diagnose" && result && result.querySelector(".diagnose-empty")) {
+      result.innerHTML = `<p class="muted text-center diagnose-empty">${escapeHtml(t("diagnose.empty"))}</p>`;
+    }
+  };
 
   loadDiseases().catch(() => {
     diseases = {};
@@ -289,10 +312,10 @@
     });
   }
 
-  async function loadDiseases() {
+  async  function loadDiseases() {
     const items = await listLibrary();
     if (!Array.isArray(items) || !items.length) {
-      throw new Error("Библиотека заболеваний недоступна с бэкенда");
+      throw new Error(t("d.err.library"));
     }
     diseases = items.reduce((acc, item) => {
       acc[item.id] = item;
@@ -316,15 +339,15 @@
     const imageName = getDiseaseImageName(disease.id);
     const titleTag = options.titleTag || "h3";
     const bodyClass = options.bodyClass || "disease-tile-body";
-    const title = `<${titleTag}>${escapeHtml(disease.name || "Неизвестно")}</${titleTag}>`;
+    const title = `<${titleTag}>${escapeHtml(disease.name || t("d.tile.unknown"))}</${titleTag}>`;
     return `
       <article class="card tilt-card">
         <div class="disease-tile">
-          <img src="../assets/images/${imageName}" alt="${escapeHtml(disease.name || "Изображение заболевания")}" class="disease-tile-media" loading="lazy" />
+          <img src="../assets/images/${imageName}" alt="${escapeHtml(disease.name || t("d.tile.imageAlt"))}" class="disease-tile-media" loading="lazy" />
           <div class="${bodyClass}">
             ${title}
             <p class="small">${escapeHtml(disease.short || "")}</p>
-            <a class="btn btn-ghost btn-sm" href="diseases.html#${encodeURIComponent(disease.id || "")}">Подробнее</a>
+            <a class="btn btn-ghost btn-sm" href="diseases.html#${encodeURIComponent(disease.id || "")}">${escapeHtml(t("d.tile.more"))}</a>
           </div>
         </div>
       </article>
@@ -343,11 +366,11 @@
             </div>
           </div>
           <div class="rtl-box rtl" lang="ar" dir="rtl"><p>${escapeHtml(disease.short_ar)}</p></div>
-          <div class="rtl-box rtl stack-panel" lang="ar" dir="rtl"><h3>Симптомы</h3><ul>${(disease.symptoms_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-          <div class="rtl-box warning rtl stack-panel" lang="ar" dir="rtl"><h3>Тревожные признаки</h3><ul>${(disease.red_flags_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-          <div class="rtl-box rtl stack-panel" lang="ar" dir="rtl"><h3>Безопасные советы</h3><ul>${(disease.safe_tips_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-          <p class="small rtl" lang="ar" dir="rtl"><strong>Когда обратиться к врачу:</strong> ${escapeHtml(disease.when_to_see_doctor_ar || "")}</p>
-          <a class="btn btn-outline" href="diagnose.html">Вернуться к диагностике</a>
+          <div class="rtl-box rtl stack-panel" lang="ar" dir="rtl"><h3>${escapeHtml(t("d.ar.symptoms"))}</h3><ul>${(disease.symptoms_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
+          <div class="rtl-box warning rtl stack-panel" lang="ar" dir="rtl"><h3>${escapeHtml(t("d.ar.redFlags"))}</h3><ul>${(disease.red_flags_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
+          <div class="rtl-box rtl stack-panel" lang="ar" dir="rtl"><h3>${escapeHtml(t("d.ar.safeTips"))}</h3><ul>${(disease.safe_tips_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
+          <p class="small rtl" lang="ar" dir="rtl"><strong>${escapeHtml(t("d.ar.whenDoctor"))}</strong> ${escapeHtml(disease.when_to_see_doctor_ar || "")}</p>
+          <a class="btn btn-outline" href="diagnose.html">${escapeHtml(t("d.backToDiagnose"))}</a>
         </div>
       </article>
     `;
@@ -361,10 +384,10 @@
     
     if (!allD || allD.length === 0) {
       target.innerHTML = `
-        ${renderDiseaseTile({ id: "cataract", name: "Катаракта", short: "Помутнение хрусталика глаза, приводящее к ухудшению зрения." })}
-        ${renderDiseaseTile({ id: "conjunctivitis", name: "Конъюнктивит", short: "Воспаление конъюнктивы, вызывающее покраснение и раздражение." })}
-        ${renderDiseaseTile({ id: "keratitis", name: "Кератит", short: "Воспаление роговицы, которое может влиять на зрение." })}
-        ${renderDiseaseTile({ id: "normal", name: "Норма", short: "Здоровый глаз без выявленных отклонений." })}
+        ${renderDiseaseTile({ id: "cataract", name: t("d.tile.cataract"), short: t("d.tile.cataractShort") })}
+        ${renderDiseaseTile({ id: "conjunctivitis", name: t("d.tile.conjunctivitis"), short: t("d.tile.conjunctivitisShort") })}
+        ${renderDiseaseTile({ id: "keratitis", name: t("d.tile.keratitis"), short: t("d.tile.keratitisShort") })}
+        ${renderDiseaseTile({ id: "normal", name: t("d.tile.normal"), short: t("d.tile.normalShort") })}
       `;
     } else {
       target.innerHTML = allD.map((d) => renderDiseaseTile(d)).join("");
@@ -390,12 +413,12 @@
       try {
         filtered = await listLibrary(term, diseaseName || null);
       } catch (_err) {
-        sections.innerHTML = renderSurfaceMessage("Не удалось загрузить данные библиотеки с бэкенда.");
+        sections.innerHTML = renderSurfaceMessage(t("diseases.err.load"));
         return;
       }
 
       if (!filtered.length) {
-        sections.innerHTML = renderSurfaceMessage("Подходящих заболеваний не найдено.");
+        sections.innerHTML = renderSurfaceMessage(t("diseases.err.none"));
         return;
       }
       sections.innerHTML = filtered.map((d, i) => renderDiseaseDetail(d, i)).join("");
@@ -495,11 +518,11 @@
     analyzeBtn.addEventListener("click", async () => {
       if (!currentFile) return;
 
-      setStatus(status, "loading", "Анализ");
+      setStatus(status, "loading", t("d.status.loading"));
       loadingLine.classList.remove("hidden");
       skeleton.classList.remove("hidden");
       result.classList.add("hidden");
-      toast("Анализ запущен", "info");
+      toast(t("d.toast.started"), "info");
       try {
         const predicted = await predictImage(currentFile);
         result.innerHTML = renderPredictionResultContent(predicted);
@@ -507,14 +530,14 @@
         skeleton.classList.add("hidden");
         result.classList.remove("hidden");
         loadingLine.classList.add("hidden");
-        setStatus(status, predicted.needs_review ? "review" : "done", predicted.needs_review ? "Требуется клиническая проверка" : "Результат готов");
+        setStatus(status, predicted.needs_review ? "review" : "done", predicted.needs_review ? t("d.status.review") : t("d.status.done"));
         bindAccordions(result);
         initRipple();
-        toast(predicted.needs_review ? "Результат с низкой уверенностью" : "Результат готов", predicted.needs_review ? "warning" : "success");
+        toast(predicted.needs_review ? t("d.toast.lowConfidence") : t("d.toast.ready"), predicted.needs_review ? "warning" : "success");
       } catch (err) {
-        const msg = err instanceof Error ? err.message : "Не удалось выполнить анализ";
-        setStatus(status, "error", "Ошибка анализа");
-        result.innerHTML = `<p class="small">Не удалось завершить анализ: ${escapeHtml(msg)}</p>`;
+        const msg = err instanceof Error ? err.message : t("d.err.failed");
+        setStatus(status, "error", t("d.status.error"));
+        result.innerHTML = `<p class="small">${escapeHtml(t("d.err.unable", { message: msg }))}</p>`;
         result.classList.remove("hidden");
         toast(msg, "error");
       } finally {
@@ -529,35 +552,35 @@
       imageInput.value = "";
       preview.innerHTML = `
         <div class="preview-placeholder">
-          <span class="preview-kicker">Предпросмотр</span>
-          <strong>Здесь появится предпросмотр изображения</strong>
-          <span>Используйте центрированное, хорошо освещённое изображение для наилучшего результата.</span>
+          <span class="preview-kicker">${escapeHtml(t("diagnose.previewKicker"))}</span>
+          <strong>${escapeHtml(t("diagnose.previewTitle"))}</strong>
+          <span>${escapeHtml(t("diagnose.previewText"))}</span>
         </div>`;
       analyzeBtn.disabled = true;
       resetBtn.disabled = true;
-      setStatus(status, "idle", "Ожидание");
-      result.innerHTML = "<p class='small'>Анализ ещё не выполнялся. Загрузите изображение и запустите анализ.</p>";
-      message.textContent = "Загрузка очищена.";
+      setStatus(status, "idle", t("d.status.idle"));
+      result.innerHTML = `<p class='small'>${escapeHtml(t("d.emptyResult"))}</p>`;
+      message.textContent = t("d.msg.cleared");
       message.style.color = "var(--text-tertiary)";
       if (qualityText) qualityText.textContent = "—";
       if (qualityBar) qualityBar.style.width = "0%";
-      toast("Случай сброшен", "info");
+      toast(t("d.toast.reset"), "info");
     });
 
     function handleFile(file) {
       if (!["image/png", "image/jpeg"].includes(file.type)) {
-        setStatus(status, "error", "Недопустимый тип файла");
-        message.textContent = "Недопустимый тип файла. Загрузите PNG или JPG.";
+        setStatus(status, "error", t("d.status.badType"));
+        message.textContent = t("d.msg.badType");
         message.style.color = "var(--danger)";
-        toast("Недопустимый тип файла", "error");
+        toast(t("d.toast.badType"), "error");
         return;
       }
 
       if (file.size > 10 * 1024 * 1024) {
-        setStatus(status, "error", "Файл слишком большой");
-        message.textContent = "Размер файла превышает лимит 10 МБ.";
+        setStatus(status, "error", t("d.status.tooLarge"));
+        message.textContent = t("d.msg.tooLarge");
         message.style.color = "var(--danger)";
-        toast("Файл слишком большой", "error");
+        toast(t("d.toast.tooLarge"), "error");
         return;
       }
 
@@ -565,11 +588,11 @@
       reader.onload = () => {
         currentFile = file;
         currentDataURL = String(reader.result || "");
-        preview.innerHTML = `<img src="${currentDataURL}" alt="Предпросмотр выбранного изображения глаза" />`;
+        preview.innerHTML = `<img src="${currentDataURL}" alt="${escapeHtml(t("d.previewAlt"))}" />`;
         analyzeBtn.disabled = false;
         resetBtn.disabled = false;
-        setStatus(status, "idle", "Изображение готово");
-        message.textContent = `Выбран файл: ${file.name}`;
+        setStatus(status, "idle", t("d.status.ready"));
+        message.textContent = t("d.msg.selected", { name: file.name });
         message.style.color = "var(--success-700)";
         estimateImageQuality(currentDataURL, file);
       };
@@ -600,9 +623,9 @@
         score = Math.max(8, Math.min(100, score));
         qualityBar.style.width = `${score}%`;
 
-        if (score >= 75) qualityText.textContent = `Хорошее · ${score}%`;
-        else if (score >= 50) qualityText.textContent = `Среднее · ${score}%`;
-        else qualityText.textContent = `Слабое · ${score}%`;
+        if (score >= 75) qualityText.textContent = t("d.quality.good", { percent: score });
+        else if (score >= 50) qualityText.textContent = t("d.quality.fair", { percent: score });
+        else qualityText.textContent = t("d.quality.weak", { percent: score });
       };
       img.src = dataURL;
     }
@@ -622,13 +645,13 @@
   }
 
   function renderPredictionResultContent(prediction) {
-    const label = String(prediction.label || "Неизвестно");
+    const label = String(prediction.label || t("common.unknown"));
     const confidencePercent = Number(prediction.confidence || 0) * 100;
     const disease = findDiseaseByPrediction(label);
     const predictedDisease = findDiseaseByPrediction(prediction.predicted_class || "");
     const effectiveDisease = disease || predictedDisease;
-    const riskLevel = prediction.needs_review ? "Неизвестен" : (effectiveDisease ? effectiveDisease.risk_level : "Неизвестен");
-    const riskClass = String(riskLevel || "low").toLowerCase();
+    const riskLevel = prediction.needs_review ? null : (effectiveDisease ? translateRisk(effectiveDisease.risk_level) : null);
+    const riskClass = String(prediction.needs_review ? "low" : (effectiveDisease ? effectiveDisease.risk_level : "low")).toLowerCase();
     const secondBestPercent = Number(prediction.second_best_confidence || 0) * 100;
     const marginPercent = Number(prediction.confidence_margin || 0) * 100;
     const entropyPercent = Number(prediction.normalized_entropy || 0) * 100;
@@ -654,15 +677,15 @@
 
     const resultFacts = [];
     if (displayName) {
-      resultFacts.push(["Предполагаемое состояние", displayName, false]);
+      resultFacts.push([t("r.predicted"), displayName, false]);
     }
     if (displayNameAr) {
-      resultFacts.push(["Арабское название", displayNameAr, true]);
+      resultFacts.push([t("r.arabicName"), displayNameAr, true]);
     }
-    resultFacts.push(["Метка API", `<code>${escapeHtml(label)}</code>`, false, true]);
-    resultFacts.push(["Исходный класс модели", translateClassLabel(prediction.predicted_class), false]);
-    resultFacts.push(["Уверенность", `${confidencePercent.toFixed(1)}%`, false]);
-    resultFacts.push(["Требует проверки", prediction.needs_review ? "Да" : "Нет", false]);
+    resultFacts.push([t("r.apiLabel"), `<code>${escapeHtml(label)}</code>`, false, true]);
+    resultFacts.push([t("r.rawClass"), translateClassLabel(prediction.predicted_class), false]);
+    resultFacts.push([t("r.confidence"), `${confidencePercent.toFixed(1)}%`, false]);
+    resultFacts.push([t("r.needsReview"), prediction.needs_review ? t("common.yes") : t("common.no"), false]);
 
     // Build result HTML - only include sections with actual data from backend
     let html = '';
@@ -672,22 +695,22 @@
     if (displayName) {
       html += `<span class="badge badge-primary"><span class="icon">${getIconByName("activity")}</span>${escapeHtml(displayName)}</span>`;
     }
-    html += `<span class="badge ${prediction.needs_review ? "warning" : "badge-success"}">Уверенность: ${confidencePercent.toFixed(1)}%</span>`;
-    if (riskLevel !== "Неизвестен") {
-      html += `<span class="badge ${getRiskBadgeClass(riskClass)}">Риск: ${escapeHtml(translateRisk(riskLevel))}</span>`;
+    html += `<span class="badge ${prediction.needs_review ? "warning" : "badge-success"}">${escapeHtml(t("r.badgeConfidence", { percent: confidencePercent.toFixed(1) }))}</span>`;
+    if (riskLevel) {
+      html += `<span class="badge ${getRiskBadgeClass(riskClass)}">${escapeHtml(t("r.badgeRisk", { level: riskLevel }))}</span>`;
     }
     if (prediction.needs_review) {
-      html += '<span class="badge warning">Требуется проверка</span>';
+      html += `<span class="badge warning">${escapeHtml(t("r.badgeReview"))}</span>`;
     }
     html += '</div>';
 
     html += '<section class="result-hero">';
     html += `<article class="signal-banner ${prediction.needs_review ? "review" : "safe"}">`;
-    html += `<h3><span class="icon" data-icon="${prediction.needs_review ? "warning" : "check"}"></span>${prediction.needs_review ? "Классификация с низкой уверенностью" : "Уверенная классификация"}</h3>`;
+    html += `<h3><span class="icon" data-icon="${prediction.needs_review ? "warning" : "check"}"></span>${escapeHtml(prediction.needs_review ? t("r.bannerLow") : t("r.bannerConfident"))}</h3>`;
     if (prediction.needs_review) {
-      html += `<p>Изображение недостаточно похоже на обучающие классы. Ближайший класс: <strong>${escapeHtml(displayName || translateClassLabel(prediction.predicted_class))}</strong> с вероятностью ${confidencePercent.toFixed(1)}%, при этом ${escapeHtml(translateClassLabel(prediction.second_best_class))} очень близок — ${secondBestPercent.toFixed(1)}%.</p>`;
+      html += `<p>${escapeHtml(t("r.bannerLowText", { cls: displayName || translateClassLabel(prediction.predicted_class), p1: confidencePercent.toFixed(1), other: translateClassLabel(prediction.second_best_class), p2: secondBestPercent.toFixed(1) }))}</p>`;
     } else {
-      html += `<p>Наиболее вероятный класс — <strong>${escapeHtml(displayName || translateClassLabel(prediction.predicted_class))}</strong> с отрывом ${marginPercent.toFixed(1)}% от следующего класса.</p>`;
+      html += `<p>${escapeHtml(t("r.bannerConfidentText", { cls: displayName || translateClassLabel(prediction.predicted_class), margin: marginPercent.toFixed(1) }))}</p>`;
     }
     html += '</article>';
 
@@ -698,7 +721,7 @@
     if (displayNameAr) {
       html += `<p class="rtl" lang="ar" dir="rtl">${escapeHtml(displayNameAr)}</p>`;
     } else {
-      html += `<p>${prediction.needs_review ? "Этот результат следует рассматривать только как поддержку триажа." : "Результат находится в пределах обучающих классов."}</p>`;
+      html += `<p>${escapeHtml(prediction.needs_review ? t("r.triageOnly") : t("r.inScope"))}</p>`;
     }
     if (displayShort) {
       html += `<p class="small">${escapeHtml(displayShort)}</p>`;
@@ -706,9 +729,9 @@
     html += '</div>';
 
     html += '<div class="metric-strip">';
-    html += `<article class="metric-tile"><span>Топ-класс</span><strong>${escapeHtml(translateClassLabel(prediction.predicted_class))}</strong></article>`;
-    html += `<article class="metric-tile"><span>Второй класс</span><strong>${escapeHtml(translateClassLabel(prediction.second_best_class))}</strong></article>`;
-    html += `<article class="metric-tile"><span>Отрыв / Энтропия</span><strong>${marginPercent.toFixed(1)}% / ${entropyPercent.toFixed(1)}%</strong></article>`;
+    html += `<article class="metric-tile"><span>${escapeHtml(t("r.topClass"))}</span><strong>${escapeHtml(translateClassLabel(prediction.predicted_class))}</strong></article>`;
+    html += `<article class="metric-tile"><span>${escapeHtml(t("r.runnerUp"))}</span><strong>${escapeHtml(translateClassLabel(prediction.second_best_class))}</strong></article>`;
+    html += `<article class="metric-tile"><span>${escapeHtml(t("r.marginEntropy"))}</span><strong>${marginPercent.toFixed(1)}% / ${entropyPercent.toFixed(1)}%</strong></article>`;
     html += '</div>';
     html += '</section>';
 
@@ -736,7 +759,7 @@
     // Symptoms - only if available from backend
     if (diseaseSymptoms.length > 0) {
       html += '<article class="card stack ltr stack-panel">';
-      html += '<h3><span class="icon" data-icon="activity"></span>Распространённые симптомы</h3>';
+      html += `<h3><span class="icon" data-icon="activity"></span>${escapeHtml(t("r.symptomsTitle"))}</h3>`;
       html += '<ul class="plain-list">';
       diseaseSymptoms.forEach(s => {
         html += `<li><span class="icon" data-icon="circle"></span>${escapeHtml(s)}</li>`;
@@ -748,7 +771,7 @@
     // Red flags - only if available from backend
     if (diseaseRedFlags.length > 0) {
       html += '<article class="card stack ltr stack-panel stack-panel-danger">';
-      html += '<h3><span class="icon" data-icon="warning"></span>Тревожные признаки — немедленно обратитесь за помощью</h3>';
+      html += `<h3><span class="icon" data-icon="warning"></span>${escapeHtml(t("r.redFlagsTitle"))}</h3>`;
       html += '<ul class="plain-list">';
       diseaseRedFlags.forEach(f => {
         html += `<li><span class="icon" data-icon="alert"></span>${escapeHtml(f)}</li>`;
@@ -760,7 +783,7 @@
     // When to see doctor - only if available from backend
     if (whenToSeeDoctor) {
       html += `<article class="card stack stack-panel">`;
-      html += '<h3>Когда обратиться к врачу</h3>';
+      html += `<h3>${escapeHtml(t("r.whenDoctorTitle"))}</h3>`;
       html += `<p>${escapeHtml(whenToSeeDoctor)}</p>`;
       html += '</article>';
     }
@@ -771,7 +794,7 @@
   function renderResultFactsCard(facts) {
     return `
       <article class="card result-card">
-        <h3><span class="icon" data-icon="activity"></span>Результаты анализа</h3>
+        <h3><span class="icon" data-icon="activity"></span>${escapeHtml(t("r.factsTitle"))}</h3>
         <div class="fact-list">
           ${facts.map(([label, value, isRtl = false, isHtml = false]) => `
             <div class="fact-row">
@@ -787,7 +810,7 @@
   function renderConfidenceCard(confidenceEntries, prettyLabel) {
     return `
       <article class="card confidence-panel">
-        <h3><span class="icon" data-icon="activity"></span>Распределение уверенности</h3>
+        <h3><span class="icon" data-icon="activity"></span>${escapeHtml(t("r.confidenceTitle"))}</h3>
         <div class="confidence-list">
           ${confidenceEntries.map(([entryLabel, value], index) => {
             const percent = Number(value || 0) * 100;
@@ -807,7 +830,7 @@
             `;
           }).join("")}
         </div>
-        <p class="mini-note">Если два верхних класса слишком близки, бэкенд возвращает <code>unrecognized</code>, чтобы избежать ошибочного диагноза.</p>
+        <p class="mini-note">${escapeHtml(t("r.confidenceNote"))}</p>
       </article>
     `;
   }
@@ -815,11 +838,11 @@
   function renderReviewCard() {
     return `
       <article class="card review-card">
-        <h3><span class="icon" data-icon="warning"></span>Рекомендации по проверке</h3>
+        <h3><span class="icon" data-icon="warning"></span>${escapeHtml(t("r.reviewTitle"))}</h3>
         <ul class="plain-list">
-          <li><span class="icon" data-icon="check"></span>Не считайте это подтверждённым диагнозом.</li>
-          <li><span class="icon" data-icon="check"></span>Запросите другое изображение с лучшим фокусом, освещением или кадрированием.</li>
-          <li><span class="icon" data-icon="check"></span>Используйте ближайший класс только как подсказку для ручной проверки.</li>
+          <li><span class="icon" data-icon="check"></span>${escapeHtml(t("r.reviewNoConfirm"))}</li>
+          <li><span class="icon" data-icon="check"></span>${escapeHtml(t("r.reviewNewImage"))}</li>
+          <li><span class="icon" data-icon="check"></span>${escapeHtml(t("r.reviewHint"))}</li>
         </ul>
       </article>
     `;
@@ -828,7 +851,7 @@
   function renderClinicalGuidanceCard(tips) {
     return `
       <article class="card guidance-card">
-        <h3><span class="icon" data-icon="shield"></span>Клинические рекомендации</h3>
+        <h3><span class="icon" data-icon="shield"></span>${escapeHtml(t("r.guidanceTitle"))}</h3>
         <ul class="plain-list">
           ${tips.map((tip) => `<li><span class="icon" data-icon="check"></span>${escapeHtml(tip)}</li>`).join("")}
         </ul>
@@ -843,32 +866,19 @@
 
   function translateClassLabel(label) {
     const raw = String(label || "");
-    const mapped = getDiseaseName(raw.toLowerCase());
-    return mapped === raw.toLowerCase() ? prettifyClassLabel(raw) : mapped;
+    const key = `class.${raw.toLowerCase()}`;
+    const mapped = t(key);
+    return mapped === key ? prettifyClassLabel(raw) : mapped;
   }
 
   function translateRisk(level) {
-    const names = {
-      low: "низкий",
-      moderate: "умеренный",
-      medium: "средний",
-      high: "высокий",
-      urgent: "неотложный"
-    };
-    return names[String(level || "").toLowerCase()] || String(level || "");
+    const key = `risk.${String(level || "").toLowerCase()}`;
+    const mapped = t(key);
+    return mapped === key ? String(level || "") : mapped;
   }
 
   function getDiseaseName(label) {
-    const names = {
-      healthy_eye: "Здоровый глаз",
-      normal: "Норма",
-      conjunctivitis: "Конъюнктивит",
-      cataract: "Катаракта",
-      keratitis: "Кератит",
-      unrecognized: "Не распознано",
-      pterygium: "Птеригий"
-    };
-    return names[label.toLowerCase()] || label;
+    return translateClassLabel(label);
   }
 
   function getDiseaseNameAr(label) {
@@ -879,7 +889,7 @@
       cataract: "إعتام عدسة العين (المياه البيضاء)",
       keratitis: "التهاب القرنية"
     };
-    return names[label.toLowerCase()] || label;
+    return names[String(label || "").toLowerCase()] || label;
   }
 
   function initHistoryPage() {
@@ -894,12 +904,12 @@
       try {
         rows = await listResults(value === "all" ? null : value);
       } catch (_err) {
-        container.innerHTML = renderSurfaceMessage("Не удалось загрузить результаты с бэкенда.");
+        container.innerHTML = renderSurfaceMessage(t("h.err.load"));
         return;
       }
 
       if (!rows.length) {
-        container.innerHTML = renderSurfaceMessage("Нет записей для этого фильтра.");
+        container.innerHTML = renderSurfaceMessage(t("h.err.none"));
         return;
       }
 
@@ -907,11 +917,11 @@
         <article class="history-entry">
           <div class="history-placeholder">${escapeHtml(translateClassLabel(row.prediction || "?").slice(0, 1).toUpperCase())}</div>
           <div class="stack">
-            <h3>${escapeHtml(row.prediction ? translateClassLabel(row.prediction) : "Неизвестно")} (${(Number(row.confidence || 0) * 100).toFixed(1)}%)</h3>
-            <p class="small">${escapeHtml(row.created_at ? new Date(row.created_at).toLocaleString() : "Неизвестно")}</p>
-            <p class="small">ID записи: ${escapeHtml(row.id)} | ${escapeHtml(row.image_path || "нет данных")}</p>
+            <h3>${escapeHtml(row.prediction ? translateClassLabel(row.prediction) : t("common.unknown"))} (${(Number(row.confidence || 0) * 100).toFixed(1)}%)</h3>
+            <p class="small">${escapeHtml(row.created_at ? new Date(row.created_at).toLocaleString() : t("common.unknown"))}</p>
+            <p class="small">${escapeHtml(t("h.recordId", { id: row.id, path: row.image_path || t("common.notAvailable") }))}</p>
           </div>
-          <button class="btn btn-ghost" type="button" data-remove="${row.id}">Удалить</button>
+          <button class="btn btn-ghost" type="button" data-remove="${row.id}">${escapeHtml(t("h.remove"))}</button>
         </article>
       `).join("");
 
@@ -921,9 +931,9 @@
           try {
             await deleteResult(id);
             await render();
-            toast("Запись удалена", "info");
+            toast(t("h.toast.removed"), "info");
           } catch (_err) {
-            toast("Не удалось удалить результат", "error");
+            toast(t("h.toast.removeFailed"), "error");
           }
         });
       });
@@ -935,9 +945,9 @@
       try {
         const all = await listResults();
         const labels = Array.from(new Set(all.map((r) => r.prediction).filter(Boolean))).sort();
-        filter.innerHTML = `<option value="all">Все</option>${labels.map((label) => `<option value="${escapeHtml(label)}">${escapeHtml(translateClassLabel(label))}</option>`).join("")}`;
+        filter.innerHTML = `<option value="all">${escapeHtml(t("history.filterAll"))}</option>${labels.map((label) => `<option value="${escapeHtml(label)}">${escapeHtml(translateClassLabel(label))}</option>`).join("")}`;
       } catch (_err) {
-        filter.innerHTML = `<option value="all">Все</option>`;
+        filter.innerHTML = `<option value="all">${escapeHtml(t("history.filterAll"))}</option>`;
       }
     };
 
@@ -947,9 +957,9 @@
         const all = await listResults();
         await Promise.all(all.map((item) => deleteResult(item.id)));
         await render();
-        toast("Вся история бэкенда очищена", "info");
+        toast(t("h.toast.cleared"), "info");
       } catch (_err) {
-        toast("Не удалось очистить историю бэкенда", "error");
+        toast(t("h.toast.clearFailed"), "error");
       }
     });
 
@@ -965,23 +975,23 @@
       const content = payload.content || {};
       target.innerHTML = `
         <article class="card stack reveal reveal-up">
-          <h1>${escapeHtml(payload.title || "О проекте")}</h1>
+          <h1>${escapeHtml(payload.title || t("about.fallbackTitle"))}</h1>
           <p><strong>${escapeHtml(content.subtitle || "")}</strong></p>
           <p>${escapeHtml(content.description || "")}</p>
           <p><strong>${escapeHtml(content.project_title || "")}</strong></p>
-          <p>Научный руководитель: ${escapeHtml(content.supervisor || "нет данных")}</p>
+          <p>${escapeHtml(t("about.supervisedBy", { name: content.supervisor || t("common.notAvailable") }))}</p>
         </article>
         <article class="card stack reveal reveal-up">
-          <h2>Команда проекта</h2>
+          <h2>${escapeHtml(t("about.team"))}</h2>
           <ol class="stack page-list">${(content.team_members || []).map((member) => `<li>${escapeHtml(member)}</li>`).join("")}</ol>
         </article>
         <div class="grid grid-2 stagger reveal reveal-scale">
           <article class="card stack">
-            <h2>Технологии</h2>
+            <h2>${escapeHtml(t("about.stack"))}</h2>
             <ul class="stack">${(content.stack || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
           </article>
           <article class="card stack">
-            <h2>Область применения</h2>
+            <h2>${escapeHtml(t("about.scope"))}</h2>
             <ul class="stack">${(content.model_scope || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
           </article>
         </div>
@@ -989,7 +999,7 @@
       initRevealSystem();
       initRipple();
     } catch (_err) {
-      target.innerHTML = renderSurfaceMessage("Не удалось загрузить содержимое страницы «О проекте» с бэкенда.");
+      target.innerHTML = renderSurfaceMessage(t("about.err.load"));
     }
   }
 
@@ -1003,7 +1013,7 @@
         <div class="warning-banner reveal reveal-up">
           <span class="icon" data-icon="warning"></span>
           <div class="stack">
-            <h1>${escapeHtml(payload.title || "Безопасность")}</h1>
+            <h1>${escapeHtml(payload.title || t("safety.fallbackTitle"))}</h1>
             <p>${escapeHtml(content.intro || "")}</p>
           </div>
         </div>
@@ -1016,14 +1026,14 @@
           `).join("")}
         </div>
         <article class="card reveal reveal-scale stack">
-          <h2>Рекомендации по передаче врачу</h2>
+          <h2>${escapeHtml(t("safety.escalation"))}</h2>
           <p class="small">${escapeHtml(content.escalation_advice || "")}</p>
         </article>
       `;
       initIcons();
       initRevealSystem();
     } catch (_err) {
-      target.innerHTML = renderSurfaceMessage("Не удалось загрузить содержимое страницы безопасности с бэкенда.");
+      target.innerHTML = renderSurfaceMessage(t("safety.err.load"));
     }
   }
 
@@ -1035,7 +1045,7 @@
       const content = payload.content || {};
       target.innerHTML = `
         <div class="section-head reveal reveal-up">
-          <h1>${escapeHtml(payload.title || "Обучение")}</h1>
+          <h1>${escapeHtml(payload.title || t("education.fallbackTitle"))}</h1>
           <p>${escapeHtml(content.intro || "")}</p>
         </div>
         <div class="grid grid-3 stagger reveal reveal-up">
@@ -1054,7 +1064,7 @@
       initRevealSystem();
       initTiltCards();
     } catch (_err) {
-      target.innerHTML = renderSurfaceMessage("Не удалось загрузить содержимое страницы обучения с бэкенда.");
+      target.innerHTML = renderSurfaceMessage(t("education.err.load"));
     }
   }
 
@@ -1128,7 +1138,7 @@
     }
 
     if (!response.ok) {
-      const detail = data && data.detail ? String(data.detail) : `Ошибка запроса (${response.status})`;
+      const detail = data && data.detail ? String(data.detail) : t("api.requestFailed", { status: response.status });
       throw new Error(detail);
     }
 

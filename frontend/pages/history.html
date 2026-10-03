@@ -3,28 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Полная история анализов с инструментами фильтрации." />
-  <title>Цифровой ассистент офтальмолога | История</title>
+  <meta name="description" data-i18n-attr="content:history.meta" content="Полная история анализов с инструментами фильтрации." />
+  <title data-i18n="history.title">Цифровой ассистент офтальмолога | История</title>
   <link rel="stylesheet" href="../styles/styles.css" />
   <script defer src="../assets/icons.js"></script>
+  <script defer src="../js/i18n.js"></script>
   <script defer src="../js/app.js"></script>
 </head>
 <body data-page="history">
-  <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+  <a class="skip-link" href="#main-content" data-i18n="common.skip">Перейти к содержимому</a>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Цифровой ассистент офтальмолога" class="brand-logo" /></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню навигации"><span class="icon" data-icon="settings"></span><span>Меню</span></button>
-      <nav id="site-nav" class="nav" aria-label="Основная навигация">
-        <a href="index.html">Главная</a>
-        <a href="diseases.html">Библиотека заболеваний</a>
-        <a href="education.html">Обучение</a>
-        <a href="safety.html">Безопасность</a>
-        <a href="about.html">О проекте</a>
+      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Цифровой ассистент офтальмолога" data-i18n-attr="alt:brand.name" class="brand-logo" /></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню навигации" data-i18n-attr="aria-label:nav.toggle"><span class="icon" data-icon="settings"></span><span data-i18n="nav.menu">Меню</span></button>
+      <nav id="site-nav" class="nav" aria-label="Основная навигация" data-i18n-attr="aria-label:nav.primary">
+        <a href="index.html" data-i18n="nav.home">Главная</a>
+        <a href="diseases.html" data-i18n="nav.diseases">Библиотека заболеваний</a>
+        <a href="education.html" data-i18n="nav.education">Обучение</a>
+        <a href="safety.html" data-i18n="nav.safety">Безопасность</a>
+        <a href="about.html" data-i18n="nav.about">О проекте</a>
       </nav>
       <div class="topbar-actions">
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему"><span class="icon theme-icon" data-icon="sun"></span></button>
-        <a class="btn btn-primary btn-sm header-btn" href="diagnose.html">
+        <div id="lang-toggle" class="lang-toggle" role="group" aria-label="Язык интерфейса" data-i18n-attr="aria-label:common.language">
+          <button type="button" data-lang-btn="ru" class="lang-btn" aria-pressed="true">RU</button>
+          <button type="button" data-lang-btn="en" class="lang-btn" aria-pressed="false">EN</button>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему" data-i18n-attr="aria-label:common.theme"><span class="icon theme-icon" data-icon="sun"></span></button>
+        <a class="btn btn-primary btn-sm header-btn" href="diagnose.html" data-i18n="nav.startDiagnosis">
           Начать диагностику
         </a>
       </div>
@@ -34,22 +39,22 @@
   <main id="main-content" class="section page-shell">
     <div class="container stack page-stack">
       <div class="section-head page-head reveal reveal-up">
-        <h1><span class="icon" data-icon="history"></span>Полная история анализов</h1>
-        <p>Фильтрация и управление сохранёнными предсказаниями бэкенда для аудита и учебного разбора.</p>
+        <h1><span class="icon" data-icon="history"></span><span data-i18n="history.h1">Полная история анализов</span></h1>
+        <p data-i18n="history.sub">Фильтрация и управление сохранёнными предсказаниями бэкенда для аудита и учебного разбора.</p>
       </div>
       <div class="card reveal reveal-up">
         <div class="history-filters">
-          <label for="history-filter">Фильтр по классу:</label>
-          <select id="history-filter"><option value="all">Все</option></select>
-          <button id="clear-all-history" class="btn btn-ghost" type="button">Очистить всё</button>
+          <label for="history-filter" data-i18n="history.filterLabel">Фильтр по классу:</label>
+          <select id="history-filter"><option value="all" data-i18n="history.filterAll">Все</option></select>
+          <button id="clear-all-history" class="btn btn-ghost" type="button" data-i18n="history.clearAll">Очистить всё</button>
         </div>
         <div id="history-full" class="history-grid"></div>
       </div>
     </div>
   </main>
 
-  <button id="back-to-top" class="back-to-top" type="button" aria-label="Наверх"><span class="icon" data-icon="chevron"></span></button>
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Наверх" data-i18n-attr="aria-label:common.backToTop"><span class="icon" data-icon="chevron"></span></button>
   <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
-  <footer class="footer"><div class="container"><p>Только образовательный интерфейс платформы. Не заменяет лицензированную медицинскую диагностику.</p></div></footer>
+  <footer class="footer"><div class="container"><p data-i18n="common.footer">Только образовательный интерфейс платформы. Не заменяет лицензированную медицинскую диагностику.</p></div></footer>
 </body>
 </html>

@@ -3,28 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Библиотека заболеваний с руководствами по офтальмологии на русском и арабском языках." />
-  <title>Цифровой ассистент офтальмолога | Библиотека заболеваний</title>
+  <meta name="description" data-i18n-attr="content:diseases.meta" content="Библиотека заболеваний с руководствами по офтальмологии на русском и арабском языках." />
+  <title data-i18n="diseases.title">Цифровой ассистент офтальмолога | Библиотека заболеваний</title>
   <link rel="stylesheet" href="../styles/styles.css" />
   <script defer src="../assets/icons.js"></script>
+  <script defer src="../js/i18n.js"></script>
   <script defer src="../js/app.js"></script>
 </head>
 <body data-page="diseases">
-  <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+  <a class="skip-link" href="#main-content" data-i18n="common.skip">Перейти к содержимому</a>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Цифровой ассистент офтальмолога" class="brand-logo" /></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню навигации"><span class="icon" data-icon="settings"></span><span>Меню</span></button>
-      <nav id="site-nav" class="nav" aria-label="Основная навигация">
-        <a href="index.html">Главная</a>
-        <a href="diseases.html" aria-current="page">Библиотека заболеваний</a>
-        <a href="education.html">Обучение</a>
-        <a href="safety.html">Безопасность</a>
-        <a href="about.html">О проекте</a>
+      <a class="brand" href="index.html"><img src="../assets/doa_header_logo.svg" alt="Цифровой ассистент офтальмолога" data-i18n-attr="alt:brand.name" class="brand-logo" /></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню навигации" data-i18n-attr="aria-label:nav.toggle"><span class="icon" data-icon="settings"></span><span data-i18n="nav.menu">Меню</span></button>
+      <nav id="site-nav" class="nav" aria-label="Основная навигация" data-i18n-attr="aria-label:nav.primary">
+        <a href="index.html" data-i18n="nav.home">Главная</a>
+        <a href="diseases.html" aria-current="page" data-i18n="nav.diseases">Библиотека заболеваний</a>
+        <a href="education.html" data-i18n="nav.education">Обучение</a>
+        <a href="safety.html" data-i18n="nav.safety">Безопасность</a>
+        <a href="about.html" data-i18n="nav.about">О проекте</a>
       </nav>
       <div class="topbar-actions">
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему"><span class="icon theme-icon" data-icon="sun"></span></button>
-        <a class="btn btn-primary btn-sm header-btn" href="diagnose.html">
+        <div id="lang-toggle" class="lang-toggle" role="group" aria-label="Язык интерфейса" data-i18n-attr="aria-label:common.language">
+          <button type="button" data-lang-btn="ru" class="lang-btn" aria-pressed="true">RU</button>
+          <button type="button" data-lang-btn="en" class="lang-btn" aria-pressed="false">EN</button>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Переключить тему" data-i18n-attr="aria-label:common.theme"><span class="icon theme-icon" data-icon="sun"></span></button>
+        <a class="btn btn-primary btn-sm header-btn" href="diagnose.html" data-i18n="nav.startDiagnosis">
           Начать диагностику
         </a>
       </div>
@@ -33,21 +38,21 @@
   <main id="main-content" class="section page-shell">
     <div class="container stack page-stack">
       <div class="section-head page-head reveal reveal-up">
-        <h1><span class="icon" data-icon="book-open"></span> База знаний о заболеваниях</h1>
-        <p>Полная справочная библиотека офтальмологических заболеваний с клиническими рекомендациями и материалами для обучения пациентов.</p>
+        <h1><span class="icon" data-icon="book-open"></span> <span data-i18n="diseases.h1">База знаний о заболеваниях</span></h1>
+        <p data-i18n="diseases.sub">Полная справочная библиотека офтальмологических заболеваний с клиническими рекомендациями и материалами для обучения пациентов.</p>
       </div>
 
       <div class="library-layout reveal reveal-up">
-        <aside class="card sticky-card stack reveal reveal-left" aria-label="Фильтры и навигация">
-          <h2><span class="icon" data-icon="filter"></span> Фильтр заболеваний</h2>
-          <input id="disease-search" class="search" type="search" placeholder="Поиск заболеваний..." aria-label="Поиск заболеваний" />
-          <div id="library-tabs" class="tabs library-tabs" role="tablist" aria-label="Категории заболеваний">
-            <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-disease="">Все заболевания</button>
-            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Cataract">Катаракта</button>
-            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Conjunctivitis">Конъюнктивит</button>
-            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Keratitis">Кератит</button>
-            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Normal">Норма</button>
-            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Pterygium">Птеригий</button>
+        <aside class="card sticky-card stack reveal reveal-left" aria-label="Фильтры и навигация" data-i18n-attr="aria-label:diseases.filters">
+          <h2><span class="icon" data-icon="filter"></span> <span data-i18n="diseases.filterTitle">Фильтр заболеваний</span></h2>
+          <input id="disease-search" class="search" type="search" placeholder="Поиск заболеваний..." aria-label="Поиск заболеваний" data-i18n-attr="placeholder:diseases.searchPlaceholder;aria-label:diseases.searchLabel" />
+          <div id="library-tabs" class="tabs library-tabs" role="tablist" aria-label="Категории заболеваний" data-i18n-attr="aria-label:diseases.categories">
+            <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-disease="" data-i18n="diseases.tabAll">Все заболевания</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Cataract" data-i18n="diseases.tabCataract">Катаракта</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Conjunctivitis" data-i18n="diseases.tabConjunctivitis">Конъюнктивит</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Keratitis" data-i18n="diseases.tabKeratitis">Кератит</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Normal" data-i18n="diseases.tabNormal">Норма</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" data-disease="Pterygium" data-i18n="diseases.tabPterygium">Птеригий</button>
           </div>
         </aside>
 
@@ -56,8 +61,8 @@
     </div>
   </main>
 
-  <button id="back-to-top" class="back-to-top" type="button" aria-label="Наверх"><span class="icon" data-icon="chevron"></span></button>
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Наверх" data-i18n-attr="aria-label:common.backToTop"><span class="icon" data-icon="chevron"></span></button>
   <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
-  <footer class="footer"><div class="container"><p>Только образовательный интерфейс платформы. Не заменяет лицензированную медицинскую диагностику.</p></div></footer>
+  <footer class="footer"><div class="container"><p data-i18n="common.footer">Только образовательный интерфейс платформы. Не заменяет лицензированную медицинскую диагностику.</p></div></footer>
 </body>
 </html>
