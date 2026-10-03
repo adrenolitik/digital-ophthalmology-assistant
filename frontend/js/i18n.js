@@ -49,7 +49,7 @@
     "home.browseConditions": "Смотреть заболевания",
     "home.statAccuracy": "Точность определения",
     "home.statConditions": "Охватываемые заболевания",
-    "home.statBilingual": "Двуязычная поддержка",
+    "home.statBilingual": "Языки интерфейса",
     "home.illustration": "Медицинская иллюстрация",
     "home.badgeRetinopathy": "Диабетическая ретинопатия",
     "home.badgeOpticDisc": "Диск зрительного нерва: норма",
@@ -77,7 +77,7 @@
     "home.feedback": "Отзывы клиницистов",
     "home.feedbackSub": "Впечатления пользователей с внутренних демонстраций системы.",
     "home.quote1": "«Структурированное описание результата снизило неопределённость для немедицинского персонала.»",
-    "home.quote2": "«Обучающие блоки на арабском языке улучшили понимание пациентов при триаже.»",
+    "home.quote2": "«Понятные обучающие блоки улучшили понимание пациентов при триаже.»",
     "home.quote3": "«Процесс выглядит профессионально и практически применим для обучения.»",
     "home.ctaTitle": "От загрузки изображения — к более безопасным решениям",
     "home.ctaText": "Используйте рабочую область диагностики для просмотра результатов модели и рекомендаций пациенту.",
@@ -145,7 +145,7 @@
 
     // Библиотека заболеваний
     "diseases.title": "Цифровой ассистент офтальмолога | Библиотека заболеваний",
-    "diseases.meta": "Библиотека заболеваний с руководствами по офтальмологии на русском и арабском языках.",
+    "diseases.meta": "Библиотека заболеваний с руководствами по офтальмологии и клиническими рекомендациями.",
     "diseases.h1": "База знаний о заболеваниях",
     "diseases.sub": "Полная справочная библиотека офтальмологических заболеваний с клиническими рекомендациями и материалами для обучения пациентов.",
     "diseases.filters": "Фильтры и навигация",
@@ -173,10 +173,6 @@
     "d.tile.keratitisShort": "Воспаление роговицы, которое может влиять на зрение.",
     "d.tile.normal": "Норма",
     "d.tile.normalShort": "Здоровый глаз без выявленных отклонений.",
-    "d.ar.symptoms": "Симптомы",
-    "d.ar.redFlags": "Тревожные признаки",
-    "d.ar.safeTips": "Безопасные советы",
-    "d.ar.whenDoctor": "Когда обратиться к врачу:",
     "d.backToDiagnose": "Вернуться к диагностике",
 
     // История
@@ -221,7 +217,6 @@
 
     // Результат анализа
     "r.predicted": "Предполагаемое состояние",
-    "r.arabicName": "Арабское название",
     "r.apiLabel": "Метка API",
     "r.rawClass": "Исходный класс модели",
     "r.confidence": "Уверенность",
@@ -301,7 +296,7 @@
     "home.browseConditions": "Browse Conditions",
     "home.statAccuracy": "Detection Accuracy",
     "home.statConditions": "Conditions Covered",
-    "home.statBilingual": "Bilingual Support",
+    "home.statBilingual": "Interface Languages",
     "home.illustration": "Medical illustration",
     "home.badgeRetinopathy": "Diabetic Retinopathy",
     "home.badgeOpticDisc": "Optic Disc: Normal",
@@ -329,7 +324,7 @@
     "home.feedback": "Clinical Feedback Themes",
     "home.feedbackSub": "Representative user impressions from internal demos.",
     "home.quote1": "\"The guided result narrative reduced uncertainty for non-specialist staff.\"",
-    "home.quote2": "\"Arabic education blocks improved patient understanding during triage.\"",
+    "home.quote2": "\"Clear education blocks improved patient understanding during triage.\"",
     "home.quote3": "\"The workflow feels professional and practical for teaching use.\"",
     "home.ctaTitle": "Move from Image Upload to Safer Decisions",
     "home.ctaText": "Use the diagnosis workspace to review model outputs and patient guidance.",
@@ -397,7 +392,7 @@
 
     // Diseases
     "diseases.title": "Digital Ophthalmology Assistant | Disease Library",
-    "diseases.meta": "Disease library with ophthalmology guidance in English and Arabic.",
+    "diseases.meta": "Disease library with ophthalmology guidance and clinical recommendations.",
     "diseases.h1": "Disease Knowledge Base",
     "diseases.sub": "Comprehensive reference library for ophthalmic conditions with clinical guidance and patient education materials.",
     "diseases.filters": "Filters and navigation",
@@ -425,10 +420,6 @@
     "d.tile.keratitisShort": "Inflammation of the cornea that can affect vision.",
     "d.tile.normal": "Normal",
     "d.tile.normalShort": "Healthy eye examination with no detected abnormalities.",
-    "d.ar.symptoms": "الأعراض",
-    "d.ar.redFlags": "علامات إنذار",
-    "d.ar.safeTips": "نصائح آمنة",
-    "d.ar.whenDoctor": "متى تراجع الطبيب:",
     "d.backToDiagnose": "Back to Diagnose",
 
     // History
@@ -473,7 +464,6 @@
 
     // Prediction result
     "r.predicted": "Predicted Condition",
-    "r.arabicName": "Arabic Name",
     "r.apiLabel": "API Label",
     "r.rawClass": "Top Raw Class",
     "r.confidence": "Confidence",
@@ -500,7 +490,7 @@
     "r.guidanceTitle": "Clinical Guidance",
     "r.symptomsTitle": "Common Symptoms",
     "r.redFlagsTitle": "Warning Signs - Seek Immediate Care",
-    "r.whenDoctorTitle": "متى يجب مراجعة الطبيب",
+    "r.whenDoctorTitle": "When to See a Doctor",
 
     // Model classes and risk levels
     "class.healthy_eye": "Healthy Eye",

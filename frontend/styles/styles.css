@@ -1981,27 +1981,6 @@ html[data-theme="dark"] .warning-banner .icon {
   padding: var(--space-4);
 }
 
-/* ============================================
-   16. RTL BOX
-   ============================================ */
-.rtl-box {
-  padding: var(--space-4);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-primary);
-  border-radius: var(--radius-md);
-  direction: rtl;
-  text-align: right;
-}
-
-.rtl-box.warning {
-  border-color: var(--danger-300);
-  background: var(--danger-50);
-}
-
-html[data-theme="dark"] .rtl-box.warning {
-  border-color: var(--danger-700);
-  background: var(--danger-900);
-}
 
 /* ============================================
    17. HISTORY
@@ -2441,7 +2420,6 @@ textarea:focus-visible,
 .text-right { text-align: right; }
 .text-left { text-align: left; }
 
-.rtl { direction: rtl; text-align: right; }
 .ltr { direction: ltr; text-align: left; }
 
 .small { font-size: var(--text-sm); color: var(--text-secondary); }

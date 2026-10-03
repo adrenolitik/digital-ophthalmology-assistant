@@ -362,14 +362,10 @@
           <div class="disease-detail-head">
             <img src="../assets/images/${imageName}" alt="${escapeHtml(disease.name)}" class="disease-detail-media" loading="lazy" />
             <div class="disease-detail-title">
-              <h2>${escapeHtml(disease.name)} - <span class="rtl" lang="ar" dir="rtl">${escapeHtml(disease.name_ar)}</span></h2>
+              <h2>${escapeHtml(disease.name)}</h2>
             </div>
           </div>
-          <div class="rtl-box rtl" lang="ar" dir="rtl"><p>${escapeHtml(disease.short_ar)}</p></div>
-          <div class="rtl-box rtl stack-panel" lang="ar" dir="rtl"><h3>${escapeHtml(t("d.ar.symptoms"))}</h3><ul>${(disease.symptoms_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-          <div class="rtl-box warning rtl stack-panel" lang="ar" dir="rtl"><h3>${escapeHtml(t("d.ar.redFlags"))}</h3><ul>${(disease.red_flags_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-          <div class="rtl-box rtl stack-panel" lang="ar" dir="rtl"><h3>${escapeHtml(t("d.ar.safeTips"))}</h3><ul>${(disease.safe_tips_ar || []).map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul></div>
-          <p class="small rtl" lang="ar" dir="rtl"><strong>${escapeHtml(t("d.ar.whenDoctor"))}</strong> ${escapeHtml(disease.when_to_see_doctor_ar || "")}</p>
+          ${disease.short ? `<p class="small">${escapeHtml(disease.short)}</p>` : ""}
           <a class="btn btn-outline" href="diagnose.html">${escapeHtml(t("d.backToDiagnose"))}</a>
         </div>
       </article>
@@ -525,6 +521,7 @@
       toast(t("d.toast.started"), "info");
       try {
         const predicted = await predictImage(currentFile);
+        lastPrediction = predicted;
         result.innerHTML = renderPredictionResultContent(predicted);
         initIcons();
         skeleton.classList.add("hidden");
@@ -656,7 +653,6 @@
     const marginPercent = Number(prediction.confidence_margin || 0) * 100;
     const entropyPercent = Number(prediction.normalized_entropy || 0) * 100;
     const displayName = disease ? disease.name : (predictedDisease ? predictedDisease.name : getDiseaseName(String(prediction.predicted_class || label)));
-    const displayNameAr = disease ? disease.name_ar : (predictedDisease ? predictedDisease.name_ar : getDiseaseNameAr(String(prediction.predicted_class || label)));
     const displayShort = disease ? disease.short : "";
 
     // Map risk class to badge class
@@ -679,10 +675,7 @@
     if (displayName) {
       resultFacts.push([t("r.predicted"), displayName, false]);
     }
-    if (displayNameAr) {
-      resultFacts.push([t("r.arabicName"), displayNameAr, true]);
-    }
-    resultFacts.push([t("r.apiLabel"), `<code>${escapeHtml(label)}</code>`, false, true]);
+    resultFacts.push([t("r.apiLabel"), `<code>${escapeHtml(label)}</code>`, true]);
     resultFacts.push([t("r.rawClass"), translateClassLabel(prediction.predicted_class), false]);
     resultFacts.push([t("r.confidence"), `${confidencePercent.toFixed(1)}%`, false]);
     resultFacts.push([t("r.needsReview"), prediction.needs_review ? t("common.yes") : t("common.no"), false]);
@@ -718,11 +711,7 @@
     if (displayName) {
       html += `<h3 class="ltr">${escapeHtml(displayName)}</h3>`;
     }
-    if (displayNameAr) {
-      html += `<p class="rtl" lang="ar" dir="rtl">${escapeHtml(displayNameAr)}</p>`;
-    } else {
-      html += `<p>${escapeHtml(prediction.needs_review ? t("r.triageOnly") : t("r.inScope"))}</p>`;
-    }
+    html += `<p>${escapeHtml(prediction.needs_review ? t("r.triageOnly") : t("r.inScope"))}</p>`;
     if (displayShort) {
       html += `<p class="small">${escapeHtml(displayShort)}</p>`;
     }
@@ -796,10 +785,10 @@
       <article class="card result-card">
         <h3><span class="icon" data-icon="activity"></span>${escapeHtml(t("r.factsTitle"))}</h3>
         <div class="fact-list">
-          ${facts.map(([label, value, isRtl = false, isHtml = false]) => `
+          ${facts.map(([label, value, isHtml = false]) => `
             <div class="fact-row">
               <span class="fact-label"><span class="icon" data-icon="check"></span>${escapeHtml(label)}</span>
-              <span class="fact-value ${isRtl ? "rtl" : ""}" ${isRtl ? 'lang="ar" dir="rtl"' : ""}>${isHtml ? value : escapeHtml(value)}</span>
+              <span class="fact-value">${isHtml ? value : escapeHtml(value)}</span>
             </div>
           `).join("")}
         </div>
@@ -881,16 +870,6 @@
     return translateClassLabel(label);
   }
 
-  function getDiseaseNameAr(label) {
-    const names = {
-      healthy_eye: "عين سليمة",
-      normal: "طبيعي",
-      conjunctivitis: "التهاب الملتحمة",
-      cataract: "إعتام عدسة العين (المياه البيضاء)",
-      keratitis: "التهاب القرنية"
-    };
-    return names[String(label || "").toLowerCase()] || label;
-  }
 
   function initHistoryPage() {
     const filter = byId("history-filter");
@@ -1053,10 +1032,6 @@
             <article class="card tilt-card stack">
               <h2>${escapeHtml(block.title || "")}</h2>
               <ul class="stack">${(block.items || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-              <div class="rtl rtl-box" lang="ar" dir="rtl">
-                <h3>${escapeHtml(block.arabic_title || "")}</h3>
-                <p>${escapeHtml(block.arabic_text || "")}</p>
-              </div>
             </article>
           `).join("")}
         </div>
