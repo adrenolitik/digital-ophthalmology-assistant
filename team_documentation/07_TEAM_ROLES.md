@@ -1,25 +1,25 @@
-# Team Roles & Responsibilities Guide
+# Руководство по ролям и обязанностям команды
 
-##  Overview
+## 🔍 Обзор
 
-This document outlines team roles, responsibilities, and guidelines for effective collaboration on the Digital Ophthalmology Assistant project.
-
----
-
-##  Table of Contents
-
-1. [Team Structure](#team-structure)
-2. [Role Descriptions](#role-descriptions)
-3. [Discussion Preparation](#discussion-preparation)
-4. [Presentation Guidelines](#presentation-guidelines)
-5. [Q&A Preparation](#qa-preparation)
-6. [Collaboration Best Practices](#collaboration-best-practices)
+В этом документе описаны роли команды, обязанности и рекомендации по эффективному взаимодействию в проекте «Цифровой ассистент офтальмолога».
 
 ---
 
-## Team Structure
+## 📋 Оглавление
 
-### Project Organization
+1. [Структура команды](#структура-команды)
+2. [Описания ролей](#описания-ролей)
+3. [Подготовка к обсуждению](#подготовка-к-обсуждению)
+4. [Рекомендации по презентации](#рекомендации-по-презентации)
+5. [Подготовка к Q&A](#подготовка-к-qa)
+6. [Лучшие практики совместной работы](#лучшие-практики-совместной-работы)
+
+---
+
+## 🏢 Структура команды
+
+### Организация проекта
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -45,370 +45,372 @@ This document outlines team roles, responsibilities, and guidelines for effectiv
 
 ---
 
-## Role Descriptions
+## 📝 Описания ролей
 
-### 1. Project Lead
+### 1. Руководитель проекта
 
-**Responsibilities:**
-- Overall project coordination and timeline management
-- Communication with supervisor and stakeholders
-- Risk assessment and mitigation
-- Final presentation coordination
-- Documentation review and approval
+**Обязанности:**
+- Общая координация проекта и управление сроками
+- Общение с руководителем и заинтересованными сторонами
+- Оценка и снижение рисков
+- Координация финальной презентации
+- Рецензирование и утверждение документации
 
-**Key Skills:**
-- Leadership and team management
-- Project planning and execution
-- Excellent communication
-- Problem-solving
+**Ключевые навыки:**
+- Лидерство и управление командой
+- Планирование и выполнение проектов
+- Отличные коммуникативные навыки
+- Решение проблем
 
-**Deliverables:**
-- Project timeline and milestones
-- Progress reports
-- Final presentation slides
-- Project documentation
-
----
-
-### 2. AI/ML Team Lead
-
-**Responsibilities:**
-- Deep Learning model development and optimization
-- Model training and evaluation
-- Performance metrics and reporting
-- AI service integration with backend
-- Model deployment and monitoring
-
-**Key Skills:**
-- TensorFlow/Keras expertise
-- Computer vision knowledge
-- Model optimization techniques
-- Statistical analysis
-
-**Deliverables:**
-- Trained model files
-- Model evaluation reports
-- AI technical documentation
-- Inference performance metrics
+**Результаты:**
+- График проекта и вехи
+- Отчёты о прогрессе
+- Слайды финальной презентации
+- Документация проекта
 
 ---
 
-### 3. Backend Team Lead
+### 2. Тимлид ИИ/ML
 
-**Responsibilities:**
-- FastAPI application development
-- Database design and implementation
-- API endpoint development
-- Authentication and security
-- Server deployment and maintenance
+**Обязанности:**
+- Разработка и оптимизация модели глубокого обучения
+- Обучение и оценка модели
+- Метрики производительности и отчётность
+- Интеграция сервиса ИИ с бэкендом
+- Развёртывание и мониторинг модели
 
-**Key Skills:**
-- Python/FastAPI expertise
-- SQL and database design
-- REST API design
-- Cloud deployment
+**Ключевые навыки:**
+- Знание TensorFlow/Keras
+- Понимание компьютерного зрения
+- Приёмы оптимизации моделей
+- Статистический анализ
 
-**Deliverables:**
-- Working API endpoints
-- Database schema
-- Backend documentation
-- Deployment scripts
-
----
-
-### 4. Frontend Team Lead
-
-**Responsibilities:**
-- User interface development
-- User experience design
-- Responsive design implementation
-- API integration
-- Cross-browser compatibility
-
-**Key Skills:**
-- HTML/CSS/JavaScript expertise
-- Responsive design
-- Accessibility standards
-- UI/UX principles
-
-**Deliverables:**
-- Complete web application
-- Style guide
-- Frontend documentation
-- User testing results
+**Результаты:**
+- Обученные файлы модели
+- Отчёты по оценке модели
+- Техническая документация по ИИ
+- Метрики производительности инференса
 
 ---
 
-## Discussion Preparation
+### 3. Тимлид бэкенда
 
-### For All Team Members
+**Обязанности:**
+- Разработка приложения на FastAPI
+- Проектирование и реализация базы данных
+- Разработка эндпоинтов API
+- Аутентификация и безопасность
+- Развёртывание и обслуживание сервера
 
-#### 1. Understand the Complete Project
+**Ключевые навыки:**
+- Знание Python/FastAPI
+- SQL и проектирование баз данных
+- Проектирование REST API
+- Облачное развёртывание
 
-You should be able to explain:
-
-**Project Overview (2 minutes):**
-```
-"Our project is an AI-powered ophthalmology assistant that uses Deep Learning 
-to classify eye diseases from images. It can detect 4 conditions: healthy eye, 
-conjunctivitis, cataract, and keratitis. The system consists of a web application 
-where users can upload eye images and receive AI-powered analysis with confidence scores."
-```
-
-**Technical Stack (1 minute):**
-```
-"We use TensorFlow with MobileNetV2 for the AI model, FastAPI for the backend, 
-and a vanilla JavaScript frontend. The database is SQLite for development and 
-PostgreSQL for production. The model is hosted on HuggingFace Hub for easy distribution."
-```
-
-**Your Contribution (1-2 minutes):**
-```
-Prepare a specific explanation of what YOU worked on and why it matters.
-```
-
-#### 2. Prepare for Common Questions
-
-**Technical Questions:**
-- How does the AI model work?
-- What is the accuracy of the system?
-- How do you handle edge cases?
-- What are the limitations?
-
-**Project Questions:**
-- Why did you choose this project?
-- What was the biggest challenge?
-- How did you work as a team?
-- What would you improve?
-
-**Impact Questions:**
-- How does this help society?
-- Who is the target audience?
-- What is the clinical relevance?
+**Результаты:**
+- Работающие эндпоинты API
+- Схема базы данных
+- Документация бэкенда
+- Скрипты развёртывания
 
 ---
 
-### Role-Specific Preparation
+### 4. Тимлид фронтенда
 
-#### AI/ML Team
+**Обязанности:**
+- Разработка пользовательского интерфейса
+- Проектирование пользовательского опыта
+- Реализация адаптивного дизайна
+- Интеграция с API
+- Кроссбраузерная совместимость
 
-**Be prepared to explain:**
-1. Model architecture (MobileNetV2)
-2. Training process and dataset
-3. Performance metrics (accuracy, precision, recall)
-4. Preprocessing pipeline
-5. Inference optimization
+**Ключевые навыки:**
+- Знание HTML/CSS/JavaScript
+- Адаптивный дизайн
+- Стандарты доступности
+- Принципы UI/UX
 
-**Sample Questions & Answers:**
-
-**Q: What is the model's accuracy?**
-```
-A: Our model achieves approximately X% accuracy on the test set, with 
-particularly strong performance on [specific conditions]. We used 
-cross-validation to ensure robustness.
-```
-
-**Q: How did you handle class imbalance?**
-```
-A: We used [technique: data augmentation, class weights, oversampling] 
-to address the class imbalance in our dataset.
-```
+**Результаты:**
+- Полностью работающее веб-приложение
+- Гайдлайн по стилям
+- Документация фронтенда
+- Результаты пользовательского тестирования
 
 ---
 
-#### Backend Team
+## 🎤 Подготовка к обсуждению
 
-**Be prepared to explain:**
-1. API design decisions
-2. Database schema and relationships
-3. Security measures
-4. Scalability considerations
-5. Error handling strategies
+### Для всех участников команды
 
-**Sample Questions & Answers:**
+#### 1. Поймите проект целиком
 
-**Q: How do you ensure data security?**
+Вы должны уметь объяснить:
+
+**Обзор проекта (2 минуты):**
 ```
-A: We implement [measures: input validation, SQL injection prevention, 
-CORS configuration, rate limiting] to ensure data security and privacy.
+«Наш проект — ассистент офтальмолога на базе ИИ, который использует глубокое
+обучение для классификации глазных заболеваний по изображениям. Он умеет выявлять
+4 состояния: здоровый глаз, конъюнктивит, катаракту и кератит. Система состоит из
+веб-приложения, куда пользователи могут загружать снимки глаз и получать анализ
+на базе ИИ с оценками достоверности».
 ```
 
-**Q: How does the system handle concurrent requests?**
+**Технологический стек (1 минута):**
 ```
-A: We use [techniques: async processing, connection pooling, thread-safe 
-model loading] to handle multiple concurrent requests efficiently.
+«Мы используем TensorFlow с MobileNetV2 для модели ИИ, FastAPI для бэкенда и
+фронтенд на ванильном JavaScript. База данных — SQLite в разработке и PostgreSQL
+в продакшене. Модель размещена на HuggingFace Hub для удобного распространения».
+```
+
+**Ваш вклад (1–2 минуты):**
+```
+Подготовьте конкретное объяснение того, над ЧЕМ работали вы и почему это важно.
+```
+
+#### 2. Подготовьтесь к типичным вопросам
+
+**Технические вопросы:**
+- Как работает модель ИИ?
+- Какова точность системы?
+- Как вы обрабатываете пограничные случаи?
+- Каковы ограничения?
+
+**Вопросы о проекте:**
+- Почему вы выбрали этот проект?
+- Что было самым сложным?
+- Как вы работали в команде?
+- Что бы вы улучшили?
+
+**Вопросы о значимости:**
+- Как это помогает обществу?
+- Кто целевая аудитория?
+- Какова клиническая значимость?
+
+---
+
+### Подготовка по ролям
+
+#### Команда ИИ/ML
+
+**Будьте готовы объяснить:**
+1. Архитектуру модели (MobileNetV2)
+2. Процесс обучения и набор данных
+3. Метрики качества (accuracy, precision, recall)
+4. Конвейер препроцессинга
+5. Оптимизацию инференса
+
+**Примеры вопросов и ответов:**
+
+**В: Какова точность модели?**
+```
+О: Наша модель достигает примерно X% точности на тестовой выборке, с особенно
+сильными результатами по [конкретным состояниям]. Мы использовали кросс-валидацию
+для обеспечения устойчивости.
+```
+
+**В: Как вы справились с дисбалансом классов?**
+```
+О: Мы использовали [приём: аугментация данных, веса классов, oversampling],
+чтобы устранить дисбаланс классов в нашем наборе данных.
 ```
 
 ---
 
-#### Frontend Team
+#### Команда бэкенда
 
-**Be prepared to explain:**
-1. Design decisions and UX considerations
-2. Responsive design approach
-3. Accessibility features
-4. Performance optimizations
-5. Browser compatibility
+**Будьте готовы объяснить:**
+1. Решения по проектированию API
+2. Схему базы данных и связи
+3. Меры безопасности
+4. Соображения масштабируемости
+5. Стратегии обработки ошибок
 
-**Sample Questions & Answers:**
+**Примеры вопросов и ответов:**
 
-**Q: Why did you choose vanilla JavaScript over a framework?**
+**В: Как вы обеспечиваете безопасность данных?**
 ```
-A: We chose vanilla JavaScript for [reasons: performance, minimal 
-dependencies, learning opportunity, project requirements]. This 
-approach gives us full control and excellent performance.
+О: Мы реализуем [меры: валидация входных данных, защита от SQL-инъекций,
+настройка CORS, ограничение частоты запросов] для обеспечения безопасности
+и конфиденциальности данных.
 ```
 
-**Q: How do you ensure accessibility?**
+**В: Как система обрабатывает параллельные запросы?**
 ```
-A: We follow WCAG 2.1 guidelines with [features: keyboard navigation, 
-screen reader support, proper ARIA labels, color contrast compliance].
+О: Мы используем [приёмы: асинхронная обработка, пул соединений, потокобезопасная
+загрузка модели] для эффективной обработки множества параллельных запросов.
 ```
 
 ---
 
-## Presentation Guidelines
+#### Команда фронтенда
 
-### Structure (15-20 minutes total)
+**Будьте готовы объяснить:**
+1. Решения по дизайну и соображения UX
+2. Подход к адаптивному дизайну
+3. Возможности доступности
+4. Оптимизацию производительности
+5. Совместимость с браузерами
 
-#### 1. Introduction (2 minutes)
-- Project title and team members
-- Problem statement
-- Solution overview
-- Demo preview
+**Примеры вопросов и ответов:**
 
-#### 2. Technical Deep Dive (8-10 minutes)
-- **AI/ML Component** (3 min)
-  - Model architecture
-  - Training process
-  - Performance metrics
+**В: Почему вы выбрали ванильный JavaScript, а не фреймворк?**
+```
+О: Мы выбрали ванильный JavaScript по [причинам: производительность, минимальные
+зависимости, возможность обучения, требования проекта]. Этот подход даёт нам
+полную контроль и отличную производительность.
+```
+
+**В: Как вы обеспечиваете доступность?**
+```
+О: Мы следуем рекомендациям WCAG 2.1 с [возможностями: навигация с клавиатуры,
+поддержка скринридеров, корректные ARIA-метки, соответствие контрастности цветов].
+```
+
+---
+
+## 🎬 Рекомендации по презентации
+
+### Структура (15–20 минут всего)
+
+#### 1. Введение (2 минуты)
+- Название проекта и участники команды
+- Постановка задачи
+- Обзор решения
+- Превью демо
+
+#### 2. Погружение в техническую часть (8–10 минут)
+- **Компонент ИИ/ML** (3 мин)
+  - Архитектура модели
+  - Процесс обучения
+  - Метрики качества
   
-- **Backend Component** (3 min)
-  - System architecture
-  - API design
-  - Database structure
+- **Компонент бэкенда** (3 мин)
+  - Архитектура системы
+  - Проектирование API
+  - Структура базы данных
   
-- **Frontend Component** (3 min)
-  - User interface
-  - User experience
-  - Key features
+- **Компонент фронтенда** (3 мин)
+  - Пользовательский интерфейс
+  - Пользовательский опыт
+  - Основные возможности
 
-#### 3. Live Demo (3-5 minutes)
-- Upload an image
-- Show AI prediction
-- Display results
-- Show disease library
+#### 3. Живое демо (3–5 минут)
+- Загрузка изображения
+- Демонстрация предсказания ИИ
+- Отображение результатов
+- Обзор библиотеки заболеваний
 
-#### 4. Conclusion (2 minutes)
-- Key achievements
-- Challenges overcome
-- Future improvements
-- Q&A invitation
-
----
-
-### Presentation Tips
-
-#### Do's 
-- **Practice** multiple times as a team
-- **Speak clearly** and maintain eye contact
-- **Use visuals** (slides, diagrams, demos)
-- **Coordinate transitions** between speakers
-- **Time your presentation** to stay within limits
-- **Prepare backup** (recorded demo, extra slides)
-
-#### Don'ts 
-- Don't read directly from slides
-- Don't exceed time limits
-- Don't use too much technical jargon
-- Don't forget to acknowledge all team members
-- Don't skip the demo (even if pre-recorded)
-- Don't argue with questions—explain thoughtfully
+#### 4. Заключение (2 минуты)
+- Ключевые достижения
+- Преодолённые трудности
+- Планы по улучшению
+- Приглашение к вопросам
 
 ---
 
-## Q&A Preparation
+### Советы по презентации
 
-### Common Categories
+#### Стоит делать 
+- **Репетировать** несколько раз всей командой
+- **Говорить чётко** и поддерживать зрительный контакт
+- **Использовать визуальные материалы** (слайды, диаграммы, демо)
+- **Согласовывать переходы** между спикерами
+- **Следить за таймингом**, чтобы уложиться в лимит
+- **Готовить запасной вариант** (записанное демо, дополнительные слайды)
 
-#### 1. Technical Questions
-
-**About the AI Model:**
-- How was the model trained?
-- What dataset was used?
-- How do you handle variations in image quality?
-- What are the model's limitations?
-
-**About the System:**
-- How scalable is the architecture?
-- How do you ensure data privacy?
-- What happens if the AI makes a wrong prediction?
-- How do you handle edge cases?
-
-#### 2. Project Management Questions
-
-- How did you divide the work?
-- What was the biggest challenge?
-- How did you handle disagreements?
-- What would you do differently?
-
-#### 3. Impact & Ethics Questions
-
-- How do you ensure patient safety?
-- What are the ethical considerations?
-- How do you handle misdiagnosis?
-- Who is responsible for AI errors?
+#### Стоит избегать 
+- Не читать текст со слайдов дословно
+- Не превышать лимит времени
+- Не использовать слишком много жаргона
+- Не забывать благодарить всех участников команды
+- Не пропускать демо (даже если оно предзаписано)
+- Не спорить с вопросами — объясняйте обдуманно
 
 ---
 
-### Response Framework
+## ❓ Подготовка к Q&A
 
-Use the **STAR** method for behavioral questions:
+### Типичные категории
 
-- **S**ituation: Describe the context
-- **T**ask: Explain your responsibility
-- **A**ction: Detail what you did
-- **R**esult: Share the outcome
+#### 1. Технические вопросы
 
-**Example:**
+**О модели ИИ:**
+- Как обучалась модель?
+- Какой набор данных использовался?
+- Как вы справляетесь с вариациями качества изображений?
+- Каковы ограничения модели?
 
-**Q: Tell us about a challenge you faced.**
+**О системе:**
+- Насколько масштабируема архитектура?
+- Как вы обеспечиваете конфиденциальность данных?
+- Что происходит, если ИИ ошибается в предсказании?
+- Как вы обрабатываете пограничные случаи?
+
+#### 2. Вопросы об управлении проектом
+
+- Как вы распределили работу?
+- Что было самым сложным?
+- Как вы разрешали разногласия?
+- Что бы вы сделали иначе?
+
+#### 3. Вопросы о значимости и этике
+
+- Как вы обеспечиваете безопасность пациентов?
+- Какие есть этические соображения?
+- Как вы поступаете при неправильном диагнозе?
+- Кто несёт ответственность за ошибки ИИ?
+
+---
+
+### Рамка для ответов
+
+Используйте метод **STAR** для поведенческих вопросов:
+
+- **S**ituation (ситуация): опишите контекст
+- **T**ask (задача): объясните вашу ответственность
+- **A**ction (действие): расскажите, что вы сделали
+- **R**esult (результат): подведите итог
+
+**Пример:**
+
+**В: Расскажите о трудности, с которой вы столкнулись.**
 
 ```
-S: During development, we encountered issues with model inference speed.
-T: As the AI lead, I was responsible for optimizing the model.
-A: I implemented model warmup, singleton pattern, and image preprocessing optimization.
-R: Inference time reduced from 5 seconds to under 1 second, improving user experience significantly.
+S: Во время разработки у нас возникли проблемы со скоростью инференса модели.
+T: Как тимлид ИИ, я отвечал за оптимизацию модели.
+A: Я реализовал прогрев модели, паттерн Singleton и оптимизацию препроцессинга изображений.
+R: Время инференса сократилось с 5 секунд до менее 1 секунды, что значительно улучшило пользовательский опыт.
 ```
 
 ---
 
-## Collaboration Best Practices
+## 🤝 Лучшие практики совместной работы
 
-### Communication
+### Коммуникация
 
-#### Daily Standups (15 minutes)
-- What did you do yesterday?
-- What will you do today?
-- Any blockers?
+#### Ежедневные стендапы (15 минут)
+- Что вы делали вчера?
+- Что будете делать сегодня?
+- Есть ли блокеры?
 
-#### Weekly Team Meetings (1 hour)
-- Progress review
-- Upcoming milestones
-- Issue resolution
-- Planning for next week
+#### Еженедельные встречи команды (1 час)
+- Ревью прогресса
+- Предстоящие вехи
+- Разрешение проблем
+- Планирование на следующую неделю
 
-#### Tools
-- **Communication**: WhatsApp/Telegram group
-- **Code**: GitHub with proper branching
-- **Documentation**: Shared Google Docs/Notion
-- **Tasks**: Trello/Notion board
+#### Инструменты
+- **Общение**: группа в WhatsApp/Telegram
+- **Код**: GitHub с корректным ветвлением
+- **Документация**: общие Google Docs/Notion
+- **Задачи**: доска Trello/Notion
 
 ---
 
-### Code Collaboration
+### Совместная работа над кодом
 
-#### Git Workflow
+#### Рабочий процесс Git
 
 ```bash
 # Main branches
@@ -428,21 +430,21 @@ feature/responsive-design
 5. Merge to develop after approval
 ```
 
-#### Code Review Checklist
+#### Чек-лист ревью кода
 
-- [ ] Code follows project style guide
-- [ ] No hardcoded values (use config)
-- [ ] Proper error handling
-- [ ] Documentation/comments added
-- [ ] Tests written (if applicable)
-- [ ] No breaking changes
-- [ ] Security considerations addressed
+- [ ] Код соответствует гайдлайну по стилю проекта
+- [ ] Нет зашитых значений (используйте конфигурацию)
+- [ ] Корректная обработка ошибок
+- [ ] Добавлена документация/комментарии
+- [ ] Написаны тесты (если применимо)
+- [ ] Нет ломающих изменений
+- [ ] Учтены соображения безопасности
 
 ---
 
-### Documentation Standards
+### Стандарты документации
 
-#### Code Comments
+#### Комментарии в коде
 
 ```python
 # Good: Explains WHY, not WHAT
@@ -456,7 +458,7 @@ def preprocess_image(image_path):
     img = _center_crop(img)
 ```
 
-#### Commit Messages
+#### Сообщения коммитов
 
 ```
 # Bad
@@ -472,72 +474,72 @@ git commit -m "fix: handle empty file upload in predict endpoint
 
 ---
 
-### Conflict Resolution
+### Разрешение конфликтов
 
-#### When Disagreements Arise
+#### Когда возникают разногласия
 
-1. **Listen actively** to all perspectives
-2. **Focus on the problem**, not the person
-3. **Use data** to support arguments
-4. **Consider trade-offs** objectively
-5. **Seek compromise** or escalate to lead
-6. **Document decisions** for future reference
-
----
-
-## Final Checklist
-
-### Before Discussion/Presentation
-
-#### Content
-- [ ] Presentation slides finalized
-- [ ] Demo tested and working
-- [ ] Backup demo recorded
-- [ ] All team members know their parts
-- [ ] Timing rehearsed
-
-#### Technical
-- [ ] Laptop charged and adapters ready
-- [ ] Internet connection tested
-- [ ] All accounts logged in
-- [ ] Backup copies on USB/cloud
-- [ ] Remote presentation setup tested
-
-#### Professional
-- [ ] Appropriate attire
-- [ ] Arrive early (15 minutes)
-- [ ] Bring water
-- [ ] Phones on silent
-- [ ] Positive mindset
+1. **Активно слушайте** все точки зрения
+2. **Фокусируйтесь на проблеме**, а не на личности
+3. **Используйте данные** для аргументации
+4. **Объективно взвешивайте** компромиссы
+5. **Ищите компромисс** или эскалируйте тимлиду
+6. **Документируйте решения** для будущих ссылок
 
 ---
 
-## Resources
+## ✅ Финальный чек-лист
 
-### For Further Learning
+### Перед обсуждением/презентацией
 
-#### AI/ML
-- [TensorFlow Documentation](https://www.tensorflow.org/)
-- [Keras Guide](https://keras.io/guides/)
-- [Deep Learning Book](https://www.deeplearningbook.org/)
+#### Содержание
+- [ ] Слайды презентации финализированы
+- [ ] Демо протестировано и работает
+- [ ] Запасное демо записано
+- [ ] Все участники команды знают свои части
+- [ ] Тайминг отрепетирован
 
-#### Backend
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
-- [REST API Best Practices](https://restfulapi.net/)
+#### Техническая часть
+- [ ] Ноутбук заряжен, адаптеры готовы
+- [ ] Подключение к интернету проверено
+- [ ] Все аккаунты залогинены
+- [ ] Резервные копии на USB/в облаке
+- [ ] Настройка удалённой презентации протестирована
 
-#### Frontend
+#### Профессиональная часть
+- [ ] Соответствующая одежда
+- [ ] Прийти заранее (за 15 минут)
+- [ ] Взять воду
+- [ ] Телефоны в беззвучном режиме
+- [ ] Позитивный настрой
+
+---
+
+## 📚 Ресурсы
+
+### Для дальнейшего обучения
+
+#### ИИ/ML
+- [Документация TensorFlow](https://www.tensorflow.org/)
+- [Руководство Keras](https://keras.io/guides/)
+- [Книга по глубокому обучению](https://www.deeplearningbook.org/)
+
+#### Бэкенд
+- [Документация FastAPI](https://fastapi.tiangolo.com/)
+- [Документация SQLAlchemy](https://docs.sqlalchemy.org/)
+- [Лучшие практики REST API](https://restfulapi.net/)
+
+#### Фронтенд
 - [MDN Web Docs](https://developer.mozilla.org/)
 - [Web Accessibility Initiative](https://www.w3.org/WAI/)
 - [JavaScript.info](https://javascript.info/)
 
 ---
 
-## Team Members
+## 👥 Участники команды
 
-### Full Team List (11 Members)
+### Полный список команды (11 человек)
 
-| # | Name | Student ID |
+| # | Имя | Номер студента |
 |---|------|------------|
 | 1 | Fares Tamer Abdel Majeed | 4241097 |
 | 2 | Israa Eldsouky Ibrahim | 4241107 |
@@ -551,32 +553,32 @@ git commit -m "fix: handle empty file upload in predict endpoint
 | 10 | Wesam Mohamed Maylo | 42411018 |
 | 11 | Zeyad Waleed Mohamed | 4232012 |
 
-### Assigned Roles
+### Назначенные роли
 
-| Role | Name | Student ID |
+| Роль | Имя | Номер студента |
 |------|------|------------|
-| **Project Lead** | Sama Abdeltawab Elshaikh | 4241400 |
-| **Frontend Team Lead** | Mohamed Mahmoud Wahba | 4241543 |
-| AI/ML Team Lead | [To be assigned] | - |
-| Backend Team Lead | [To be assigned] | - |
+| **Руководитель проекта** | Sama Abdeltawab Elshaikh | 4241400 |
+| **Тимлид фронтенда** | Mohamed Mahmoud Wahba | 4241543 |
+| Тимлид ИИ/ML | [Не назначен] | - |
+| Тимлид бэкенда | [Не назначен] | - |
 
-### Project Supervisor
+### Научный руководитель
 
-| Role | Name |
+| Роль | Имя |
 |------|------|
-| Supervisor | Dr. Eman Salah |
+| Руководитель | д-р Иман Салах |
 
 ---
 
-**Note**: The project requires collaboration across all areas:
-- **AI/ML**: Deep Learning model development and optimization
-- **Backend**: FastAPI development and database management  
-- **Frontend**: Web application development and UI/UX
-- **Project Management**: Coordination, documentation, and presentation
+**Примечание**: проект требует сотрудничества во всех областях:
+- **ИИ/ML**: разработка и оптимизация модели глубокого обучения
+- **Бэкенд**: разработка на FastAPI и управление базой данных  
+- **Фронтенд**: разработка веб-приложения и UI/UX
+- **Управление проектом**: координация, документация и презентация
 
 ---
 
-*Remember: You've worked hard on this project. Be confident, be prepared, and showcase your achievements!*
+*Помните: вы усердно работали над проектом. Будьте уверены, будьте подготовлены и покажите свои достижения!*
 
-*Last Updated: April 29, 2026*  
-*Document Version: 1.0*
+*Последнее обновление: 29 апреля 2026*  
+*Версия документа: 1.0*

@@ -1,55 +1,55 @@
-# Deployment & Setup Guide
+# Руководство по развёртыванию и настройке
 
-##  Overview
+## 🔍 Обзор
 
-This document provides comprehensive instructions for setting up, running, and deploying the Digital Ophthalmology Assistant project in development and production environments.
-
----
-
-##  Table of Contents
-
-1. [Prerequisites](#prerequisites)
-2. [Development Setup](#development-setup)
-3. [Production Deployment](#production-deployment)
-4. [Docker Deployment](#docker-deployment)
-5. [Environment Configuration](#environment-configuration)
-6. [Troubleshooting](#troubleshooting)
+В этом документе представлены подробные инструкции по настройке, запуску и развёртыванию проекта «Цифровой ассистент офтальмолога» в окружениях разработки и продакшена.
 
 ---
 
-## Prerequisites
+## 📋 Оглавление
 
-### Required Software
+1. [Требования](#требования)
+2. [Настройка окружения разработки](#настройка-окружения-разработки)
+3. [Развёртывание в продакшене](#развертывание-в-продакшене)
+4. [Развёртывание в Docker](#развертывание-в-docker)
+5. [Конфигурация окружения](#конфигурация-окружения)
+6. [Устранение неполадок](#устранение-неполадок)
 
-| Software | Version | Purpose |
+---
+
+## 📋 Требования
+
+### Необходимое ПО
+
+| ПО | Версия | Назначение |
 |----------|---------|---------|
-| Python | 3.11+ | Backend runtime |
-| pip | Latest | Python package manager |
-| Node.js | 18+ (optional) | Frontend tooling |
-| Git | Latest | Version control |
-| Docker | 20+ (optional) | Containerization |
+| Python | 3.11+ | Среда выполнения бэкенда |
+| pip | Последняя | Менеджер пакетов Python |
+| Node.js | 18+ (необязательно) | Инструменты фронтенда |
+| Git | Последняя | Контроль версий |
+| Docker | 20+ (необязательно) | Контейнеризация |
 
-### System Requirements
+### Системные требования
 
-| Component | Minimum | Recommended |
+| Компонент | Минимум | Рекомендуется |
 |-----------|---------|-------------|
-| CPU | 2 cores | 4+ cores |
-| RAM | 4 GB | 8+ GB |
-| Storage | 10 GB | 20+ GB |
-| GPU | Not required | NVIDIA GPU for faster AI inference |
+| CPU | 2 ядра | 4+ ядер |
+| ОЗУ | 4 ГБ | 8+ ГБ |
+| Диск | 10 ГБ | 20+ ГБ |
+| GPU | Не требуется | GPU NVIDIA для более быстрого инференса ИИ |
 
 ---
 
-## Development Setup
+## 🛠 Настройка окружения разработки
 
-### 1. Clone Repository
+### 1. Клонирование репозитория
 
 ```bash
 git clone https://github.com/mohammedwahba2/digital-ophthalmology-assistant.git
 cd digital-ophthalmology-assistant
 ```
 
-### 2. Backend Setup
+### 2. Настройка бэкенда
 
 ```bash
 # Navigate to backend
@@ -78,13 +78,13 @@ nano .env
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-**Backend should now be running at:** http://localhost:8000
+**Бэкенд должен быть доступен по адресу:** http://localhost:8000
 
-**API Documentation:** http://localhost:8000/docs
+**Документация API:** http://localhost:8000/docs
 
-### 3. Frontend Setup
+### 3. Настройка фронтенда
 
-Open a new terminal:
+Откройте новый терминал:
 
 ```bash
 # Navigate to frontend
@@ -94,11 +94,11 @@ cd frontend
 python3 -m http.server 8080
 ```
 
-**Frontend should now be running at:** http://localhost:8080/pages/index.html
+**Фронтенд должен быть доступен по адресу:** http://localhost:8080/pages/index.html
 
-### 4. Configure API URL (if needed)
+### 4. Настройка URL API (при необходимости)
 
-If your backend is not on the default URL:
+Если ваш бэкенд находится не на адресе по умолчанию:
 
 ```javascript
 // In browser console on frontend page:
@@ -106,20 +106,20 @@ localStorage.setItem("doa-api-base", "http://your-backend-url:8000");
 location.reload();
 ```
 
-### 5. Verify Setup
+### 5. Проверка настройки
 
-1. Open http://localhost:8080/pages/index.html in your browser
-2. Navigate to the "Diagnose" page
-3. Upload a test eye image
-4. Verify AI prediction works
+1. Откройте http://localhost:8080/pages/index.html в браузере
+2. Перейдите на страницу «Диагностика»
+3. Загрузите тестовый снимок глаза
+4. Убедитесь, что предсказание ИИ работает
 
 ---
 
-## Production Deployment
+## 🚀 Развёртывание в продакшене
 
-### Option 1: Direct Deployment
+### Вариант 1: прямое развёртывание
 
-#### Backend
+#### Бэкенд
 
 ```bash
 # Install dependencies
@@ -135,16 +135,16 @@ export DEBUG=false
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
 ```
 
-#### Frontend
+#### Фронтенд
 
-Deploy the `frontend/` directory to any static web host:
+Разместите каталог `frontend/` на любом статическом веб-хостинге:
 
-- **Netlify**: Drag and drop the frontend folder
-- **Vercel**: Connect GitHub repository
-- **AWS S3**: Upload to S3 bucket with static hosting
-- **Nginx**: Serve with Nginx
+- **Netlify**: перетащите папку фронтенда
+- **Vercel**: подключите репозиторий GitHub
+- **AWS S3**: загрузите в S3-бакет со статическим хостингом
+- **Nginx**: обслуживайте через Nginx
 
-**Nginx Configuration Example:**
+**Пример конфигурации Nginx:**
 
 ```nginx
 server {
@@ -175,29 +175,29 @@ server {
 
 ---
 
-### Option 2: Cloud Platform Deployment
+### Вариант 2: развёртывание на облачной платформе
 
 #### Heroku
 
-**1. Create Heroku App**
+**1. Создание приложения Heroku**
 
 ```bash
 heroku create ophthalmology-assistant
 ```
 
-**2. Backend (Heroku)**
+**2. Бэкенд (Heroku)**
 
-Create `Procfile` in backend directory:
+Создайте файл `Procfile` в каталоге бэкенда:
 ```
 web: uvicorn app.main:app --host 0.0.0.0 --port $PORT
 ```
 
-Create `runtime.txt`:
+Создайте `runtime.txt`:
 ```
 python-3.11.0
 ```
 
-Deploy:
+Развёртывание:
 ```bash
 cd backend
 git init
@@ -207,17 +207,17 @@ heroku git:remote -a ophthalmology-assistant
 git push heroku main
 ```
 
-**3. Frontend (Netlify)**
+**3. Фронтенд (Netlify)**
 
-Connect your GitHub repository to Netlify and set build settings:
-- Build command: (none)
-- Publish directory: `frontend`
+Подключите репозиторий GitHub к Netlify и задайте настройки сборки:
+- Команда сборки: (нет)
+- Каталог публикации: `frontend`
 
 ---
 
-#### AWS Deployment
+#### Развёртывание на AWS
 
-**1. Backend (EC2 or Elastic Beanstalk)**
+**1. Бэкенд (EC2 или Elastic Beanstalk)**
 
 ```bash
 # EC2 Setup
@@ -236,7 +236,7 @@ pip install gunicorn
 gunicorn -w 4 -b 0.0.0.0:8000 app.main:app
 ```
 
-**2. Frontend (S3 + CloudFront)**
+**2. Фронтенд (S3 + CloudFront)**
 
 ```bash
 # Upload to S3
@@ -250,11 +250,11 @@ aws s3 website s3://your-bucket-name/ --index-document index.html
 
 ---
 
-## Docker Deployment
+## 🐳 Развёртывание в Docker
 
-### 1. Build Docker Images
+### 1. Сборка Docker-образов
 
-**Backend Dockerfile** (already exists in `backend/Dockerfile`):
+**Dockerfile бэкенда** (уже существует в `backend/Dockerfile`):
 
 ```dockerfile
 FROM python:3.11-slim
@@ -271,14 +271,14 @@ EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-**Build Backend Image:**
+**Сборка образа бэкенда:**
 
 ```bash
 cd backend
 docker build -t ophthalmology-backend .
 ```
 
-**Frontend Dockerfile** (create `frontend/Dockerfile`):
+**Dockerfile фронтенда** (создайте `frontend/Dockerfile`):
 
 ```dockerfile
 FROM nginx:alpine
@@ -290,7 +290,7 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-**Build Frontend Image:**
+**Сборка образа фронтенда:**
 
 ```bash
 cd frontend
@@ -299,7 +299,7 @@ docker build -t ophthalmology-frontend .
 
 ### 2. Docker Compose
 
-Create `docker-compose.yml` in project root:
+Создайте `docker-compose.yml` в корне проекта:
 
 ```yaml
 version: '3.8'
@@ -326,23 +326,23 @@ services:
     restart: unless-stopped
 ```
 
-**Run with Docker Compose:**
+**Запуск через Docker Compose:**
 
 ```bash
 docker-compose up -d
 ```
 
-**Access:**
-- Frontend: http://localhost
-- Backend API: http://localhost:8000
+**Доступ:**
+- Фронтенд: http://localhost
+- API бэкенда: http://localhost:8000
 
 ---
 
-## Environment Configuration
+## ⚙️ Конфигурация окружения
 
-### Environment Variables
+### Переменные окружения
 
-Create a `.env` file in the `backend/` directory:
+Создайте файл `.env` в каталоге `backend/`:
 
 ```env
 # Server Configuration
@@ -375,24 +375,24 @@ MAX_UPLOAD_SIZE_MB=10
 # MODEL_PATH=models/model.keras
 ```
 
-### Security Considerations
+### Соображения безопасности
 
-1. **Never commit `.env` files** - Add to `.gitignore`
-2. **Use strong database passwords** - Generate secure random passwords
-3. **Enable HTTPS** - Use SSL certificates (Let's Encrypt)
-4. **Set proper CORS origins** - Restrict to your domain
-5. **Limit file upload size** - Prevent DoS attacks
-6. **Use environment variables** - Don't hardcode secrets
+1. **Никогда не коммитьте файлы `.env`** — добавьте их в `.gitignore`
+2. **Используйте надёжные пароли базы данных** — генерируйте безопасные случайные пароли
+3. **Включайте HTTPS** — используйте SSL-сертификаты (Let's Encrypt)
+4. **Задавайте корректные источники CORS** — ограничьте их вашим доменом
+5. **Ограничивайте размер загрузки файлов** — предотвращайте атаки DoS
+6. **Используйте переменные окружения** — не зашивайте секреты в код
 
 ---
 
-## Troubleshooting
+## 🔧 Устранение неполадок
 
-### Issue 1: Port Already in Use
+### Проблема 1: порт уже занят
 
-**Error:** `Address already in use`
+**Ошибка:** `Address already in use`
 
-**Solution:**
+**Решение:**
 ```bash
 # Find process using the port
 lsof -i :8000
@@ -404,11 +404,11 @@ kill -9 <PID>
 uvicorn app.main:app --port 8001
 ```
 
-### Issue 2: Module Not Found
+### Проблема 2: модуль не найден
 
-**Error:** `ModuleNotFoundError: No module named 'tensorflow'`
+**Ошибка:** `ModuleNotFoundError: No module named 'tensorflow'`
 
-**Solution:**
+**Решение:**
 ```bash
 # Activate virtual environment
 source .venv/bin/activate
@@ -417,11 +417,11 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Issue 3: Database Locked
+### Проблема 3: база данных заблокирована
 
-**Error:** `database is locked`
+**Ошибка:** `database is locked`
 
-**Solution:**
+**Решение:**
 ```bash
 # For SQLite, ensure only one process accesses the database
 # Kill any stale processes
@@ -430,20 +430,20 @@ pkill -f uvicorn
 # Or switch to PostgreSQL for production
 ```
 
-### Issue 4: Model Not Found
+### Проблема 4: модель не найдена
 
-**Error:** `FileNotFoundError: Model file not found`
+**Ошибка:** `FileNotFoundError: Model file not found`
 
-**Solution:**
-1. Ensure internet connection for HuggingFace Hub download
-2. Or manually place model at `backend/models/model.keras`
-3. Check HuggingFace token if using private model
+**Решение:**
+1. Убедитесь в наличии подключения к интернету для загрузки с HuggingFace Hub
+2. Или вручную положите модель в `backend/models/model.keras`
+3. Проверьте токен HuggingFace, если используется приватная модель
 
-### Issue 5: CORS Errors
+### Проблема 5: ошибки CORS
 
-**Error:** `CORS policy blocked`
+**Ошибка:** `CORS policy blocked`
 
-**Solution:**
+**Решение:**
 ```env
 # In .env file
 CORS_ORIGINS=["*"]  # For development only
@@ -452,21 +452,21 @@ CORS_ORIGINS=["*"]  # For development only
 CORS_ORIGINS=["https://your-domain.com"]
 ```
 
-### Issue 6: Slow Inference
+### Проблема 6: медленный инференс
 
-**Symptoms:** Predictions take >10 seconds
+**Симптомы:** предсказания занимают >10 секунд
 
-**Solutions:**
-1. Use GPU acceleration (CUDA-enabled TensorFlow)
-2. Reduce image resolution before upload
-3. Increase server resources (CPU/RAM)
-4. Enable model warmup on startup
+**Решения:**
+1. Используйте ускорение на GPU (TensorFlow с поддержкой CUDA)
+2. Уменьшайте разрешение изображения перед загрузкой
+3. Увеличьте ресурсы сервера (CPU/ОЗУ)
+4. Включите прогрев модели при запуске
 
 ---
 
-## Monitoring & Logging
+## 📊 Мониторинг и логирование
 
-### Application Logs
+### Логи приложения
 
 ```bash
 # View logs (when running with uvicorn)
@@ -476,7 +476,7 @@ CORS_ORIGINS=["https://your-domain.com"]
 uvicorn app.main:app --log-config logging.conf
 ```
 
-### Health Check
+### Проверка работоспособности
 
 ```bash
 # Check if API is healthy
@@ -486,7 +486,7 @@ curl http://localhost:8000/health
 # {"status": "healthy", "version": "1.0.0"}
 ```
 
-### Database Backup
+### Резервное копирование базы данных
 
 ```bash
 # SQLite backup
@@ -501,9 +501,9 @@ psql -U username ophthalmology < backup_$(date +%Y%m%d).sql
 
 ---
 
-## Performance Optimization
+## 🚀 Оптимизация производительности
 
-### 1. Enable Caching
+### 1. Включение кэширования
 
 ```python
 # Use Redis for caching (optional)
@@ -518,7 +518,7 @@ async def startup():
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
 ```
 
-### 2. Database Optimization
+### 2. Оптимизация базы данных
 
 ```sql
 -- Add indexes for frequently queried columns
@@ -527,33 +527,33 @@ CREATE INDEX idx_predictions_prediction ON predictions(prediction);
 CREATE INDEX idx_library_items_disease_id ON library_items(disease_id);
 ```
 
-### 3. CDN for Static Assets
+### 3. CDN для статических ресурсов
 
-Deploy frontend assets to CDN for faster loading:
+Размещайте ресурсы фронтенда на CDN для более быстрой загрузки:
 - CloudFlare
 - AWS CloudFront
 - Azure CDN
 
 ---
 
-## Checklist for Production
+## ✅ Чек-лист для продакшена
 
-- [ ] Environment variables configured
-- [ ] Database set up (PostgreSQL recommended)
-- [ ] HTTPS enabled with SSL certificate
-- [ ] CORS origins restricted to production domain
-- [ ] Debug mode disabled
-- [ ] Error logging configured
-- [ ] Database backups scheduled
-- [ ] Monitoring set up (uptime, errors)
-- [ ] Rate limiting enabled (prevent abuse)
-- [ ] File upload limits configured
-- [ ] Model warmed up on startup
-- [ ] Load testing completed
+- [ ] Переменные окружения настроены
+- [ ] База данных развернута (рекомендуется PostgreSQL)
+- [ ] HTTPS включён с SSL-сертификатом
+- [ ] Источники CORS ограничены доменом продакшена
+- [ ] Режим отладки отключён
+- [ ] Логирование ошибок настроено
+- [ ] Резервные копии базы данных запланированы
+- [ ] Мониторинг настроен (доступность, ошибки)
+- [ ] Ограничение частоты запросов включено (защита от злоупотреблений)
+- [ ] Лимиты загрузки файлов настроены
+- [ ] Модель прогрета при запуске
+- [ ] Нагрузочное тестирование выполнено
 
 ---
 
-*For deployment issues, contact the DevOps team lead.*
+*По вопросам развёртывания обращайтесь к тимлиду DevOps.*
 
-*Last Updated: April 29, 2026*  
-*Document Version: 1.0*
+*Последнее обновление: 29 апреля 2026*  
+*Версия документа: 1.0*

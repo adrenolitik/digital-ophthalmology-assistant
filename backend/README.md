@@ -1,5 +1,5 @@
 ---
-title: Digital Ophthalmology Backend
+title: Цифровой ассистент офтальмолога — бэкенд
 emoji: 👁️
 colorFrom: blue
 colorTo: indigo
@@ -7,6 +7,6 @@ sdk: docker
 pinned: false
 ---
 
-# Digital Ophthalmology Assistant - Backend API
+# Цифровой ассистент офтальмолога — API бэкенда
 
-FastAPI-based backend for AI-powered anterior eye disease classification.
+Бэкенд на FastAPI для классификации заболеваний переднего отдела глаза на базе ИИ.

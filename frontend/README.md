@@ -1,121 +1,121 @@
-# Digital Ophthalmology Assistant - Frontend
+# Цифровой ассистент офтальмолога — фронтенд
 
-Static HTML/CSS/JavaScript frontend for the AI-powered ophthalmology assistant.
+Статический HTML/CSS/JavaScript фронтенд для ассистента офтальмолога на базе ИИ.
 
-> **Note**: No build tools or frameworks required. This is a pure static frontend that runs in any modern browser.
-
----
-
-## 📋 Table of Contents
-
-1. [Features](#features)
-2. [Quick Start](#quick-start)
-3. [Project Structure](#project-structure)
-4. [Configuration](#configuration)
-5. [Pages Overview](#pages-overview)
-6. [API Integration](#api-integration)
-7. [Troubleshooting](#troubleshooting)
+> **Примечание**: Не требует сборщиков или фреймворков. Это чисто статический фронтенд, который работает в любом современном браузере.
 
 ---
 
-## ✨ Features
+## 📋 Оглавление
 
-- **Responsive Design**: Works on desktop, tablet, and mobile
-- **Dark/Light Theme**: Toggle with system preference detection
-- **Image Upload**: Drag & drop or click to upload eye images
-- **AI Prediction**: Real-time disease classification from backend
-- **Disease Library**: Searchable database with English/Arabic content
-- **History**: View and manage past predictions
-- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
-- **No Framework**: Pure vanilla JavaScript - fast and lightweight
+1. [Возможности](#возможности)
+2. [Быстрый старт](#быстрый-старт)
+3. [Структура проекта](#структура-проекта)
+4. [Настройка](#настройка)
+5. [Обзор страниц](#обзор-страниц)
+6. [Интеграция с API](#интеграция-с-api)
+7. [Устранение неполадок](#устранение-неполадок)
 
 ---
 
-## 🚀 Quick Start
+## ✨ Возможности
 
-### Prerequisites
+- **Адаптивный дизайн**: работает на компьютере, планшете и телефоне
+- **Тёмная/светлая тема**: переключение с определением системных предпочтений
+- **Загрузка изображений**: перетаскивание или клик для загрузки снимков глаз
+- **Предсказание ИИ**: классификация заболеваний в реальном времени от бэкенда
+- **Библиотека заболеваний**: база с поиском, материалами на английском и арабском
+- **История**: просмотр и управление прошлыми предсказаниями
+- **Доступность**: ARIA-метки, навигация с клавиатуры, поддержка скринридеров
+- **Без фреймворков**: чистый ванильный JavaScript — быстро и легковесно
 
-- Python 3.x (for simple HTTP server) OR Node.js
-- Modern web browser (Chrome, Firefox, Safari, Edge)
+---
 
-### Option 1: Python HTTP Server
+## 🚀 Быстрый старт
+
+### Требования
+
+- Python 3.x (для простого HTTP-сервера) или Node.js
+- Современный веб-браузер (Chrome, Firefox, Safari, Edge)
+
+### Вариант 1: HTTP-сервер на Python
 
 ```bash
-# Navigate to frontend directory
+# Перейти в каталог фронтенда
 cd frontend
 
-# Start simple HTTP server
+# Запустить простой HTTP-сервер
 python -m http.server 8080
 
-# Open browser
+# Открыть в браузере
 # http://127.0.0.1:8080/pages/index.html
 ```
 
-### Option 2: Node.js HTTP Server
+### Вариант 2: HTTP-сервер на Node.js
 
 ```bash
-# Install http-server globally (once)
+# Установить http-server глобально (один раз)
 npm install -g http-server
 
-# Navigate to frontend directory
+# Перейти в каталог фронтенда
 cd frontend
 
-# Start server
+# Запустить сервер
 http-server -p 8080
 
-# Open browser
+# Открыть в браузере
 # http://127.0.0.1:8080/pages/index.html
 ```
 
-### Option 3: Direct File Open
+### Вариант 3: Открытие файла напрямую
 
-Simply open `frontend/pages/index.html` in your browser. Note: Some features may be limited due to CORS restrictions when not using a server.
+Просто откройте `frontend/pages/index.html` в браузере. Примечание: без сервера часть функций может быть ограничена из-за политики CORS.
 
 ---
 
-## 📁 Project Structure
+## 📁 Структура проекта
 
 ```
 frontend/
-├── pages/                    # HTML pages
-│   ├── index.html           # Home page
-│   ├── diagnose.html        # Image upload & prediction
-│   ├── diseases.html        # Disease library
-│   ├── history.html         # Prediction history
-│   ├── about.html           # About the project
-│   ├── safety.html          # Safety & disclaimers
-│   └── education.html       # Patient education
+├── pages/                    # HTML-страницы
+│   ├── index.html           # Главная страница
+│   ├── diagnose.html        # Загрузка изображения и предсказание
+│   ├── diseases.html        # Библиотека заболеваний
+│   ├── history.html         # История предсказаний
+│   ├── about.html           # О проекте
+│   ├── safety.html          # Безопасность и дисклеймеры
+│   └── education.html       # Обучение пациентов
 │
 ├── styles/
-│   └── styles.css           # Main stylesheet (responsive, dark/light themes)
+│   └── styles.css           # Основной стиль (адаптивность, тёмная/светлая темы)
 │
 ├── js/
-│   └── app.js               # Main JavaScript (API calls, UI interactions)
+│   └── app.js               # Основной JavaScript (вызовы API, работа с UI)
 │
 ├── assets/
-│   └── icons.js             # SVG icons as JavaScript functions
+│   └── icons.js             # SVG-иконки в виде JavaScript-функций
 │
-└── README.md                # This file
+└── README.md                # Этот файл
 ```
 
 ---
 
-## ⚙️ Configuration
+## ⚙️ Настройка
 
-### API Base URL
+### Базовый URL API
 
-The frontend connects to the backend API. By default, it expects the backend at `http://127.0.0.1:8000`.
+Фронтенд подключается к API бэкенда. По умолчанию он ожидает бэкенд по адресу `http://127.0.0.1:8000`.
 
-#### Change API URL
+#### Изменение URL API
 
-**Method 1**: Set in browser localStorage
+**Способ 1**: задать в localStorage браузера
 ```javascript
-// Open browser console and run:
+// Открыть консоль браузера и выполнить:
 localStorage.setItem("doa-api-base", "http://your-backend-url:8000");
 location.reload();
 ```
 
-**Method 2**: Set global variable before app loads
+**Способ 2**: задать глобальную переменную до загрузки приложения
 ```html
 <script>
   window.DOA_API_BASE = "http://your-backend-url:8000";
@@ -125,68 +125,68 @@ location.reload();
 
 ---
 
-## 📄 Pages Overview
+## 📄 Обзор страниц
 
-### Home (`index.html`)
-- Welcome page with project overview
-- Quick links to main features
-- Featured diseases showcase
+### Главная (`index.html`)
+- Приветственная страница с обзором проекта
+- Быстрые ссылки на основные функции
+- Избранные заболевания
 
-### Diagnose (`diagnose.html`)
-- **Main feature**: Upload eye image for AI analysis
-- Drag & drop or click to upload
-- Real-time prediction with confidence score
-- Image preview with lightbox
-- Result display with disease information
+### Диагностика (`diagnose.html`)
+- **Основная функция**: загрузка снимка глаза для анализа ИИ
+- Перетаскивание или клик для загрузки
+- Предсказание в реальном времени с оценкой достоверности
+- Предпросмотр изображения в лайтбоксе
+- Отображение результата с информацией о заболевании
 
-### Diseases (`diseases.html`)
-- Searchable disease library
-- Filter by disease type
-- Detailed information in English and Arabic
-- Symptoms, warnings, and safe tips
+### Заболевания (`diseases.html`)
+- Библиотека заболеваний с поиском
+- Фильтр по типу заболевания
+- Подробная информация на английском и арабском
+- Симптомы, предупреждения и полезные советы
 
-### History (`history.html`)
-- View all past predictions
-- Filter by disease type
-- Delete individual records
-- Clear all history
+### История (`history.html`)
+- Просмотр всех прошлых предсказаний
+- Фильтр по типу заболевания
+- Удаление отдельных записей
+- Очистка всей истории
 
-### About (`about.html`)
-- Project information
-- Team members
-- Technology stack
-- Deployment details
+### О проекте (`about.html`)
+- Информация о проекте
+- Участники команды
+- Технологический стек
+- Детали развёртывания
 
-### Safety (`safety.html`)
-- Important disclaimers
-- Educational purpose notice
-- Model limitations
-- When to see a doctor
+### Безопасность (`safety.html`)
+- Важные дисклеймеры
+- Уведомление об образовательном назначении
+- Ограничения модели
+- Когда обращаться к врачу
 
-### Education (`education.html`)
-- How to capture good eye images
-- Urgent vs non-urgent conditions
-- Hygiene and prevention tips
-- Bilingual content (English/Arabic)
+### Обучение (`education.html`)
+- Как делать качественные снимки глаз
+- Неотложные состояния и состояния, не требующие срочной помощи
+- Гигиена и советы по профилактике
+- Двуязычный контент (английский/арабский)
 
 ---
 
-## 🔗 API Integration
+## 🔗 Интеграция с API
 
-The frontend uses these backend endpoints:
+Фронтенд использует следующие эндпоинты бэкенда:
 
-| Feature | Method | Endpoint | Description |
+| Функция | Метод | Эндпоинт | Описание |
 |---------|--------|----------|-------------|
-| Prediction | POST | `/predict` | Upload image, get disease prediction |
-| Results List | GET | `/api/v1/results` | Get all predictions (with optional filter) |
-| Delete Result | DELETE | `/api/v1/results/{id}` | Remove a prediction from history |
-| Content | GET | `/api/v1/content/{type}` | Get page content (about, safety, education) |
-| Library | GET | `/api/v1/library` | Get disease library (with search) |
+| Предсказание | POST | `/predict` | Загрузка изображения, получение предсказания заболевания |
+| Список результатов | GET | `/api/v1/results` | Получение всех предсказаний (с опциональным фильтром) |
+| Удаление результата | DELETE | `/api/v1/results/{id}` | Удаление предсказания из истории |
+| Контент | GET | `/api/v1/content/{type}` | Получение контента страниц (о проекте, безопасность, обучение) |
+| Библиотека | GET | `/api/v1/library` | Получение библиотеки заболеваний (с поиском) |
 
-### Example: Image Prediction
+### Пример: предсказание по изображению
 
 ```javascript
-// From app.js
+// Из app.js
 async function predictImage(file) {
     const formData = new FormData();
     formData.append("file", file);
@@ -200,76 +200,76 @@ async function predictImage(file) {
 
 ---
 
-## 🎨 Features & UI Components
+## 🎨 Возможности и UI-компоненты
 
-### Theme System
-- Auto-detects system preference (light/dark)
-- Manual toggle with localStorage persistence
-- Smooth transitions between themes
+### Система тем
+- Автоопределение системных предпочтений (светлая/тёмная)
+- Ручное переключение с сохранением в localStorage
+- Плавные переходы между темами
 
-### Responsive Design
-- Mobile-first approach
-- Breakpoints: 600px, 900px, 1200px
-- Touch-friendly buttons and navigation
+### Адаптивный дизайн
+- Подход «mobile-first»
+- Точки перелома: 600px, 900px, 1200px
+- Удобные для касания кнопки и навигация
 
-### Animations
-- Scroll reveal animations
-- Tilt effect on cards (desktop only)
-- Ripple effect on buttons
-- Hero parallax effect
+### Анимации
+- Анимации появления при прокрутке
+- Эффект наклона карточек (только на компьютере)
+- Эффект ряби на кнопках
+- Параллакс-эффект в hero-блоке
 
-### Accessibility
-- Semantic HTML structure
-- ARIA labels and roles
-- Keyboard navigation support
-- Focus indicators
-- Screen reader friendly
-
----
-
-## 🔧 Troubleshooting
-
-### 1. "Failed to fetch" errors
-**Cause**: Backend server is not running or URL is incorrect.
-
-**Solution**:
-1. Make sure backend is running: `http://127.0.0.1:8000/health`
-2. Check API URL in localStorage: `localStorage.getItem("doa-api-base")`
-3. Set correct URL: `localStorage.setItem("doa-api-base", "http://127.0.0.1:8000")`
-
-### 2. CORS errors
-**Cause**: Frontend and backend are on different origins without proper CORS headers.
-
-**Solution**:
-1. Run both frontend and backend on same origin (recommended)
-2. Or configure backend CORS to allow frontend origin
-3. Or use a proxy server
-
-### 3. Images not uploading
-**Cause**: File size too large or invalid format.
-
-**Solution**:
-- Supported formats: PNG, JPG, JPEG, BMP, WEBP
-- Max file size: 10MB (configurable in backend)
-
-### 4. Styles not loading
-**Cause**: Incorrect file paths when opening HTML directly.
-
-**Solution**:
-- Always use a local HTTP server (see Quick Start)
-- Don't open HTML files directly with `file://` protocol
-
-### 5. Blank page
-**Cause**: JavaScript error or missing dependencies.
-
-**Solution**:
-1. Open browser console (F12) to see errors
-2. Make sure all files are in correct directories
-3. Check that `app.js` is loaded after other scripts
+### Доступность
+- Семантическая структура HTML
+- ARIA-метки и роли
+- Поддержка навигации с клавиатуры
+- Индикаторы фокуса
+- Удобство для скринридеров
 
 ---
 
-## 📱 Browser Support
+## 🔧 Устранение неполадок
+
+### 1. Ошибки «Failed to fetch»
+**Причина**: сервер бэкенда не запущен или URL указан неверно.
+
+**Решение**:
+1. Убедитесь, что бэкенд запущен: `http://127.0.0.1:8000/health`
+2. Проверьте URL API в localStorage: `localStorage.getItem("doa-api-base")`
+3. Укажите правильный URL: `localStorage.setItem("doa-api-base", "http://127.0.0.1:8000")`
+
+### 2. Ошибки CORS
+**Причина**: фронтенд и бэкенд на разных источниках без корректных CORS-заголовков.
+
+**Решение**:
+1. Запускайте фронтенд и бэкенд на одном источнике (рекомендуется)
+2. Или настройте CORS бэкенда на разрешение источника фронтенда
+3. Или используйте прокси-сервер
+
+### 3. Изображения не загружаются
+**Причина**: слишком большой размер файла или недопустимый формат.
+
+**Решение**:
+- Поддерживаемые форматы: PNG, JPG, JPEG, BMP, WEBP
+- Максимальный размер файла: 10 МБ (настраивается в бэкенде)
+
+### 4. Стили не загружаются
+**Причина**: неверные пути к файлам при открытии HTML напрямую.
+
+**Решение**:
+- Всегда используйте локальный HTTP-сервер (см. «Быстрый старт»)
+- Не открывайте HTML-файлы напрямую по протоколу `file://`
+
+### 5. Пустая страница
+**Причина**: ошибка JavaScript или отсутствующие зависимости.
+
+**Решение**:
+1. Откройте консоль браузера (F12), чтобы увидеть ошибки
+2. Убедитесь, что все файлы лежат в правильных каталогах
+3. Проверьте, что `app.js` подключён после остальных скриптов
+
+---
+
+## 📱 Поддержка браузеров
 
 - Chrome 80+
 - Firefox 75+
@@ -278,19 +278,19 @@ async function predictImage(file) {
 
 ---
 
-## 🛠 Development Tips
+## 🛠 Советы разработчикам
 
-### Adding New Pages
-1. Create new HTML file in `pages/`
-2. Add `data-page="your-page-name"` to `<body>` tag
-3. Add initialization function in `app.js`:
+### Добавление новых страниц
+1. Создайте новый HTML-файл в `pages/`
+2. Добавьте `data-page="your-page-name"` в тег `<body>`
+3. Добавьте функцию инициализации в `app.js`:
    ```javascript
    if (page === "your-page") initYourPage();
    ```
 
-### Changing Styles
-1. Edit `styles/styles.css`
-2. CSS variables for colors:
+### Изменение стилей
+1. Отредактируйте `styles/styles.css`
+2. CSS-переменные для цветов:
    ```css
    :root {
      --primary: #your-color;
@@ -298,8 +298,8 @@ async function predictImage(file) {
    }
    ```
 
-### Adding New API Calls
-1. Add async function in `app.js`:
+### Добавление новых вызовов API
+1. Добавьте async-функцию в `app.js`:
    ```javascript
    async function yourNewFunction() {
      const response = await fetch(`${CONTENT_API_BASE}/your-endpoint`);
@@ -309,15 +309,15 @@ async function predictImage(file) {
 
 ---
 
-## 📄 License
+## 📄 Лицензия
 
-Proprietary - Delta University for Science and Technology
+Proprietary — Университет Дельта для науки и технологий
 
 ---
 
-## 👥 Credits
+## 👥 Авторы
 
-Developed by the AI-Based Eye Disease Classification Team at Delta University for Science and Technology.
+Разработано командой классификации заболеваний глаз на базе ИИ Университета Дельта для науки и технологий.
 
-**Supervisor**: Dr. Eman Salah  
-**Team Members**: Fares Tamer, Israa Eldsouky, Mohamed Ayman, Mohamed Mahmoud, Karim Saeed, Rawan Elsaid, Ohoud Abdelnaem, Sama Abdeltawab, Waad Ahmed, Wesam Mohamed, Zeyad Waleed
+**Научный руководитель**: д-р Иман Салах  
+**Участники команды**: Фарес Тамер, Исраа Эльдсуки, Мухаммед Айман, Мухаммед Махмуд, Карим Саид, Роуан Эльсайд, Ухуд Абдельнаэм, Сама Абдельтаваб, Ваад Ахмед, Висам Мухаммед, Зейяд Валид

@@ -1,135 +1,135 @@
-# Digital Ophthalmology Assistant - Team Documentation
+# Цифровой ассистент офтальмолога — документация команды
 
-##  Complete Documentation Package
+## 📚 Полный комплект документации
 
-Welcome to the comprehensive documentation package for the Digital Ophthalmology Assistant graduation project. This documentation is designed to help every team member understand the complete project and prepare for discussions and presentations.
-
----
-
-##  Quick Start
-
-### For New Team Members
-1. Start with **[01_PROJECT_OVERVIEW.md](01_PROJECT_OVERVIEW.md)** - Understand the complete project
-2. Read the guide specific to your role:
-   - AI/ML Team: **[02_AI_TECHNICAL_GUIDE.md](02_AI_TECHNICAL_GUIDE.md)**
-   - Backend Team: **[03_BACKEND_API_GUIDE.md](03_BACKEND_API_GUIDE.md)**
-   - Frontend Team: **[04_FRONTEND_GUIDE.md](04_FRONTEND_GUIDE.md)**
-3. Review **[07_TEAM_ROLES.md](07_TEAM_ROLES.md)** for discussion preparation
-
-### For Discussion/Presentation Preparation
-1. Read **[07_TEAM_ROLES.md](07_TEAM_ROLES.md)** - Complete preparation guide
-2. Review your technical specialty guide
-3. Practice with the sample Q&A sections
-4. Rehearse the presentation structure
+Добро пожаловать в полный комплект документации выпускного проекта «Цифровой ассистент офтальмолога». Эти материалы помогут каждому участнику команды понять проект целиком и подготовиться к обсуждениям и презентации.
 
 ---
 
-##  Documentation Index
+## 🚀 Быстрый старт
 
-| # | Document | Description | Target Audience |
+### Новым участникам команды
+1. Начните с **[01_PROJECT_OVERVIEW.md](01_PROJECT_OVERVIEW.md)** — общий обзор проекта
+2. Прочитайте руководство для вашей роли:
+   - Команда ИИ/ML: **[02_AI_TECHNICAL_GUIDE.md](02_AI_TECHNICAL_GUIDE.md)**
+   - Команда бэкенда: **[03_BACKEND_API_GUIDE.md](03_BACKEND_API_GUIDE.md)**
+   - Команда фронтенда: **[04_FRONTEND_GUIDE.md](04_FRONTEND_GUIDE.md)**
+3. Изучите **[07_TEAM_ROLES.md](07_TEAM_ROLES.md)** для подготовки к обсуждению
+
+### Подготовка к обсуждению/презентации
+1. Прочитайте **[07_TEAM_ROLES.md](07_TEAM_ROLES.md)** — полное руководство по подготовке
+2. Повторите руководство по вашей технической специальности
+3. Потренируйтесь на примерах вопросов и ответов
+4. Отрепетируйте структуру презентации
+
+---
+
+## 📑 Индекс документации
+
+| # | Документ | Описание | Целевая аудитория |
 |---|----------|-------------|-----------------|
-| 01 | [Project Overview](01_PROJECT_OVERVIEW.md) | Executive summary, architecture, features | **Everyone** |
-| 02 | [AI Technical Guide](02_AI_TECHNICAL_GUIDE.md) | Deep Learning model, inference, preprocessing | AI/ML Team |
-| 03 | [Backend API Guide](03_BACKEND_API_GUIDE.md) | API endpoints, database models, configuration | Backend Team |
-| 04 | [Frontend Guide](04_FRONTEND_GUIDE.md) | Pages, styling, JavaScript, API integration | Frontend Team |
-| 05 | [Database Schema](05_DATABASE_SCHEMA.md) | Tables, relationships, queries, migrations | Backend Team |
-| 06 | [Deployment Guide](06_DEPLOYMENT_GUIDE.md) | Setup, deployment, troubleshooting | DevOps/All |
-| 07 | [Team Roles](07_TEAM_ROLES.md) | Responsibilities, presentation, Q&A prep | **Everyone** |
+| 01 | [Обзор проекта](01_PROJECT_OVERVIEW.md) | Резюме, архитектура, возможности | **Все** |
+| 02 | [Техническое руководство по ИИ](02_AI_TECHNICAL_GUIDE.md) | Модель глубокого обучения, инференс, препроцессинг | Команда ИИ/ML |
+| 03 | [Руководство по API бэкенда](03_BACKEND_API_GUIDE.md) | Эндпоинты API, модели базы данных, конфигурация | Команда бэкенда |
+| 04 | [Руководство по фронтенду](04_FRONTEND_GUIDE.md) | Страницы, стили, JavaScript, интеграция с API | Команда фронтенда |
+| 05 | [Схема базы данных](05_DATABASE_SCHEMA.md) | Таблицы, связи, запросы, миграции | Команда бэкенда |
+| 06 | [Руководство по развёртыванию](06_DEPLOYMENT_GUIDE.md) | Настройка, развёртывание, устранение неполадок | DevOps/Все |
+| 07 | [Роли команды](07_TEAM_ROLES.md) | Обязанности, презентация, подготовка к Q&A | **Все** |
 
 ---
 
-##  What Each Team Member Should Know
+## 💡 Что должен знать каждый участник команды
 
-### All Team Members Must Understand:
+### Все участники обязаны понимать:
 
-1. **Project Vision** (from 01_PROJECT_OVERVIEW.md)
-   - What problem are we solving?
-   - How does our solution work?
-   - What is the clinical impact?
+1. **Видение проекта** (из 01_PROJECT_OVERVIEW.md)
+   - Какую задачу мы решаем?
+   - Как работает наше решение?
+   - Каков клинический эффект?
 
-2. **System Architecture** (from 01_PROJECT_OVERVIEW.md)
-   - How do the components interact?
-   - What is the data flow?
-   - What technologies are used?
+2. **Архитектуру системы** (из 01_PROJECT_OVERVIEW.md)
+   - Как взаимодействуют компоненты?
+   - Каков поток данных?
+   - Какие технологии используются?
 
-3. **Your Role** (from 07_TEAM_ROLES.md)
-   - What are your responsibilities?
-   - How to prepare for discussions?
-   - Presentation guidelines
+3. **Свою роль** (из 07_TEAM_ROLES.md)
+   - Какие у вас обязанности?
+   - Как подготовиться к обсуждению?
+   - Рекомендации по презентации
 
-### Role-Specific Deep Dives:
+### Углублённый разбор по ролям:
 
-#### AI/ML Team
-- Model architecture (MobileNetV2)
-- Inference pipeline
-- Preprocessing steps
-- Performance metrics
+#### Команда ИИ/ML
+- Архитектура модели (MobileNetV2)
+- Конвейер инференса
+- Этапы препроцессинга
+- Метрики качества
 
-#### Backend Team
-- API endpoints and their purposes
-- Database schema and relationships
-- Configuration management
-- Error handling strategies
+#### Команда бэкенда
+- Эндпоинты API и их назначение
+- Схема базы данных и связи
+- Управление конфигурацией
+- Стратегии обработки ошибок
 
-#### Frontend Team
-- Page structure and navigation
-- Styling system and responsive design
-- JavaScript architecture
-- API integration
-
----
-
-##  Discussion Preparation Checklist
-
-### 1 Week Before
-- [ ] Read all documentation relevant to your role
-- [ ] Understand the complete project architecture
-- [ ] Prepare your 2-minute contribution explanation
-- [ ] Review sample Q&A questions
-
-### 3 Days Before
-- [ ] Practice presentation with team
-- [ ] Review technical details for your specialty
-- [ ] Prepare answers for common questions
-- [ ] Test demo thoroughly
-
-### 1 Day Before
-- [ ] Final team rehearsal
-- [ ] Prepare presentation materials
-- [ ] Charge all devices
-- [ ] Rest and relax
-
-### Day Of
-- [ ] Arrive 15 minutes early
-- [ ] Bring water and backup materials
-- [ ] Dress professionally
-- [ ] Stay calm and confident
+#### Команда фронтенда
+- Структура страниц и навигация
+- Система стилей и адаптивный дизайн
+- Архитектура JavaScript
+- Интеграция с API
 
 ---
 
-##  Project Resources
+## ✅ Чек-лист подготовки к обсуждению
 
-### Code Repository
+### За неделю
+- [ ] Прочитать всю документацию, относящуюся к вашей роли
+- [ ] Понимать архитектуру проекта целиком
+- [ ] Подготовить объяснение вашего вклада на 2 минуты
+- [ ] Повторить примерные вопросы и ответы
+
+### За 3 дня
+- [ ] Потренировать презентацию с командой
+- [ ] Повторить технические детали вашей специальности
+- [ ] Подготовить ответы на типичные вопросы
+- [ ] Тщательно протестировать демо
+
+### За день
+- [ ] Финальная репетиция команды
+- [ ] Подготовить материалы презентации
+- [ ] Зарядить все устройства
+- [ ] Отдохнуть и расслабиться
+
+### В день презентации
+- [ ] Прийти за 15 минут
+- [ ] Взять воду и запасные материалы
+- [ ] Одеться по делу
+- [ ] Сохранять спокойствие и уверенность
+
+---
+
+## 📦 Ресурсы проекта
+
+### Репозиторий кода
 - **GitHub**: https://github.com/mohammedwahba2/digital-ophthalmology-assistant.git
 
-### Key Directories
+### Основные каталоги
 ```
 digital-ophthalmology-assistant/
-├── backend/                    # FastAPI backend
+├── backend/                    # Бэкенд на FastAPI
 │   ├── app/
-│   │   ├── services/ai_service.py    # AI inference
-│   │   ├── routes/                   # API endpoints
-│   │   ├── models/                   # Database models
-│   │   └── database/db.py            # Database setup
+│   │   ├── services/ai_service.py    # Инференс ИИ
+│   │   ├── routes/                   # Эндпоинты API
+│   │   ├── models/                   # Модели базы данных
+│   │   └── database/db.py            # Настройка базы данных
 │   └── requirements.txt
 │
-├── frontend/                   # Web frontend
-│   ├── pages/                  # HTML pages
-│   ├── styles/styles.css       # Styling
+├── frontend/                   # Веб-фронтенд
+│   ├── pages/                  # HTML-страницы
+│   ├── styles/styles.css       # Стили
 │   └── js/app.js               # JavaScript
 │
-└── team_documentation/         # This documentation
-    ├── README.md               # This file
+└── team_documentation/         # Эта документация
+    ├── README.md               # Этот файл
     ├── 01_PROJECT_OVERVIEW.md
     ├── 02_AI_TECHNICAL_GUIDE.md
     ├── 03_BACKEND_API_GUIDE.md
@@ -139,87 +139,87 @@ digital-ophthalmology-assistant/
     └── 07_TEAM_ROLES.md
 ```
 
-### Important Files
-- **AI Service**: `backend/app/services/ai_service.py`
-- **Main API**: `backend/app/routes/predict.py`
-- **Frontend App**: `frontend/js/app.js`
-- **Database Models**: `backend/app/models/`
+### Важные файлы
+- **Сервис ИИ**: `backend/app/services/ai_service.py`
+- **Основной API**: `backend/app/routes/predict.py`
+- **Фронтенд**: `frontend/js/app.js`
+- **Модели базы данных**: `backend/app/models/`
 
 ---
 
-##  Quick Reference
+## 📊 Краткая справка
 
-### Project Stats
-| Metric | Value |
+### Статистика проекта
+| Показатель | Значение |
 |--------|-------|
-| **Disease Classes** | 4 (Healthy, Conjunctivitis, Cataract, Keratitis) |
-| **Model Architecture** | MobileNetV2-based CNN |
-| **Input Size** | 224 × 224 pixels |
-| **Inference Time** | ~1-2 seconds |
-| **Supported Languages** | English, Arabic |
-| **Backend Framework** | FastAPI (Python) |
-| **Frontend** | Vanilla JavaScript |
-| **Database** | SQLite / PostgreSQL |
+| **Классы заболеваний** | 4 (Здоров, Конъюнктивит, Катаракта, Кератит) |
+| **Архитектура модели** | CNN на базе MobileNetV2 |
+| **Размер входа** | 224 × 224 пикселя |
+| **Время инференса** | ~1–2 секунды |
+| **Поддерживаемые языки** | Английский, арабский |
+| **Фреймворк бэкенда** | FastAPI (Python) |
+| **Фронтенд** | Ванильный JavaScript |
+| **База данных** | SQLite / PostgreSQL |
 
-### API Endpoints
-| Method | Endpoint | Purpose |
+### Эндпоинты API
+| Метод | Эндпоинт | Назначение |
 |--------|----------|---------|
-| GET | `/health` | Health check |
-| POST | `/predict` | AI prediction |
-| GET | `/api/v1/results` | Prediction history |
-| GET | `/api/v1/library` | Disease library |
-| GET | `/api/v1/content/{type}` | Page content |
+| GET | `/health` | Проверка работоспособности |
+| POST | `/predict` | Предсказание ИИ |
+| GET | `/api/v1/results` | История предсказаний |
+| GET | `/api/v1/library` | Библиотека заболеваний |
+| GET | `/api/v1/content/{type}` | Контент страниц |
 
 ---
 
-##  Getting Help
+## 🆘 Как получить помощь
 
-### During Development
-1. Check the relevant technical guide first
-2. Search the documentation for your issue
-3. Ask in team communication channel
-4. Consult with team lead
+### Во время разработки
+1. Сначала проверьте соответствующее техническое руководство
+2. Поищите проблему в документации
+3. Спросите в командном канале связи
+4. Проконсультируйтесь с тимлидом
 
-### During Presentation Prep
-1. Review the Team Roles guide
-2. Practice with teammates
-3. Record yourself and review
-4. Ask for feedback
+### Во время подготовки к презентации
+1. Повторите руководство по ролям команды
+2. Потренируйтесь с товарищами по команде
+3. Запишите себя на видео и пересмотрите
+4. Попросите обратную связь
 
 ---
 
-##  Team Contacts
+## 📞 Контакты команды
 
-| Role | Name | Contact |
+| Роль | Имя | Контакт |
 |------|------|---------|
-| Project Supervisor | Dr. Eman Salah | [email] |
-| Project Lead | [Name] | [contact] |
-| AI/ML Lead | [Name] | [contact] |
-| Backend Lead | [Name] | [contact] |
-| Frontend Lead | [Name] | [contact] |
+| Научный руководитель | д-р Иман Салах | [email] |
+| Руководитель проекта | [Имя] | [контакт] |
+| Тимлид ИИ/ML | [Имя] | [контакт] |
+| Тимлид бэкенда | [Имя] | [контакт] |
+| Тимлид фронтенда | [Имя] | [контакт] |
 
 ---
 
-##  Version History
+## 📝 История версий
 
-| Version | Date | Changes | Author |
+| Версия | Дата | Изменения | Автор |
 |---------|------|---------|--------|
-| 1.0 | April 29, 2026 | Initial comprehensive documentation | Mohamed Mahmoud Wahba |
+| 1.0 | 29 апреля 2026 | Первоначальный полный комплект документации | Mohamed Mahmoud Wahba |
 
 ---
 
-##  Acknowledgments
+## 🙏 Благодарности
 
-This documentation was created to ensure every team member has a clear understanding of the project and can confidently present their work during discussions and the final presentation.
+Эта документация создана для того, чтобы каждый участник команды ясно понимал проект и уверенно представлял свою работу на обсуждениях и финальной презентации.
 
-**Remember**: You've worked hard on this project. This documentation is here to help you succeed!
+**Помните**: вы усердно работали над проектом. Эта документация поможет вам добиться успеха!
 
 ---
 
-*For the full Digital Ophthalmology Assistant documentation, start with the [Project Overview](01_PROJECT_OVERVIEW.md).*
+*С полной документацией цифрового ассистента офтальмолога начните с [Обзора проекта](01_PROJECT_OVERVIEW.md).*
 
-**Last Updated**: April 29, 2026  
-**Document Version**: 1.0  
-**Project**: Digital Ophthalmology Assistant - Graduation Project  
-**University**: Delta University for Science and Technology  
-**Supervisor**: Dr. Eman Salah
+**Последнее обновление**: 29 апреля 2026  
+**Версия документа**: 1.0  
+**Проект**: Цифровой ассистент офтальмолога — выпускной проект  
+**Университет**: Университет Дельта для науки и технологий  
+**Научный руководитель**: д-р Иман Салах

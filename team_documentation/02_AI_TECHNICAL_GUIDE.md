@@ -1,52 +1,52 @@
-# AI/Deep Learning Technical Guide
+# Техническое руководство по ИИ/глубокому обучению
 
-##  Overview
+## 🔍 Обзор
 
-This document provides a comprehensive technical guide to the Deep Learning system used for eye disease classification.
-
----
-
-##  Table of Contents
-
-1. [Model Architecture](#model-architecture)
-2. [Inference Pipeline](#inference-pipeline)
-3. [Code Implementation](#code-implementation)
-4. [Model Loading](#model-loading)
-5. [Preprocessing](#preprocessing)
-6. [Prediction](#prediction)
-7. [Performance Optimization](#performance-optimization)
-8. [Troubleshooting](#troubleshooting)
+В этом документе представлено подробное техническое руководство по системе глубокого обучения, используемой для классификации заболеваний глаз.
 
 ---
 
-## Model Architecture
+## 📋 Оглавление
 
-### Base Architecture: MobileNetV2
+1. [Архитектура модели](#архитектура-модели)
+2. [Конвейер инференса](#конвейер-инференса)
+3. [Реализация кода](#реализация-кода)
+4. [Загрузка модели](#загрузка-модели)
+5. [Препроцессинг](#препроцессинг)
+6. [Предсказание](#предсказание)
+7. [Оптимизация производительности](#оптимизация-производительности)
+8. [Устранение неполадок](#устранение-неполадок)
 
-Our model is built on **MobileNetV2**, a lightweight convolutional neural network designed for mobile and embedded vision applications.
+---
 
-#### Why MobileNetV2?
-- **Efficiency**: Optimized for mobile and web deployment
-- **Speed**: Fast inference time (~2-3 seconds per image)
-- **Accuracy**: Good balance between size and performance
-- **Depthwise Separable Convolutions**: Reduces parameters and computation
+## 🧠 Архитектура модели
 
-### Model Specifications
+### Базовая архитектура: MobileNetV2
 
-| Parameter | Value |
+Наша модель построена на **MobileNetV2** — лёгкой свёрточной нейросети, разработанной для мобильных и встраиваемых vision-приложений.
+
+#### Почему MobileNetV2?
+- **Эффективность**: оптимизирована для мобильного и веб-развёртывания
+- **Скорость**: быстрый инференс (~2–3 секунды на изображение)
+- **Точность**: хороший баланс между размером и качеством
+- **Разделимые свёртки по глубине**: меньше параметров и вычислений
+
+### Характеристики модели
+
+| Параметр | Значение |
 |-----------|-------|
-| **Input Shape** | 224 × 224 × 3 (RGB) |
-| **Base Architecture** | MobileNetV2 (pre-trained on ImageNet) |
-| **Custom Layers** | Global Average Pooling + BatchNormalization + Dense(256) + Dropout(0.5) + Dense(128) + Dropout(0.3) + Dense(4, softmax) |
-| **Output Classes** | 4 (Healthy, Conjunctivitis, Cataract, Keratitis) |
-| **Model Format** | `.keras` (Keras native format) |
-| **Model File** | `Eye_Disease_model_v3.keras` |
-| **Model Size** | ~22 MB |
-| **Training Dataset** | Custom eye disease image dataset |
-| **Class Names (Training)** | `["healthy_eye", "Conjunctivitis Recognition", "Cataract dataset", "keratitis"]` |
-| **Class Names (API)** | `["healthy_eye", "conjunctivitis", "cataract", "keratitis"]` |
+| **Форма входа** | 224 × 224 × 3 (RGB) |
+| **Базовая архитектура** | MobileNetV2 (предобучена на ImageNet) |
+| **Пользовательские слои** | Global Average Pooling + BatchNormalization + Dense(256) + Dropout(0.5) + Dense(128) + Dropout(0.3) + Dense(4, softmax) |
+| **Выходные классы** | 4 (Здоров, Конъюнктивит, Катаракта, Кератит) |
+| **Формат модели** | `.keras` (родной формат Keras) |
+| **Файл модели** | `Eye_Disease_model_v3.keras` |
+| **Размер модели** | ~22 МБ |
+| **Набор данных для обучения** | Пользовательский набор изображений глазных заболеваний |
+| **Имена классов (обучение)** | `["healthy_eye", "Conjunctivitis Recognition", "Cataract dataset", "keratitis"]` |
+| **Имена классов (API)** | `["healthy_eye", "conjunctivitis", "cataract", "keratitis"]` |
 
-### Model Architecture Diagram
+### Схема архитектуры модели
 
 ```
 Input (224×224×3)
@@ -64,9 +64,9 @@ Output Probabilities [p_healthy, p_conjunctivitis, p_cataract, p_keratitis]
 
 ---
 
-## Inference Pipeline
+## ⚙️ Конвейер инференса
 
-The complete inference process consists of 5 stages:
+Полный процесс инференса состоит из 5 этапов:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -113,9 +113,9 @@ The complete inference process consists of 5 stages:
 
 ---
 
-## Code Implementation
+## 💻 Реализация кода
 
-### File Structure
+### Структура файлов
 
 ```
 backend/app/services/
@@ -124,9 +124,9 @@ backend/app/services/
 └── seed_service.py        # Database seeding
 ```
 
-### Core AI Service: `ai_service.py`
+### Основной сервис ИИ: `ai_service.py`
 
-#### 1. Imports and Configuration
+#### 1. Импорты и конфигурация
 
 ```python
 import json
@@ -175,7 +175,7 @@ MIN_MARGIN = 0.15
 MAX_NORMALIZED_ENTROPY = 0.85
 ```
 
-#### 2. Model Loading (Singleton Pattern)
+#### 2. Загрузка модели (паттерн Singleton)
 
 ```python
 _model = None
@@ -210,13 +210,13 @@ def get_model(model_path: Path | str | None = None) -> tf.keras.Model:
     return _model
 ```
 
-**Key Points:**
-- **Singleton Pattern**: Model is loaded only once, then reused
-- **Thread Safety**: Lock prevents race conditions during loading
-- **Lazy Loading**: Model loads on first use, not at startup
-- **Warmup**: First prediction prepares GPU/CPU for faster subsequent inferences
+**Ключевые моменты:**
+- **Паттерн Singleton**: модель загружается только один раз и затем переиспользуется
+- **Потокобезопасность**: блокировка предотвращает гонки данных при загрузке
+- **Ленивая загрузка**: модель загружается при первом обращении, а не при старте
+- **Прогрев**: первое предсказание подготавливает GPU/CPU к более быстрым последующим инференсам
 
-#### 3. Image Preprocessing (Matches Training 100%)
+#### 3. Препроцессинг изображений (соответствует обучению на 100%)
 
 ```python
 def preprocess_image(image_path: str | Path) -> np.ndarray:
@@ -262,22 +262,22 @@ def preprocess_image(image_path: str | Path) -> np.ndarray:
     return np.expand_dims(arr, axis=0)
 ```
 
-**Why Scale to 256 First?**
-- Maintains aspect ratio (no distortion)
-- Ensures consistent preprocessing with training
-- The model was trained with this exact scaling approach
+**Зачем сначала масштабировать до 256?**
+- Сохраняет пропорции (без искажений)
+- Обеспечивает единый с обучением препроцессинг
+- Модель обучалась именно с этим подходом к масштабированию
 
-**Why Center Crop to 224?**
-- Focuses on the central ocular region
-- Removes peripheral noise (eyelashes, skin, equipment edges)
-- Matches the model's input requirements
+**Зачем центральный кроп до 224?**
+- Фокусируется на центральной области глаза
+- Убирает периферический шум (ресницы, кожа, края оборудования)
+- Соответствует требованиям модели к входу
 
-**Why Normalize?**
-- Neural networks train better with normalized inputs
-- Pixel values in [0, 1] range stabilize gradient descent
-- Matches preprocessing used during model training
+**Зачем нормализовать?**
+- Нейросети лучше обучаются на нормализованных входах
+- Значения пикселей в диапазоне [0, 1] стабилизируют градиентный спуск
+- Соответствует препроцессингу, использованному при обучении модели
 
-#### 4. Prediction with Enhanced Post-Processing
+#### 4. Предсказание с расширенной постобработкой
 
 ```python
 def build_prediction_result(probabilities: np.ndarray) -> dict:
@@ -342,20 +342,20 @@ def predict_image_detailed(image_path: str | Path) -> dict:
     return build_prediction_result(preds)
 ```
 
-**Output Explanation:**
-- `label`: The public-facing prediction (or "unrecognized" if low confidence)
-- `predicted_class`: The actual model prediction (normalized class name)
-- `confidence`: Confidence score for the prediction
-- `confidence_level`: "high", "medium", or "low"
-- `all_probabilities`: Full probability distribution over all classes
-- `needs_review`: Boolean flag for low-confidence predictions
-- Additional metrics: margin, entropy, second-best class
+**Пояснение выходных данных:**
+- `label`: публичное предсказание (или `"unrecognized"` при низкой достоверности)
+- `predicted_class`: фактическое предсказание модели (нормализованное имя класса)
+- `confidence`: оценка достоверности предсказания
+- `confidence_level`: `"high"`, `"medium"` или `"low"`
+- `all_probabilities`: полное распределение вероятностей по всем классам
+- `needs_review`: булев флаг предсказаний с низкой достоверностью
+- Дополнительные метрики: маржа, энтропия, класс-второе место
 
 ---
 
-## Model Loading
+## 📦 Загрузка модели
 
-### Option 1: Automatic Download from Hugging Face Hub
+### Вариант 1: автоматическая загрузка с Hugging Face Hub
 
 ```python
 from app.services.ai_service import get_model
@@ -364,7 +364,7 @@ from app.services.ai_service import get_model
 model = get_model()
 ```
 
-### Option 2: Local Model Path
+### Вариант 2: локальный путь к модели
 
 ```python
 from pathlib import Path
@@ -374,7 +374,7 @@ from app.services.ai_service import get_model
 model = get_model(Path("backend/models/model.keras"))
 ```
 
-### Option 3: Configuration-Based Loading
+### Вариант 3: загрузка на основе конфигурации
 
 ```python
 # In config.py
@@ -390,20 +390,20 @@ get_model(settings.resolved_model_path)
 
 ---
 
-## Preprocessing Details
+## 🔧 Детали препроцессинга
 
-### Step-by-Step Transformation
+### Преобразования шаг за шагом
 
-| Step | Operation | Input Shape | Output Shape | Purpose |
+| Шаг | Операция | Форма входа | Форма выхода | Назначение |
 |------|-----------|-------------|--------------|---------|
-| 1 | Load Image | File on disk | (H, W, 3) | Read image data |
-| 2 | Convert to RGB | (H, W, 4) or (H, W) | (H, W, 3) | Ensure 3 channels |
-| 3 | Scale (shortest=256) | (H, W, 3) | (H', W', 3) | Maintain aspect ratio |
-| 4 | Center Crop | (H', W', 3) | (224, 224, 3) | Focus on eye region |
-| 5 | Normalize | [0, 255] | [0.0, 1.0] | Stabilize inference |
-| 6 | Expand Dims | (224, 224, 3) | (1, 224, 224, 3) | Add batch dimension |
+| 1 | Загрузка изображения | Файл на диске | (H, W, 3) | Чтение данных изображения |
+| 2 | Преобразование в RGB | (H, W, 4) или (H, W) | (H, W, 3) | Обеспечить 3 канала |
+| 3 | Масштабирование (короткая сторона=256) | (H, W, 3) | (H', W', 3) | Сохранить пропорции |
+| 4 | Центральный кроп | (H', W', 3) | (224, 224, 3) | Сфокусироваться на области глаза |
+| 5 | Нормализация | [0, 255] | [0.0, 1.0] | Стабилизировать инференс |
+| 6 | Расширение размерностей | (224, 224, 3) | (1, 224, 224, 3) | Добавить измерение батча |
 
-### Visual Example
+### Наглядный пример
 
 ```
 Original Image (1000×800)
@@ -417,26 +417,26 @@ Normalized Image - pixel values between 0 and 1
 Batch Image (1, 224, 224, 3) - ready for model
 ```
 
-### Class Name Normalization
+### Нормализация имён классов
 
-The model was trained with specific folder names that differ from the API labels:
+Модель обучалась на конкретных именах папок, которые отличаются от меток API:
 
-| Training Label (from class_names.json) | API Label (normalized) |
+| Метка обучения (из class_names.json) | Метка API (нормализованная) |
 |----------------------------------------|------------------------|
 | `healthy_eye` | `healthy_eye` |
 | `Conjunctivitis Recognition` | `conjunctivitis` |
 | `Cataract dataset` | `cataract` |
 | `keratitis` | `keratitis` |
 
-The `normalize_class_name()` function handles this mapping to ensure consistent API responses.
+Функция `normalize_class_name()` выполняет это сопоставление, обеспечивая единообразные ответы API.
 
 ---
 
-## Prediction
+## 🔮 Предсказание
 
-### Understanding Model Output
+### Понимание выходных данных модели
 
-The model outputs a probability distribution over 4 classes:
+Модель выдаёт распределение вероятностей по 4 классам:
 
 ```python
 # Example output (raw probabilities)
@@ -468,38 +468,38 @@ preds = [0.9234, 0.0421, 0.0234, 0.0111]
 }
 ```
 
-### Confidence Thresholds
+### Пороги достоверности
 
-| Threshold | Value | Interpretation |
+| Порог | Значение | Интерпретация |
 |-----------|-------|----------------|
-| `HIGH_CONFIDENCE` | 0.80 | Prediction is reliable |
-| `MEDIUM_CONFIDENCE` | 0.60 | Prediction is moderately reliable |
-| `LOW_CONFIDENCE` | 0.45 | Prediction is uncertain |
-| `MIN_MARGIN` | 0.15 | Minimum gap between top 2 classes |
-| `MAX_NORMALIZED_ENTROPY` | 0.85 | Maximum uncertainty (entropy) |
+| `HIGH_CONFIDENCE` | 0.80 | Предсказание надёжно |
+| `MEDIUM_CONFIDENCE` | 0.60 | Предсказание умеренно надёжно |
+| `LOW_CONFIDENCE` | 0.45 | Предсказание неопределённо |
+| `MIN_MARGIN` | 0.15 | Минимальный разрыв между двумя лучшими классами |
+| `MAX_NORMALIZED_ENTROPY` | 0.85 | Максимальная неопределённость (энтропия) |
 
-### Confidence Levels
+### Уровни достоверности
 
-| Level | Conditions | Action |
+| Уровень | Условия | Действие |
 |-------|------------|--------|
-| `high` | confidence ≥ 0.80 AND margin ≥ 0.15 | Trust prediction |
-| `medium` | confidence ≥ 0.60 AND margin ≥ 0.15 | Consider prediction, verify clinically |
-| `low` | Otherwise | Flag for review, recommend specialist |
+| `high` | confidence ≥ 0.80 И margin ≥ 0.15 | Доверять предсказанию |
+| `medium` | confidence ≥ 0.60 И margin ≥ 0.15 | Учитывать предсказание, проверить клинически |
+| `low` | Иначе | Пометить на проверку, порекомендовать специалиста |
 
-### Low-Confidence Detection
+### Обнаружение низкой достоверности
 
-A prediction is flagged for review (`needs_review=True`) if ANY of:
-- Top probability < `LOW_CONFIDENCE` (0.45)
-- Margin between top 2 classes < `MIN_MARGIN` (0.15)
-- Normalized entropy > `MAX_NORMALIZED_ENTROPY` (0.85)
+Предсказание помечается на проверку (`needs_review=True`), если выполнено ЛЮБОЕ из условий:
+- Вероятность лучшего класса < `LOW_CONFIDENCE` (0.45)
+- Маржа между двумя лучшими классами < `MIN_MARGIN` (0.15)
+- Нормализованная энтропия > `MAX_NORMALIZED_ENTROPY` (0.85)
 
-When flagged, the `label` field returns `"unrecognized"` instead of the predicted class.
+При пометке поле `label` возвращает `"unrecognized"` вместо предсказанного класса.
 
 ---
 
-## Performance Optimization
+## 🚀 Оптимизация производительности
 
-### 1. Model Warmup
+### 1. Прогрев модели
 
 ```python
 # First prediction after loading is slow (cold start)
@@ -507,7 +507,7 @@ When flagged, the `label` field returns `"unrecognized"` instead of the predicte
 _model.predict(np.zeros((1, IMG_SIZE, IMG_SIZE, 3)), verbose=0)
 ```
 
-### 2. Singleton Pattern
+### 2. Паттерн Singleton
 
 ```python
 # Load once, use many times
@@ -515,7 +515,7 @@ _model.predict(np.zeros((1, IMG_SIZE, IMG_SIZE, 3)), verbose=0)
 _model = None  # Global variable
 ```
 
-### 3. Thread Safety
+### 3. Потокобезопасность
 
 ```python
 _lock = threading.Lock()  # Prevents race conditions
@@ -526,7 +526,7 @@ with _lock:
         _model = load_model()
 ```
 
-### 4. Batch Inference (Future Enhancement)
+### 4. Батчевый инференс (улучшение в будущем)
 
 ```python
 # Currently: One image at a time
@@ -535,79 +535,79 @@ batch = np.vstack([img1, img2, img3])  # (3, 224, 224, 3)
 preds = model.predict(batch)  # Faster than 3 separate predictions
 ```
 
-### Performance Metrics
+### Метрики производительности
 
-| Metric | Value | Notes |
+| Метрика | Значение | Примечания |
 |--------|-------|-------|
-| Model Load Time | ~2-3 seconds | One-time cost |
-| Inference Time | ~0.5-1 second | Per image |
-| Memory Usage | ~200 MB | Model + overhead |
-| CPU Usage | ~50-80% | During inference |
+| Время загрузки модели | ~2–3 секунды | Разовые затраты |
+| Время инференса | ~0.5–1 секунда | На изображение |
+| Использование памяти | ~200 МБ | Модель + накладные расходы |
+| Загрузка CPU | ~50–80% | Во время инференса |
 
 ---
 
-## Troubleshooting
+## 🔧 Устранение неполадок
 
-### Issue 1: Model Not Found
+### Проблема 1: модель не найдена
 
-**Error:**
+**Ошибка:**
 ```
 FileNotFoundError: Model file not found at: /path/to/model.keras
 ```
 
-**Solutions:**
-1. Ensure model file exists at specified path
-2. Check file permissions
-3. Verify Hugging Face Hub access if downloading
+**Решения:**
+1. Убедитесь, что файл модели существует по указанному пути
+2. Проверьте права на файл
+3. При загрузке проверьте доступ к Hugging Face Hub
 
-### Issue 2: Out of Memory
+### Проблема 2: нехватка памяти
 
-**Error:**
+**Ошибка:**
 ```
 ResourceExhaustedError: OOM when allocating tensor
 ```
 
-**Solutions:**
-1. Reduce batch size (currently 1, cannot reduce further)
-2. Use CPU instead of GPU: `export CUDA_VISIBLE_DEVICES=""`
-3. Close other memory-intensive applications
+**Решения:**
+1. Уменьшите размер батча (сейчас 1, дальше уменьшить нельзя)
+2. Используйте CPU вместо GPU: `export CUDA_VISIBLE_DEVICES=""`
+3. Закройте другие приложения, потребляющие много памяти
 
-### Issue 3: Slow Inference
+### Проблема 3: медленный инференс
 
-**Symptoms:**
-- Prediction takes >5 seconds
-- High CPU usage
+**Симптомы:**
+- Предсказание занимает >5 секунд
+- Высокая загрузка CPU
 
-**Solutions:**
-1. Ensure model warmup is performed
-2. Check system resources (RAM, CPU)
-3. Consider using GPU acceleration
-4. Optimize image preprocessing (resize before upload)
+**Решения:**
+1. Убедитесь, что прогрев модели выполняется
+2. Проверьте системные ресурсы (ОЗУ, CPU)
+3. Рассмотрите использование ускорения на GPU
+4. Оптимизируйте препроцессинг изображений (уменьшайте размер до загрузки)
 
-### Issue 4: Poor Predictions
+### Проблема 4: плохие предсказания
 
-**Symptoms:**
-- Low confidence scores
-- Incorrect classifications
+**Симптомы:**
+- Низкие оценки достоверности
+- Неправильная классификация
 
-**Solutions:**
-1. Verify image quality (good lighting, focus)
-2. Ensure proper preprocessing (center crop, normalize)
-3. Check if image is actually an eye image
-4. Consider model retraining with more data
+**Решения:**
+1. Проверьте качество изображения (хорошее освещение, резкость)
+2. Убедитесь в корректном препроцессинге (центральный кроп, нормализация)
+3. Проверьте, что изображение действительно является снимком глаза
+4. Рассмотрите переобучение модели на больших данных
 
 ---
 
-## API Usage Example
+## 📡 Пример использования API
 
-### Request
+### Запрос
 
 ```bash
 curl -X POST http://localhost:8000/predict \
   -F "file=@/path/to/eye_image.jpg"
 ```
 
-### Response
+### Ответ
 
 ```json
 {
@@ -629,7 +629,7 @@ curl -X POST http://localhost:8000/predict \
 }
 ```
 
-### Python Client
+### Клиент на Python
 
 ```python
 import requests
@@ -647,9 +647,9 @@ print(f"Confidence: {result['confidence']:.2%}")
 
 ---
 
-## Future Enhancements
+## 🔮 Планы по улучшению
 
-### 1. Multi-Model Ensemble
+### 1. Ансамбль из нескольких моделей
 ```python
 # Combine predictions from multiple models for better accuracy
 models = [model1, model2, model3]
@@ -657,19 +657,19 @@ predictions = [m.predict(batch) for m in models]
 final_pred = np.mean(predictions, axis=0)
 ```
 
-### 2. Grad-CAM Visualization
+### 2. Визуализация Grad-CAM
 ```python
 # Show which parts of the image influenced the prediction
 # Helps with model interpretability and clinical trust
 ```
 
-### 3. Uncertainty Quantification
+### 3. Квантификация неопределённости
 ```python
 # Provide confidence intervals, not just point estimates
 # Helps clinicians understand prediction reliability
 ```
 
-### 4. Model Versioning
+### 4. Версионирование моделей
 ```python
 # Track model versions and allow rollback
 # A/B testing of different model versions
@@ -677,20 +677,20 @@ final_pred = np.mean(predictions, axis=0)
 
 ---
 
-## Key Takeaways
+## 📌 Главное
 
-1. **Model**: MobileNetV2-based CNN with custom head (BatchNorm, Dense layers, Dropout)
-2. **Input**: 224×224 RGB images, scaled to 256 shortest side then center-cropped
-3. **Output**: 4-class classification with enhanced confidence metrics
-4. **Class Names**: Training labels normalized to stable API labels via `normalize_class_name()`
-5. **Performance**: ~1 second inference time, singleton pattern for efficiency
-6. **Safety**: Low-confidence predictions flagged with `needs_review=True` and `label="unrecognized"`
-7. **Model File**: `Eye_Disease_model_v3.keras` (~22 MB)
-8. **Class Names File**: `class_names.json` (dynamic loading prevents mismatch)
+1. **Модель**: CNN на базе MobileNetV2 с пользовательской головой (BatchNorm, слои Dense, Dropout)
+2. **Вход**: изображения RGB 224×224, масштабируемые до 256 по короткой стороне с центральным кропом
+3. **Выход**: классификация по 4 классам с расширенными метриками достоверности
+4. **Имена классов**: метки обучения нормализуются в стабильные метки API через `normalize_class_name()`
+5. **Производительность**: время инференса ~1 секунда, паттерн Singleton для эффективности
+6. **Безопасность**: предсказания с низкой достоверностью помечаются `needs_review=True` и `label="unrecognized"`
+7. **Файл модели**: `Eye_Disease_model_v3.keras` (~22 МБ)
+8. **Файл имён классов**: `class_names.json` (динамическая загрузка предотвращает расхождения)
 
 ---
 
-*For questions about the AI system, contact the AI/ML team lead.*
+*По вопросам системы ИИ обращайтесь к тимлиду команды ИИ/ML.*
 
-*Last Updated: May 3, 2026*  
-*Document Version: 2.0*
+*Последнее обновление: 3 мая 2026*  
+*Версия документа: 2.0*

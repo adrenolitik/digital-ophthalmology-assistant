@@ -1,42 +1,42 @@
-# Database Schema & Design Guide
+# Руководство по схеме и дизайну базы данных
 
-##  Overview
+## 🔍 Обзор
 
-This document provides a comprehensive guide to the database design, including schema, relationships, and data flow.
-
----
-
-##  Table of Contents
-
-1. [Database Overview](#database-overview)
-2. [Entity Relationship Diagram](#entity-relationship-diagram)
-3. [Table Schemas](#table-schemas)
-4. [Relationships](#relationships)
-5. [Data Flow](#data-flow)
-6. [Common Queries](#common-queries)
-7. [Database Migrations](#database-migrations)
+В этом документе представлено подробное руководство по дизайну базы данных: схема, связи и потоки данных.
 
 ---
 
-## Database Overview
+## 📋 Оглавление
 
-### Technology
+1. [Обзор базы данных](#обзор-базы-данных)
+2. [Диаграмма связей сущностей](#диаграмма-связей-сущностей)
+3. [Схемы таблиц](#схемы-таблиц)
+4. [Связи](#связи)
+5. [Поток данных](#поток-данных)
+6. [Типовые запросы](#типовые-запросы)
+7. [Миграции базы данных](#миграции-базы-данных)
 
-| Component | Technology |
+---
+
+## 🗄 Обзор базы данных
+
+### Технологии
+
+| Компонент | Технология |
 |-----------|------------|
 | **ORM** | SQLAlchemy 2.0+ |
-| **Development** | SQLite |
-| **Production** | PostgreSQL (recommended) |
-| **Connection Pooling** | SQLAlchemy Pool |
+| **Разработка** | SQLite |
+| **Продакшен** | PostgreSQL (рекомендуется) |
+| **Пул соединений** | SQLAlchemy Pool |
 
-### Database Location
+### Расположение базы данных
 
-- **Development**: `backend/predictions.db` (SQLite file)
-- **Production**: Configurable via `DATABASE_URL` environment variable
+- **Разработка**: `backend/predictions.db` (файл SQLite)
+- **Продакшен**: настраивается через переменную окружения `DATABASE_URL`
 
 ---
 
-## Entity Relationship Diagram
+## 📐 Диаграмма связей сущностей
 
 ```
 ┌─────────────────────┐
@@ -89,18 +89,18 @@ This document provides a comprehensive guide to the database design, including s
 └─────────────────────┘
 ```
 
-**Legend:**
-- PK = Primary Key
-- UQ = Unique Constraint
-- IX = Index
+**Легенда:**
+- PK = Primary Key (первичный ключ)
+- UQ = Unique Constraint (ограничение уникальности)
+- IX = Index (индекс)
 
 ---
 
-## Table Schemas
+## 📊 Схемы таблиц
 
 ### 1. predictions
 
-**Purpose:** Store AI prediction records for history tracking and audit purposes.
+**Назначение:** хранение записей предсказаний ИИ для истории и аудита.
 
 ```sql
 CREATE TABLE predictions (
@@ -115,17 +115,17 @@ CREATE INDEX idx_predictions_prediction ON predictions(prediction);
 CREATE INDEX idx_predictions_created_at ON predictions(created_at DESC);
 ```
 
-**Columns:**
+**Столбцы:**
 
-| Column | Type | Constraints | Description |
+| Столбец | Тип | Ограничения | Описание |
 |--------|------|-------------|-------------|
-| `id` | INTEGER | PK, AUTOINCREMENT | Unique record identifier |
-| `image_path` | VARCHAR(500) | NOT NULL | Path to uploaded image file |
-| `prediction` | VARCHAR(100) | NULLABLE | Predicted disease label |
-| `confidence` | FLOAT | NULLABLE | Confidence score (0.0 - 1.0) |
-| `created_at` | DATETIME | NOT NULL, DEFAULT | Timestamp of prediction |
+| `id` | INTEGER | PK, AUTOINCREMENT | Уникальный идентификатор записи |
+| `image_path` | VARCHAR(500) | NOT NULL | Путь к загруженному файлу изображения |
+| `prediction` | VARCHAR(100) | NULLABLE | Метка предсказанного заболевания |
+| `confidence` | FLOAT | NULLABLE | Оценка достоверности (0.0 – 1.0) |
+| `created_at` | DATETIME | NOT NULL, DEFAULT | Отметка времени предсказания |
 
-**Sample Data:**
+**Пример данных:**
 
 ```sql
 INSERT INTO predictions (image_path, prediction, confidence, created_at) VALUES
@@ -138,7 +138,7 @@ INSERT INTO predictions (image_path, prediction, confidence, created_at) VALUES
 
 ### 2. library_items
 
-**Purpose:** Store comprehensive disease information for the disease library section.
+**Назначение:** хранение подробной информации о заболеваниях для раздела библиотеки.
 
 ```sql
 CREATE TABLE library_items (
@@ -160,25 +160,25 @@ CREATE TABLE library_items (
 CREATE INDEX idx_library_items_disease_id ON library_items(disease_id);
 ```
 
-**Columns:**
+**Столбцы:**
 
-| Column | Type | Constraints | Description |
+| Столбец | Тип | Ограничения | Описание |
 |--------|------|-------------|-------------|
-| `id` | INTEGER | PK, AUTOINCREMENT | Unique record identifier |
-| `disease_id` | VARCHAR(100) | UNIQUE, NOT NULL | Disease identifier (e.g., "cataract") |
-| `name` | VARCHAR(200) | NOT NULL | English disease name |
-| `name_ar` | VARCHAR(200) | NOT NULL | Arabic disease name |
-| `short` | TEXT | NOT NULL | Short English description |
-| `short_ar` | TEXT | NOT NULL | Short Arabic description |
-| `symptoms_ar` | TEXT | NOT NULL | JSON array of symptoms (Arabic) |
-| `red_flags_ar` | TEXT | NOT NULL | JSON array of warning signs (Arabic) |
-| `safe_tips_ar` | TEXT | NOT NULL | JSON array of safe tips (Arabic) |
-| `when_to_see_doctor_ar` | TEXT | NOT NULL | When to consult doctor (Arabic) |
-| `risk_level` | VARCHAR(20) | NOT NULL | Risk level (Low, Moderate, High) |
-| `created_at` | DATETIME | NOT NULL, DEFAULT | Creation timestamp |
-| `updated_at` | DATETIME | NOT NULL, DEFAULT | Last update timestamp |
+| `id` | INTEGER | PK, AUTOINCREMENT | Уникальный идентификатор записи |
+| `disease_id` | VARCHAR(100) | UNIQUE, NOT NULL | Идентификатор заболевания (например, «cataract») |
+| `name` | VARCHAR(200) | NOT NULL | Название заболевания на английском |
+| `name_ar` | VARCHAR(200) | NOT NULL | Название заболевания на арабском |
+| `short` | TEXT | NOT NULL | Краткое описание на английском |
+| `short_ar` | TEXT | NOT NULL | Краткое описание на арабском |
+| `symptoms_ar` | TEXT | NOT NULL | JSON-массив симптомов (арабский) |
+| `red_flags_ar` | TEXT | NOT NULL | JSON-массив тревожных сигналов (арабский) |
+| `safe_tips_ar` | TEXT | NOT NULL | JSON-массив полезных советов (арабский) |
+| `when_to_see_doctor_ar` | TEXT | NOT NULL | Когда обратиться к врачу (арабский) |
+| `risk_level` | VARCHAR(20) | NOT NULL | Уровень риска (Low, Moderate, High) |
+| `created_at` | DATETIME | NOT NULL, DEFAULT | Время создания |
+| `updated_at` | DATETIME | NOT NULL, DEFAULT | Время последнего обновления |
 
-**Sample Data:**
+**Пример данных:**
 
 ```sql
 INSERT INTO library_items (disease_id, name, name_ar, short, short_ar, symptoms_ar, red_flags_ar, safe_tips_ar, when_to_see_doctor_ar, risk_level) VALUES
@@ -188,7 +188,7 @@ INSERT INTO library_items (disease_id, name, name_ar, short, short_ar, symptoms_
 ('keratitis', 'Keratitis', 'التهاب القرنية', 'Inflammation of the cornea.', 'التهاب القرنية.', '["ألم شديد", "احمرار", "حساسية للضوء"]', '["فقدان البصر", "تقرح القرنية"]', '["علاج فوري", "تجنب العدسات اللاصقة"]', 'فوراً - حالة طارئة', 'High');
 ```
 
-**JSON Field Examples:**
+**Примеры JSON-полей:**
 
 ```json
 // symptoms_ar
@@ -205,7 +205,7 @@ INSERT INTO library_items (disease_id, name, name_ar, short, short_ar, symptoms_
 
 ### 3. sections
 
-**Purpose:** Store educational content sections (About, Safety, Education).
+**Назначение:** хранение разделов образовательного контента (About, Safety, Education).
 
 ```sql
 CREATE TABLE sections (
@@ -218,18 +218,18 @@ CREATE TABLE sections (
 );
 ```
 
-**Columns:**
+**Столбцы:**
 
-| Column | Type | Constraints | Description |
+| Столбец | Тип | Ограничения | Описание |
 |--------|------|-------------|-------------|
-| `id` | INTEGER | PK, AUTOINCREMENT | Unique record identifier |
-| `section_type` | VARCHAR(50) | UNIQUE, NOT NULL | Section type (about, safety, education) |
-| `title` | VARCHAR(200) | NOT NULL | Section title |
-| `content` | TEXT | NOT NULL | JSON content structure |
-| `created_at` | DATETIME | NOT NULL, DEFAULT | Creation timestamp |
-| `updated_at` | DATETIME | NOT NULL, DEFAULT | Last update timestamp |
+| `id` | INTEGER | PK, AUTOINCREMENT | Уникальный идентификатор записи |
+| `section_type` | VARCHAR(50) | UNIQUE, NOT NULL | Тип раздела (about, safety, education) |
+| `title` | VARCHAR(200) | NOT NULL | Заголовок раздела |
+| `content` | TEXT | NOT NULL | JSON-структура контента |
+| `created_at` | DATETIME | NOT NULL, DEFAULT | Время создания |
+| `updated_at` | DATETIME | NOT NULL, DEFAULT | Время последнего обновления |
 
-**Sample Data:**
+**Пример данных:**
 
 ```sql
 INSERT INTO sections (section_type, title, content) VALUES
@@ -278,7 +278,7 @@ INSERT INTO sections (section_type, title, content) VALUES
 
 ### 4. questions
 
-**Purpose:** Store FAQ items for the questions/FAQ section.
+**Назначение:** хранение элементов FAQ для раздела вопросов/FAQ.
 
 ```sql
 CREATE TABLE questions (
@@ -290,17 +290,17 @@ CREATE TABLE questions (
 );
 ```
 
-**Columns:**
+**Столбцы:**
 
-| Column | Type | Constraints | Description |
+| Столбец | Тип | Ограничения | Описание |
 |--------|------|-------------|-------------|
-| `id` | INTEGER | PK, AUTOINCREMENT | Unique record identifier |
-| `question` | VARCHAR(500) | NOT NULL | FAQ question |
-| `answer` | TEXT | NOT NULL | FAQ answer |
-| `category` | VARCHAR(100) | NULLABLE | Category (technical, medical, general) |
-| `created_at` | DATETIME | NOT NULL, DEFAULT | Creation timestamp |
+| `id` | INTEGER | PK, AUTOINCREMENT | Уникальный идентификатор записи |
+| `question` | VARCHAR(500) | NOT NULL | Вопрос FAQ |
+| `answer` | TEXT | NOT NULL | Ответ FAQ |
+| `category` | VARCHAR(100) | NULLABLE | Категория (technical, medical, general) |
+| `created_at` | DATETIME | NOT NULL, DEFAULT | Время создания |
 
-**Sample Data:**
+**Пример данных:**
 
 ```sql
 INSERT INTO questions (question, answer, category) VALUES
@@ -311,9 +311,9 @@ INSERT INTO questions (question, answer, category) VALUES
 
 ---
 
-## Relationships
+## 🔗 Связи
 
-### Entity Relationships
+### Связи между сущностями
 
 ```
 ┌─────────────────────┐
@@ -333,21 +333,21 @@ INSERT INTO questions (question, answer, category) VALUES
 └─────────────────────┘
 ```
 
-**Note:** The `predictions.prediction` field references `library_items.disease_id` logically but not through a formal foreign key constraint. This allows flexibility in case the library is updated.
+**Примечание:** поле `predictions.prediction` логически ссылается на `library_items.disease_id`, но не через формальное ограничение внешнего ключа. Это даёт гибкость на случай обновления библиотеки.
 
-### Relationship Types
+### Типы связей
 
-| Relationship | Type | Description |
+| Связь | Тип | Описание |
 |--------------|------|-------------|
-| predictions → library_items | Many-to-One | Multiple predictions can reference the same disease |
-| sections → (none) | Standalone | Content sections are independent |
-| questions → (none) | Standalone | FAQ items are independent |
+| predictions → library_items | Многие к одному | Несколько предсказаний могут ссылаться на одно заболевание |
+| sections → (нет) | Автономные | Разделы контента независимы |
+| questions → (нет) | Автономные | Элементы FAQ независимы |
 
 ---
 
-## Data Flow
+## 💧 Поток данных
 
-### 1. Prediction Flow
+### 1. Поток предсказания
 
 ```
 User Upload → Backend Validates → AI Processes → Result Generated
@@ -360,7 +360,7 @@ User Upload → Backend Validates → AI Processes → Result Generated
                                       predictions table              JSON Response
 ```
 
-**Database Operations:**
+**Операции с базой данных:**
 
 ```python
 # 1. Create prediction record
@@ -384,7 +384,7 @@ db.delete(prediction)
 db.commit()
 ```
 
-### 2. Library Data Flow
+### 2. Поток данных библиотеки
 
 ```
 Database Seed → library_items table → API Endpoint → Frontend Display
@@ -392,7 +392,7 @@ Database Seed → library_items table → API Endpoint → Frontend Display
                                               Search/Filter/Display to User
 ```
 
-**Database Operations:**
+**Операции с базой данных:**
 
 ```python
 # 1. Get all diseases
@@ -413,9 +413,9 @@ disease = db.query(LibraryItem).filter(LibraryItem.disease_id == "cataract").fir
 
 ---
 
-## Common Queries
+## 🔎 Типовые запросы
 
-### Prediction Queries
+### Запросы к предсказаниям
 
 ```sql
 -- Get all predictions
@@ -442,7 +442,7 @@ DELETE FROM predictions
 WHERE created_at < datetime('now', '-30 days');
 ```
 
-### Library Queries
+### Запросы к библиотеке
 
 ```sql
 -- Get all diseases
@@ -459,7 +459,7 @@ SELECT * FROM library_items WHERE risk_level = 'High';
 SELECT * FROM library_items WHERE disease_id = 'cataract';
 ```
 
-### Section Queries
+### Запросы к разделам
 
 ```sql
 -- Get all sections
@@ -474,7 +474,7 @@ SET content = '{"new": "content"}', updated_at = CURRENT_TIMESTAMP
 WHERE section_type = 'about';
 ```
 
-### Question Queries
+### Запросы к вопросам
 
 ```sql
 -- Get all FAQs
@@ -490,9 +490,9 @@ WHERE question LIKE '%accuracy%' OR answer LIKE '%accuracy%';
 
 ---
 
-## Database Migrations
+## 🔄 Миграции базы данных
 
-### Creating Tables (SQLAlchemy)
+### Создание таблиц (SQLAlchemy)
 
 ```python
 # backend/app/database/db.py
@@ -507,7 +507,7 @@ def init_db() -> None:
     Base.metadata.create_all(bind=engine)
 ```
 
-### Adding a New Column
+### Добавление нового столбца
 
 ```python
 # 1. Update model
@@ -529,7 +529,7 @@ class Prediction(Base):
 # alembic upgrade head
 ```
 
-### Seeding Initial Data
+### Начальное заполнение данных
 
 ```python
 # backend/app/services/seed_service.py
@@ -576,9 +576,9 @@ def seed_content(db: Session) -> None:
 
 ---
 
-## Best Practices
+## 💡 Лучшие практики
 
-### 1. Connection Management
+### 1. Управление соединениями
 
 ```python
 # Use dependency injection for database sessions
@@ -589,7 +589,7 @@ async def list_results(db: Session = Depends(get_db)):
     return results
 ```
 
-### 2. Error Handling
+### 2. Обработка ошибок
 
 ```python
 try:
@@ -605,7 +605,7 @@ except Exception as e:
     raise HTTPException(status_code=500, detail="Database error")
 ```
 
-### 3. Bulk Operations
+### 3. Массовые операции
 
 ```python
 # Efficient bulk insert
@@ -616,7 +616,7 @@ db.bulk_insert_mappings(Prediction, [
 db.commit()
 ```
 
-### 4. Indexing
+### 4. Индексация
 
 ```python
 # Add indexes for frequently queried columns
@@ -625,7 +625,7 @@ CREATE INDEX idx_predictions_created_at ON predictions(created_at DESC);
 CREATE INDEX idx_library_items_disease_id ON library_items(disease_id);
 ```
 
-### 5. Data Validation
+### 5. Валидация данных
 
 ```python
 # Validate data before insertion
@@ -639,7 +639,7 @@ def validate_prediction(prediction: str, confidence: float):
 
 ---
 
-*For questions about the database, contact the Backend team lead.*
+*По вопросам базы данных обращайтесь к тимлиду команды бэкенда.*
 
-*Last Updated: April 29, 2026*  
-*Document Version: 1.0*
+*Последнее обновление: 29 апреля 2026*  
+*Версия документа: 1.0*

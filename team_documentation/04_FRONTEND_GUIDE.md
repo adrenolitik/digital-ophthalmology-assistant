@@ -1,45 +1,45 @@
-# Frontend Technical Guide
+# Техническое руководство по фронтенду
 
-##  Overview
+## 🔍 Обзор
 
-This document provides a comprehensive guide to the web frontend, including architecture, pages, styling, and JavaScript functionality.
-
----
-
-##  Table of Contents
-
-1. [Architecture Overview](#architecture-overview)
-2. [Project Structure](#project-structure)
-3. [Pages & Navigation](#pages--navigation)
-4. [Styling System](#styling-system)
-5. [JavaScript Architecture](#javascript-architecture)
-6. [API Integration](#api-integration)
-7. [Key Features](#key-features)
-8. [Best Practices](#best-practices)
+В этом документе представлено подробное руководство по веб-фронтенду: архитектура, страницы, стили и функциональность JavaScript.
 
 ---
 
-## Architecture Overview
+## 📋 Оглавление
 
-### Technology Stack
+1. [Обзор архитектуры](#обзор-архитектуры)
+2. [Структура проекта](#структура-проекта)
+3. [Страницы и навигация](#страницы-и-навигация)
+4. [Система стилей](#система-стилей)
+5. [Архитектура JavaScript](#архитектура-javascript)
+6. [Интеграция с API](#интеграция-с-api)
+7. [Основные возможности](#основные-возможности)
+8. [Лучшие практики](#лучшие-практики)
 
-| Component | Technology | Purpose |
+---
+
+## 🏗 Обзор архитектуры
+
+### Технологический стек
+
+| Компонент | Технология | Назначение |
 |-----------|------------|---------|
-| **Structure** | HTML5 | Semantic markup |
-| **Styling** | CSS3 (Custom) | Responsive design, theming |
-| **Interactivity** | Vanilla JavaScript | No framework dependencies |
-| **Icons** | Custom SVG (inline) | Consistent iconography |
-| **Storage** | LocalStorage | User preferences, settings |
+| **Структура** | HTML5 | Семантичная разметка |
+| **Стили** | CSS3 (собственные) | Адаптивный дизайн, темы |
+| **Интерактивность** | Ванильный JavaScript | Без зависимостей от фреймворков |
+| **Иконки** | Собственные SVG (инлайн) | Единая иконография |
+| **Хранилище** | LocalStorage | Предпочтения и настройки пользователя |
 
-### Design Philosophy
+### Философия проектирования
 
-- **No Framework**: Pure vanilla JavaScript for maximum performance and minimal dependencies
-- **Responsive**: Mobile-first design that works on all screen sizes
-- **Accessible**: WCAG 2.1 AA compliance with proper ARIA attributes
-- **Bilingual**: Full English/Arabic support with RTL layout
-- **Modern**: CSS custom properties, flexbox, grid, animations
+- **Без фреймворков**: чистый ванильный JavaScript для максимальной производительности и минимальных зависимостей
+- **Адаптивность**: подход «mobile-first», работа на любых размерах экрана
+- **Доступность**: соответствие WCAG 2.1 AA с корректными ARIA-атрибутами
+- **Двуязычность**: полная поддержка английского и арабского с макетом RTL
+- **Современность**: пользовательские CSS-свойства, flexbox, grid, анимации
 
-### Application Flow
+### Поток приложения
 
 ```
 User → HTML Page → CSS Styling → JavaScript Enhancement → API Calls → Dynamic Content
@@ -47,7 +47,7 @@ User → HTML Page → CSS Styling → JavaScript Enhancement → API Calls → 
 
 ---
 
-## Project Structure
+## 📁 Структура проекта
 
 ```
 frontend/
@@ -72,69 +72,69 @@ frontend/
 └── README.md                   # Frontend documentation
 ```
 
-### Key Files
+### Ключевые файлы
 
-| File | Lines | Purpose |
+| Файл | Строк | Назначение |
 |------|-------|---------|
-| `styles.css` | ~1500+ | All styling, responsive breakpoints, themes |
-| `app.js` | 759 | All JavaScript logic, API calls, UI interactions |
-| `icons.js` | ~200+ | SVG icon definitions as JavaScript functions |
+| `styles.css` | ~1500+ | Все стили, адаптивные точки перелома, темы |
+| `app.js` | 759 | Вся логика JavaScript, вызовы API, работа с UI |
+| `icons.js` | ~200+ | Определения SVG-иконок в виде JavaScript-функций |
 
 ---
 
-## Pages & Navigation
+## 📄 Страницы и навигация
 
-### 1. Homepage (`index.html`)
+### 1. Главная страница (`index.html`)
 
-**Purpose:** Landing page with project overview and featured diseases.
+**Назначение:** посадочная страница с обзором проекта и избранными заболеваниями.
 
-**Key Sections:**
-- Hero section with project title and tagline
-- Featured diseases grid (cards with hover effects)
-- Quick navigation to main features
-- Call-to-action buttons
+**Ключевые разделы:**
+- Hero-блок с названием проекта и слоганом
+- Сетка избранных заболеваний (карточки с эффектами при наведении)
+- Быстрая навигация по основным функциям
+- Кнопки призыва к действию
 
-**Data Sources:**
-- Disease data from backend API (`/api/v1/library`)
-- Content from backend (`/api/v1/content/home`)
-
----
-
-### 2. Diagnose Page (`diagnose.html`)
-
-**Purpose:** Main AI diagnosis interface for uploading and analyzing eye images.
-
-**Key Components:**
-- **Dropzone**: Drag-and-drop file upload area
-- **Preview**: Image preview with lightbox
-- **Analyze Button**: Triggers AI prediction
-- **Status Indicator**: Shows current state (idle, loading, done, error)
-- **Results Display**: Shows prediction with confidence score
-- **Reset Button**: Clears current case
-
-**Workflow:**
-1. User uploads/drops image
-2. Frontend validates file type and size
-3. Image preview displayed
-4. User clicks "Analyze"
-5. Image sent to backend (`POST /predict`)
-6. Results displayed with confidence score
-7. Prediction saved to database automatically
+**Источники данных:**
+- Данные заболеваний из API бэкенда (`/api/v1/library`)
+- Контент из бэкенда (`/api/v1/content/home`)
 
 ---
 
-### 3. Diseases Page (`diseases.html`)
+### 2. Страница диагностики (`diagnose.html`)
 
-**Purpose:** Comprehensive disease library with search and filter capabilities.
+**Назначение:** основной интерфейс диагностики ИИ для загрузки и анализа снимков глаз.
 
-**Key Features:**
-- **Search Bar**: Filter diseases by name or symptoms
-- **Disease Tabs**: Filter by specific disease category
-- **Disease Cards**: Detailed information for each condition
-- **Bilingual Content**: English and Arabic descriptions
-- **RTL Support**: Proper Arabic text rendering
+**Ключевые компоненты:**
+- **Dropzone**: область загрузки файлов перетаскиванием
+- **Предпросмотр**: просмотр изображения в лайтбоксе
+- **Кнопка «Анализ»**: запускает предсказание ИИ
+- **Индикатор статуса**: показывает текущее состояние (покой, загрузка, готово, ошибка)
+- **Отображение результатов**: показывает предсказание с оценкой достоверности
+- **Кнопка сброса**: очищает текущий случай
 
-**Data Structure per Disease:**
+**Рабочий процесс:**
+1. Пользователь загружает/перетаскивает изображение
+2. Фронтенд проверяет тип и размер файла
+3. Отображается предпросмотр изображения
+4. Пользователь нажимает «Анализ»
+5. Изображение отправляется в бэкенд (`POST /predict`)
+6. Результаты отображаются с оценкой достоверности
+7. Предсказание автоматически сохраняется в базе данных
+
+---
+
+### 3. Страница заболеваний (`diseases.html`)
+
+**Назначение:** подробная библиотека заболеваний с поиском и фильтрацией.
+
+**Основные возможности:**
+- **Строка поиска**: фильтрация заболеваний по названию или симптомам
+- **Вкладки заболеваний**: фильтр по конкретной категории
+- **Карточки заболеваний**: подробная информация о каждом состоянии
+- **Двуязычный контент**: описания на английском и арабском
+- **Поддержка RTL**: корректное отображение арабского текста
+
+**Структура данных заболевания:**
 ```javascript
 {
   id: "cataract",
@@ -152,70 +152,70 @@ frontend/
 
 ---
 
-### 4. History Page (`history.html`)
+### 4. Страница истории (`history.html`)
 
-**Purpose:** View and manage past predictions.
+**Назначение:** просмотр и управление прошлыми предсказаниями.
 
-**Key Features:**
-- **Filter Dropdown**: Filter by disease type
-- **History List**: Chronological list of predictions
-- **Delete Functionality**: Remove individual or all records
-- **Statistics**: Count and distribution of predictions
+**Основные возможности:**
+- **Выпадающий фильтр**: фильтрация по типу заболевания
+- **Список истории**: хронологический список предсказаний
+- **Функция удаления**: удаление отдельных или всех записей
+- **Статистика**: количество и распределение предсказаний
 
-**Data Source:**
-- Backend API: `GET /api/v1/results`
-
----
-
-### 5. About Page (`about.html`)
-
-**Purpose:** Project information, team members, and technology stack.
-
-**Key Sections:**
-- Project overview and objectives
-- Team members list
-- Technology stack
-- Supervisor information
-- University affiliation
-
-**Data Source:**
-- Backend API: `GET /api/v1/content/about`
+**Источник данных:**
+- API бэкенда: `GET /api/v1/results`
 
 ---
 
-### 6. Safety Page (`safety.html`)
+### 5. Страница «О проекте» (`about.html`)
 
-**Purpose:** Important safety information and disclaimers.
+**Назначение:** информация о проекте, участниках команды и технологическом стеке.
 
-**Key Components:**
-- Warning banner
-- Safety cards with guidelines
-- Clinical escalation advice
-- Medical disclaimer
+**Ключевые разделы:**
+- Обзор проекта и его цели
+- Список участников команды
+- Технологический стек
+- Информация о руководителе
+- Принадлежность к университету
 
-**Data Source:**
-- Backend API: `GET /api/v1/content/safety`
-
----
-
-### 7. Education Page (`education.html`)
-
-**Purpose:** Patient education materials and eye care tips.
-
-**Key Features:**
-- Educational blocks with icons
-- Bilingual content (English/Arabic)
-- Preventive care tips
-- Healthy eye habits
-
-**Data Source:**
-- Backend API: `GET /api/v1/content/education`
+**Источник данных:**
+- API бэкенда: `GET /api/v1/content/about`
 
 ---
 
-## Styling System
+### 6. Страница «Безопасность» (`safety.html`)
 
-### CSS Custom Properties (Variables)
+**Назначение:** важная информация о безопасности и дисклеймеры.
+
+**Ключевые компоненты:**
+- Баннер предупреждения
+- Карточки безопасности с рекомендациями
+- Советы по клинической эскалации
+- Медицинский дисклеймер
+
+**Источник данных:**
+- API бэкенда: `GET /api/v1/content/safety`
+
+---
+
+### 7. Страница «Обучение» (`education.html`)
+
+**Назначение:** образовательные материалы для пациентов и советы по уходу за глазами.
+
+**Основные возможности:**
+- Образовательные блоки с иконками
+- Двуязычный контент (английский/арабский)
+- Советы по профилактике
+- Полезные привычки для здоровья глаз
+
+**Источник данных:**
+- API бэкенда: `GET /api/v1/content/education`
+
+---
+
+## 🎨 Система стилей
+
+### Пользовательские CSS-свойства (переменные)
 
 ```css
 :root {
@@ -266,7 +266,7 @@ frontend/
 }
 ```
 
-### Responsive Breakpoints
+### Адаптивные точки перелома
 
 ```css
 /* Mobile First Approach */
@@ -288,29 +288,29 @@ frontend/
 }
 ```
 
-### Key CSS Classes
+### Ключевые CSS-классы
 
-| Class | Purpose |
+| Класс | Назначение |
 |-------|---------|
-| `.container` | Max-width container with padding |
-| `.card` | Card component with shadow and border |
-| `.btn` | Button base styles |
-| `.btn-primary` | Primary action button |
-| `.btn-ghost` | Subtle button with hover effect |
-| `.btn-outline` | Outlined button |
-| `.grid` | CSS Grid layout |
-| `.flex` | Flexbox layout |
-| `.stack` | Vertical stacking with gap |
-| `.reveal` | Scroll animation trigger |
-| `.tilt-card` | 3D tilt effect on hover |
-| `.rtl` | Right-to-left text direction |
-| `.ltr` | Left-to-right text direction |
+| `.container` | Контейнер с максимальной шириной и отступами |
+| `.card` | Компонент карточки с тенью и рамкой |
+| `.btn` | Базовые стили кнопки |
+| `.btn-primary` | Кнопка основного действия |
+| `.btn-ghost` | Ненавязчивая кнопка с эффектом при наведении |
+| `.btn-outline` | Кнопка с контуром |
+| `.grid` | Раскладка CSS Grid |
+| `.flex` | Раскладка Flexbox |
+| `.stack` | Вертикальная укладка с промежутком |
+| `.reveal` | Триггер анимации появления при прокрутке |
+| `.tilt-card` | 3D-эффект наклона при наведении |
+| `.rtl` | Направление текста справа налево |
+| `.ltr` | Направление текста слева направо |
 
 ---
 
-## JavaScript Architecture
+## 🧩 Архитектура JavaScript
 
-### Main Application Structure (`app.js`)
+### Основная структура приложения (`app.js`)
 
 ```javascript
 (() => {
@@ -352,9 +352,9 @@ frontend/
 })();
 ```
 
-### Key Functions
+### Ключевые функции
 
-#### 1. Theme Management
+#### 1. Управление темой
 
 ```javascript
 function initTheme() {
@@ -375,7 +375,7 @@ function initTheme() {
 }
 ```
 
-#### 2. Navigation
+#### 2. Навигация
 
 ```javascript
 function initNav() {
@@ -391,7 +391,7 @@ function initNav() {
 }
 ```
 
-#### 3. Reveal Animation System
+#### 3. Система анимаций появления
 
 ```javascript
 function initRevealSystem() {
@@ -419,7 +419,7 @@ function initRevealSystem() {
 }
 ```
 
-#### 4. Diagnosis Page Logic
+#### 4. Логика страницы диагностики
 
 ```javascript
 function initDiagnosePage() {
@@ -487,7 +487,7 @@ function initDiagnosePage() {
 }
 ```
 
-#### 5. API Integration
+#### 5. Интеграция с API
 
 ```javascript
 async function predictImage(file) {
@@ -521,9 +521,9 @@ async function parseApiResponse(response) {
 
 ---
 
-## API Integration
+## 🔗 Интеграция с API
 
-### Base Configuration
+### Базовая конфигурация
 
 ```javascript
 const API_ROOT = (window.DOA_API_BASE || 
@@ -532,17 +532,17 @@ const API_ROOT = (window.DOA_API_BASE ||
 const CONTENT_API_BASE = `${API_ROOT}/api/v1`;
 ```
 
-### API Functions
+### Функции API
 
-| Function | Endpoint | Purpose |
+| Функция | Эндпоинт | Назначение |
 |----------|----------|---------|
-| `predictImage(file)` | `POST /predict` | AI disease prediction |
-| `listResults(prediction)` | `GET /api/v1/results` | Get prediction history |
-| `deleteResult(id)` | `DELETE /api/v1/results/{id}` | Delete a prediction |
-| `listLibrary(q, name)` | `GET /api/v1/library` | Get disease information |
-| `getSectionContent(type)` | `GET /api/v1/content/{type}` | Get page content |
+| `predictImage(file)` | `POST /predict` | Предсказание заболевания ИИ |
+| `listResults(prediction)` | `GET /api/v1/results` | Получение истории предсказаний |
+| `deleteResult(id)` | `DELETE /api/v1/results/{id}` | Удаление предсказания |
+| `listLibrary(q, name)` | `GET /api/v1/library` | Получение информации о заболеваниях |
+| `getSectionContent(type)` | `GET /api/v1/content/{type}` | Получение контента страницы |
 
-### Error Handling
+### Обработка ошибок
 
 ```javascript
 async function parseApiResponse(response) {
@@ -564,53 +564,53 @@ async function parseApiResponse(response) {
 
 ---
 
-## Key Features
+## ✨ Основные возможности
 
-### 1. Theme System
+### 1. Система тем
 
-- **Light/Dark Mode**: Automatic detection + manual toggle
-- **Persistence**: Theme preference saved in LocalStorage
-- **Smooth Transition**: CSS transitions for theme switching
+- **Светлый/тёмный режим**: автоопределение + ручное переключение
+- **Сохранение**: предпочтение о теме хранится в LocalStorage
+- **Плавные переходы**: CSS-переходы при смене темы
 
-### 2. Responsive Navigation
+### 2. Адаптивная навигация
 
-- **Mobile Menu**: Hamburger menu for mobile devices
-- **Desktop Menu**: Full navigation bar for larger screens
-- **Accessibility**: Proper ARIA attributes and keyboard navigation
+- **Мобильное меню**: гамбургер-меню для мобильных устройств
+- **Меню на компьютере**: полноценная навигационная панель для больших экранов
+- **Доступность**: корректные ARIA-атрибуты и навигация с клавиатуры
 
-### 3. Image Upload & Preview
+### 3. Загрузка и предпросмотр изображений
 
-- **Drag and Drop**: Intuitive file upload
-- **File Validation**: Type and size checking
-- **Image Preview**: Lightbox-style preview
-- **Progress Indication**: Loading states and status
+- **Перетаскивание**: интуитивная загрузка файлов
+- **Валидация файлов**: проверка типа и размера
+- **Предпросмотр**: просмотр в стиле лайтбокса
+- **Индикация прогресса**: состояния загрузки и статусы
 
-### 4. Animations & Effects
+### 4. Анимации и эффекты
 
-- **Scroll Reveal**: Elements animate in as user scrolls
-- **Tilt Effect**: 3D card tilt on mouse movement
-- **Ripple Effect**: Material Design-style button ripples
-- **Parallax**: Hero section parallax on scroll
+- **Появление при прокрутке**: элементы анимируются при прокрутке
+- **Эффект наклона**: 3D-наклон карточки при движении мыши
+- **Эффект ряби**: рябь на кнопках в стиле Material Design
+- **Параллакс**: параллакс hero-блока при прокрутке
 
-### 5. Accessibility
+### 5. Доступность
 
-- **Keyboard Navigation**: Full keyboard support
-- **Screen Reader**: Proper ARIA labels and roles
-- **Focus Management**: Visible focus indicators
-- **Reduced Motion**: Respects user's motion preferences
+- **Навигация с клавиатуры**: полная поддержка клавиатуры
+- **Скринридеры**: корректные ARIA-метки и роли
+- **Управление фокусом**: видимые индикаторы фокуса
+- **Ограниченная анимация**: учёт предпочтений пользователя по движению
 
-### 6. Bilingual Support
+### 6. Двуязычная поддержка
 
-- **English/Arabic**: Full content in both languages
-- **RTL Layout**: Proper right-to-left text rendering
-- **Language Toggle**: Easy language switching
-- **Font Support**: Arabic-friendly fonts
+- **Английский/арабский**: полный контент на обоих языках
+- **Макет RTL**: корректное отображение текста справа налево
+- **Переключение языка**: простая смена языка
+- **Поддержка шрифтов**: шрифты, дружественные к арабскому
 
 ---
 
-## Best Practices
+## 💡 Лучшие практики
 
-### 1. Code Organization
+### 1. Организация кода
 
 ```javascript
 // Use IIFE to avoid global scope pollution
@@ -637,7 +637,7 @@ async function parseApiResponse(response) {
 })();
 ```
 
-### 2. DOM Manipulation
+### 2. Работа с DOM
 
 ```javascript
 // Use helper functions for common operations
@@ -650,12 +650,12 @@ function escapeHtml(text) {
     .replace(/&/g, "&")
     .replace(/</g, "<")
     .replace(/>/g, ">")
-    .replace(/\"/g, """)
+    .replace(/\"/g, "")
     .replace(/'/g, "&#039;");
 }
 ```
 
-### 3. Event Delegation
+### 3. Делегирование событий
 
 ```javascript
 // Use event delegation for dynamic content
@@ -667,7 +667,7 @@ container.addEventListener("click", (e) => {
 });
 ```
 
-### 4. Async Operations
+### 4. Асинхронные операции
 
 ```javascript
 // Always handle errors in async operations
@@ -683,7 +683,7 @@ async function fetchData() {
 }
 ```
 
-### 5. Performance
+### 5. Производительность
 
 ```javascript
 // Debounce expensive operations
@@ -712,20 +712,20 @@ const observer = new IntersectionObserver((entries) => {
 
 ---
 
-## Running the Frontend
+## ▶ Запуск фронтенда
 
-### Development Server
+### Сервер разработки
 
 ```bash
 cd frontend
 python3 -m http.server 8080
 ```
 
-Open: http://127.0.0.1:8080/pages/index.html
+Откройте: http://127.0.0.1:8080/pages/index.html
 
-### Configure API URL
+### Настройка URL API
 
-If backend is not on default URL:
+Если бэкенд находится не на адресе по умолчанию:
 
 ```javascript
 // In browser console:
@@ -733,28 +733,28 @@ localStorage.setItem("doa-api-base", "http://your-backend-url:8000");
 location.reload();
 ```
 
-### Production Deployment
+### Развёртывание в продакшене
 
-1. **Static Hosting**: Deploy `frontend/` directory to any static host
-2. **CDN**: Use CDN for better performance
-3. **Environment Variables**: Set API URL via `window.DOA_API_BASE`
+1. **Статический хостинг**: разместите каталог `frontend/` на любом статическом хостинге
+2. **CDN**: используйте CDN для лучшей производительности
+3. **Переменные окружения**: задайте URL API через `window.DOA_API_BASE`
 
 ---
 
-## Browser Support
+## 🌐 Поддержка браузеров
 
-| Browser | Version | Support |
+| Браузер | Версия | Поддержка |
 |---------|---------|---------|
-| Chrome | 90+ |  Full |
-| Firefox | 88+ |  Full |
-| Safari | 14+ |  Full |
-| Edge | 90+ |  Full |
-| Mobile Safari | iOS 14+ |  Full |
-| Chrome Mobile | Android 9+ |  Full |
+| Chrome | 90+ |  Полная |
+| Firefox | 88+ |  Полная |
+| Safari | 14+ |  Полная |
+| Edge | 90+ |  Полная |
+| Mobile Safari | iOS 14+ |  Полная |
+| Chrome Mobile | Android 9+ |  Полная |
 
 ---
 
-*For questions about the frontend, contact the Frontend team lead.*
+*По вопросам фронтенда обращайтесь к тимлиду команды фронтенда.*
 
-*Last Updated: April 29, 2026*  
-*Document Version: 1.0*
+*Последнее обновление: 29 апреля 2026*  
+*Версия документа: 1.0*

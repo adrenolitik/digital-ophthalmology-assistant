@@ -1,72 +1,72 @@
-# Backend API Technical Guide
+# Техническое руководство по API бэкенда
 
-##  Overview
+## 🔍 Обзор
 
-This document provides a comprehensive guide to the FastAPI backend, including all endpoints, data models, and implementation details.
+В этом документе представлено подробное руководство по бэкенду на FastAPI: все эндпоинты, модели данных и детали реализации.
 
-### Recent Improvements (v1.1)
+### Недавние улучшения (v1.1)
 
-The following enhancements have been implemented to improve reliability, scalability, and alignment with the project methodology:
+Реализованы следующие улучшения для повышения надёжности, масштабируемости и соответствия методологии проекта:
 
-1. **Standardized Disease Class Names**: All disease labels are now consistently formatted (lowercase with underscores: `healthy_eye`, `conjunctivitis`, `cataract`, `keratitis`).
+1. **Стандартизированные имена классов заболеваний**: все метки заболеваний теперь оформляются единообразно (строчными с подчёркиваниями: `healthy_eye`, `conjunctivitis`, `cataract`, `keratitis`).
 
-2. **Improved Preprocessing Pipeline**: The preprocessing now uses a proper scale-then-crop approach: scale shortest side to 256 (maintaining aspect ratio), then center crop to 224×224. This matches the training pipeline exactly.
+2. **Улучшенный конвейер препроцессинга**: теперь используется корректный подход «сначала масштабирование, затем кроп»: короткая сторона масштабируется до 256 (с сохранением пропорций), затем центральный кроп до 224×224. Это в точности соответствует обучающему конвейеру.
 
-3. **Request ID Tracking**: Every request now receives a unique UUID for end-to-end tracing, logged in request headers (`X-Request-ID`) for debugging and monitoring.
+3. **Отслеживание по Request ID**: каждый запрос теперь получает уникальный UUID для сквозной трассировки, он логируется в заголовке запроса (`X-Request-ID`) для отладки и мониторинга.
 
-4. **Pagination Support**: The `/api/v1/results` endpoint now supports pagination with configurable page size (default 20, max 100) to handle large datasets efficiently.
+4. **Поддержка пагинации**: эндпоинт `/api/v1/results` теперь поддерживает пагинацию с настраиваемым размером страницы (по умолчанию 20, максимум 100) для эффективной работы с большими наборами данных.
 
-5. **Enhanced Error Handling**: Improved validation including image dimension constraints (min 50×50, max 4096×4096 pixels) and more descriptive error messages.
+5. **Улучшенная обработка ошибок**: расширенная валидация, включая ограничения на размеры изображения (минимум 50×50, максимум 4096×4096 пикселей), и более информативные сообщения об ошибках.
 
-6. **Comprehensive Test Suite**: Added pytest-based tests covering prediction validation, AI service functionality, and the Center Crop algorithm.
+6. **Полный набор тестов**: добавлены тесты на pytest, покрывающие валидацию предсказаний, работу сервиса ИИ и алгоритм центрального кропа.
 
-7. **Production-Ready Docker**: Multi-stage build with non-root user, health checks, and optimized image size.
-
----
-
-##  Table of Contents
-
-1. [Architecture Overview](#architecture-overview)
-2. [Project Structure](#project-structure)
-3. [API Endpoints Reference](#api-endpoints-reference)
-4. [Database Models](#database-models)
-5. [Configuration](#configuration)
-6. [Error Handling](#error-handling)
-7. [Best Practices](#best-practices)
+7. **Docker, готовый к продакшену**: многостадийная сборка, непривилегированный пользователь, проверки работоспособности и оптимизированный размер образа.
 
 ---
 
-## Architecture Overview
+## 📋 Оглавление
 
-### Technology Stack
+1. [Обзор архитектуры](#обзор-архитектуры)
+2. [Структура проекта](#структура-проекта)
+3. [Справочник эндпоинтов API](#справочник-эндпоинтов-api)
+4. [Модели базы данных](#модели-базы-данных)
+5. [Конфигурация](#конфигурация)
+6. [Обработка ошибок](#обработка-ошибок)
+7. [Лучшие практики](#лучшие-практики)
 
-| Component | Technology | Version |
+---
+
+## 🏗 Обзор архитектуры
+
+### Технологический стек
+
+| Компонент | Технология | Версия |
 |-----------|------------|---------|
-| **Framework** | FastAPI | >=0.109.0 |
-| **Language** | Python | 3.11+ |
-| **Database ORM** | SQLAlchemy | >=2.0.25 |
-| **Database** | SQLite (dev) / PostgreSQL (prod) | - |
-| **Validation** | Pydantic | >=2.5.0 |
-| **AI/ML** | TensorFlow | >=2.15.0 |
-| **Image Processing** | Pillow | >=10.2.0 |
-| **Model Hub** | Hugging Face Hub | >=0.20.0 |
+| **Фреймворк** | FastAPI | >=0.109.0 |
+| **Язык** | Python | 3.11+ |
+| **ORM базы данных** | SQLAlchemy | >=2.0.25 |
+| **База данных** | SQLite (dev) / PostgreSQL (prod) | - |
+| **Валидация** | Pydantic | >=2.5.0 |
+| **ИИ/ML** | TensorFlow | >=2.15.0 |
+| **Обработка изображений** | Pillow | >=10.2.0 |
+| **Хаб моделей** | Hugging Face Hub | >=0.20.0 |
 
-### Application Flow
+### Поток приложения
 
 ```
 Request → Middleware → Router → Service → Database/AI → Response
 ```
 
-### Key Design Patterns
+### Ключевые паттерны проектирования
 
-1. **Dependency Injection**: FastAPI's Depends() for database sessions
-2. **Repository Pattern**: Services abstract database operations
-3. **Singleton Pattern**: AI model loaded once
-4. **Context Managers**: Proper resource cleanup
+1. **Внедрение зависимостей**: `Depends()` в FastAPI для сессий базы данных
+2. **Паттерн «Repository»**: сервисы абстрагируют операции с базой данных
+3. **Паттерн Singleton**: модель ИИ загружается один раз
+4. **Контекстные менеджеры**: корректное освобождение ресурсов
 
 ---
 
-## Project Structure
+## 📁 Структура проекта
 
 ```
 backend/
@@ -106,16 +106,16 @@ backend/
 
 ---
 
-## API Endpoints Reference
+## 📡 Справочник эндпоинтов API
 
-### Base URL
+### Базовый URL
 
 ```
 Development: http://localhost:8000
 Production: http://your-domain.com
 ```
 
-### API Documentation
+### Документация API
 
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
@@ -123,13 +123,13 @@ Production: http://your-domain.com
 
 ---
 
-### 1. Health Check
+### 1. Проверка работоспособности
 
-**Endpoint:** `GET /health`
+**Эндпоинт:** `GET /health`
 
-**Description:** Check if the API is running and healthy.
+**Описание:** проверяет, работает ли API и в норме ли он.
 
-**Response:**
+**Ответ:**
 ```json
 {
   "status": "healthy",
@@ -137,19 +137,19 @@ Production: http://your-domain.com
 }
 ```
 
-**Status Codes:**
-- `200 OK`: API is healthy
-- `500 Internal Server Error`: API is unhealthy
+**Коды статуса:**
+- `200 OK`: API в норме
+- `500 Internal Server Error`: неполадки в API
 
 ---
 
-### 2. Root Endpoint
+### 2. Корневой эндпоинт
 
-**Endpoint:** `GET /`
+**Эндпоинт:** `GET /`
 
-**Description:** Get API information and available documentation.
+**Описание:** получение информации об API и доступной документации.
 
-**Response:**
+**Ответ:**
 ```json
 {
   "name": "Digital Ophthalmology Assistant",
@@ -161,20 +161,20 @@ Production: http://your-domain.com
 
 ---
 
-### 3. Predict Eye Disease
+### 3. Предсказание заболевания глаза
 
-**Endpoint:** `POST /predict`
+**Эндпоинт:** `POST /predict`
 
-**Description:** Upload an eye image and get AI-powered disease classification. The system uses a custom Center Crop preprocessing algorithm to isolate the ocular region before inference.
+**Описание:** загрузка снимка глаза и получение классификации заболевания на базе ИИ. Перед инференсом система использует собственный алгоритм препроцессинга с центральным кропом для выделения области глаза.
 
-**Request:**
+**Запрос:**
 - **Content-Type:** `multipart/form-data`
-- **Body:** 
-  - `file` (binary): Image file (JPG, PNG, BMP, WebP)
-  - Max size: 10 MB
-  - Image dimensions: Min 50×50px, Max 4096×4096px
+- **Тело:**
+  - `file` (binary): файл изображения (JPG, PNG, BMP, WebP)
+  - Максимальный размер: 10 МБ
+  - Размеры изображения: минимум 50×50px, максимум 4096×4096px
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 {
   "label": "healthy_eye",
@@ -182,26 +182,26 @@ Production: http://your-domain.com
 }
 ```
 
-**Valid Prediction Labels:**
-- `healthy_eye` - Normal eye without abnormalities
-- `conjunctivitis` - Inflammation of the conjunctiva
-- `cataract` - Lens opacification
-- `keratitis` - Corneal inflammation
+**Допустимые метки предсказаний:**
+- `healthy_eye` — нормальный глаз без отклонений
+- `conjunctivitis` — воспаление конъюнктивы
+- `cataract` — помутнение хрусталика
+- `keratitis` — воспаление роговицы
 
-**Error Responses:**
+**Ответы об ошибках:**
 
-| Code | Reason | Response |
+| Код | Причина | Ответ |
 |------|--------|----------|
-| `400` | Missing filename | `{"detail": "Missing filename in upload"}` |
-| `400` | Empty file | `{"detail": "Empty file received"}` |
-| `400` | Image too small | `{"detail": "Image dimensions too small..."}` |
-| `400` | Image too large | `{"detail": "Image dimensions too large..."}` |
-| `413` | File too large | `{"detail": "File too large"}` |
-| `415` | Unsupported type | `{"detail": "Unsupported file type: .gif"}` |
-| `500` | Model not found | `{"detail": "Model not found. Please ensure the model is properly deployed."}` |
-| `500` | Prediction failed | `{"detail": "Prediction failed due to an internal error"}` |
+| `400` | Нет имени файла | `{"detail": "Missing filename in upload"}` |
+| `400` | Пустой файл | `{"detail": "Empty file received"}` |
+| `400` | Изображение слишком маленькое | `{"detail": "Image dimensions too small..."}` |
+| `400` | Изображение слишком большое | `{"detail": "Image dimensions too large..."}` |
+| `413` | Файл слишком большой | `{"detail": "File too large"}` |
+| `415` | Неподдерживаемый тип | `{"detail": "Unsupported file type: .gif"}` |
+| `500` | Модель не найдена | `{"detail": "Model not found. Please ensure the model is properly deployed."}` |
+| `500` | Сбой предсказания | `{"detail": "Prediction failed due to an internal error"}` |
 
-**Implementation:**
+**Реализация:**
 ```python
 # backend/app/routes/predict.py
 @router.post("/predict", response_model=dict[str, str | float])
@@ -220,21 +220,21 @@ async def run_prediction(
 
 ---
 
-### 4. List Prediction Results
+### 4. Список результатов предсказаний
 
-**Endpoint:** `GET /api/v1/results`
+**Эндпоинт:** `GET /api/v1/results`
 
-**Description:** Retrieve prediction records with optional filtering and pagination.
+**Описание:** получение записей предсказаний с опциональной фильтрацией и пагинацией.
 
-**Query Parameters:**
-- `min_confidence` (optional): Filter by minimum confidence score (0.0-1.0)
-- `prediction` (optional): Filter by prediction label
-- `date_from` (optional): Filter by start date (ISO 8601 format)
-- `date_to` (optional): Filter by end date (ISO 8601 format)
-- `page` (optional): Page number, 1-indexed (default: 1)
-- `page_size` (optional): Results per page (default: 20, max: 100)
+**Параметры запроса:**
+- `min_confidence` (необязательный): фильтр по минимальной достоверности (0.0–1.0)
+- `prediction` (необязательный): фильтр по метке предсказания
+- `date_from` (необязательный): фильтр по дате начала (формат ISO 8601)
+- `date_to` (необязательный): фильтр по дате окончания (формат ISO 8601)
+- `page` (необязательный): номер страницы, отсчёт с 1 (по умолчанию: 1)
+- `page_size` (необязательный): результатов на страницу (по умолчанию: 20, максимум: 100)
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 {
   "data": [
@@ -264,7 +264,7 @@ async def run_prediction(
 }
 ```
 
-**Implementation:**
+**Реализация:**
 ```python
 # backend/app/routes/results.py
 @router.get("/results")
@@ -308,16 +308,16 @@ def list_results(
 
 ---
 
-### 5. Get Single Result
+### 5. Получение одного результата
 
-**Endpoint:** `GET /api/v1/results/{result_id}`
+**Эндпоинт:** `GET /api/v1/results/{result_id}`
 
-**Description:** Retrieve a specific prediction by ID.
+**Описание:** получение конкретного предсказания по ID.
 
-**Path Parameters:**
-- `result_id` (integer): Prediction record ID
+**Параметры пути:**
+- `result_id` (целое число): ID записи предсказания
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 {
   "id": 1,
@@ -328,43 +328,43 @@ def list_results(
 }
 ```
 
-**Error Responses:**
-- `404 Not Found`: Result with ID not found
+**Ответы об ошибках:**
+- `404 Not Found`: результат с указанным ID не найден
 
 ---
 
-### 6. Delete Result
+### 6. Удаление результата
 
-**Endpoint:** `DELETE /api/v1/results/{result_id}`
+**Эндпоинт:** `DELETE /api/v1/results/{result_id}`
 
-**Description:** Delete a specific prediction record.
+**Описание:** удаление конкретной записи предсказания.
 
-**Path Parameters:**
-- `result_id` (integer): Prediction record ID
+**Параметры пути:**
+- `result_id` (целое число): ID записи предсказания
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 {
   "message": "Result deleted successfully"
 }
 ```
 
-**Error Responses:**
-- `404 Not Found`: Result with ID not found
+**Ответы об ошибках:**
+- `404 Not Found`: результат с указанным ID не найден
 
 ---
 
-### 7. List Disease Library
+### 7. Список библиотеки заболеваний
 
-**Endpoint:** `GET /api/v1/library`
+**Эндпоинт:** `GET /api/v1/library`
 
-**Description:** Retrieve disease information with search and filter capabilities.
+**Описание:** получение информации о заболеваниях с возможностями поиска и фильтрации.
 
-**Query Parameters:**
-- `q` (optional): Search term (searches in name and symptoms)
-- `name` (optional): Filter by specific disease name
+**Параметры запроса:**
+- `q` (необязательный): поисковый запрос (поиск по названию и симптомам)
+- `name` (необязательный): фильтр по конкретному названию заболевания
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 [
   {
@@ -386,16 +386,16 @@ def list_results(
 
 ---
 
-### 8. Get Disease Details
+### 8. Получение подробной информации о заболевании
 
-**Endpoint:** `GET /api/v1/library/{disease_id}`
+**Эндпоинт:** `GET /api/v1/library/{disease_id}`
 
-**Description:** Get detailed information about a specific disease.
+**Описание:** получение подробной информации о конкретном заболевании.
 
-**Path Parameters:**
-- `disease_id` (string): Disease identifier
+**Параметры пути:**
+- `disease_id` (строка): идентификатор заболевания
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 {
   "id": "cataract",
@@ -413,16 +413,16 @@ def list_results(
 
 ---
 
-### 9. Get Content Section
+### 9. Получение раздела контента
 
-**Endpoint:** `GET /api/v1/content/{section_type}`
+**Эндпоинт:** `GET /api/v1/content/{section_type}`
 
-**Description:** Retrieve educational content for specific sections.
+**Описание:** получение образовательного контента для конкретных разделов.
 
-**Path Parameters:**
-- `section_type` (string): Section type (about, safety, education)
+**Параметры пути:**
+- `section_type` (строка): тип раздела (about, safety, education)
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 {
   "title": "Safety Information",
@@ -441,13 +441,13 @@ def list_results(
 
 ---
 
-### 10. Get Questions/FAQ
+### 10. Получение вопросов/FAQ
 
-**Endpoint:** `GET /api/v1/questions`
+**Эндпоинт:** `GET /api/v1/questions`
 
-**Description:** Retrieve frequently asked questions.
+**Описание:** получение часто задаваемых вопросов.
 
-**Success Response (200):**
+**Успешный ответ (200):**
 ```json
 [
   {
@@ -461,13 +461,13 @@ def list_results(
 
 ---
 
-## Database Models
+## 🗄 Модели базы данных
 
-### 1. Prediction Model
+### 1. Модель Prediction
 
-**Table:** `predictions`
+**Таблица:** `predictions`
 
-**Purpose:** Store AI prediction records for history tracking.
+**Назначение:** хранение записей предсказаний ИИ для истории.
 
 ```python
 class Prediction(Base):
@@ -480,20 +480,20 @@ class Prediction(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 ```
 
-**Fields:**
-- `id`: Unique identifier (auto-increment)
-- `image_path`: Path to uploaded image file
-- `prediction`: Disease label predicted by AI
-- `confidence`: Confidence score (0.0 to 1.0)
-- `created_at`: Timestamp of prediction
+**Поля:**
+- `id`: уникальный идентификатор (автоинкремент)
+- `image_path`: путь к загруженному файлу изображения
+- `prediction`: метка заболевания, предсказанная ИИ
+- `confidence`: оценка достоверности (от 0.0 до 1.0)
+- `created_at`: отметка времени предсказания
 
 ---
 
-### 2. Library Item Model
+### 2. Модель LibraryItem
 
-**Table:** `library_items`
+**Таблица:** `library_items`
 
-**Purpose:** Store disease information for the library section.
+**Назначение:** хранение информации о заболеваниях для раздела библиотеки.
 
 ```python
 class LibraryItem(Base):
@@ -514,25 +514,25 @@ class LibraryItem(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 ```
 
-**Fields:**
-- `disease_id`: Unique identifier (e.g., "cataract", "healthy_eye")
-- `name`: English disease name
-- `name_ar`: Arabic disease name
-- `short`: Short English description
-- `short_ar`: Short Arabic description
-- `symptoms_ar`: JSON array of symptoms in Arabic
-- `red_flags_ar`: JSON array of warning signs in Arabic
-- `safe_tips_ar`: JSON array of safe tips in Arabic
-- `when_to_see_doctor_ar`: When to consult a doctor (Arabic)
-- `risk_level`: Low, Moderate, or High
+**Поля:**
+- `disease_id`: уникальный идентификатор (например, «cataract», «healthy_eye»)
+- `name`: название заболевания на английском
+- `name_ar`: название заболевания на арабском
+- `short`: краткое описание на английском
+- `short_ar`: краткое описание на арабском
+- `symptoms_ar`: JSON-массив симптомов на арабском
+- `red_flags_ar`: JSON-массив тревожных сигналов на арабском
+- `safe_tips_ar`: JSON-массив полезных советов на арабском
+- `when_to_see_doctor_ar`: когда обратиться к врачу (арабский)
+- `risk_level`: Low, Moderate или High
 
 ---
 
-### 3. Section Model
+### 3. Модель Section
 
-**Table:** `sections`
+**Таблица:** `sections`
 
-**Purpose:** Store educational content sections (about, safety, education).
+**Назначение:** хранение разделов образовательного контента (about, safety, education).
 
 ```python
 class Section(Base):
@@ -548,11 +548,11 @@ class Section(Base):
 
 ---
 
-### 4. Question Model
+### 4. Модель Question
 
-**Table:** `questions`
+**Таблица:** `questions`
 
-**Purpose:** Store FAQ items.
+**Назначение:** хранение элементов FAQ.
 
 ```python
 class Question(Base):
@@ -567,11 +567,11 @@ class Question(Base):
 
 ---
 
-## Configuration
+## ⚙️ Конфигурация
 
-### Environment Variables
+### Переменные окружения
 
-Create a `.env` file in the `backend/` directory:
+Создайте файл `.env` в каталоге `backend/`:
 
 ```env
 # Server
@@ -597,7 +597,7 @@ UPLOAD_DIR=
 MAX_UPLOAD_SIZE_MB=10
 ```
 
-### Configuration Class
+### Класс конфигурации
 
 ```python
 # backend/app/config.py
@@ -631,14 +631,14 @@ class Settings(BaseSettings):
 
 ---
 
-### Request ID Tracking
+### Отслеживание по Request ID
 
-Every request is assigned a unique UUID that is:
-- Logged at the start and end of each request
-- Included in the response header `X-Request-ID`
-- Used for end-to-end request tracing in production
+Каждому запросу назначается уникальный UUID, который:
+- логируется в начале и конце каждого запроса;
+- включается в заголовок ответа `X-Request-ID`;
+- используется для сквозной трассировки запросов в продакшене.
 
-**Example Request/Response:**
+**Пример запроса/ответа:**
 ```
 Request Header:  (auto-generated)
 Response Header: X-Request-ID: 550e8400-e29b-41d4-a716-446655440000
@@ -646,9 +646,9 @@ Response Header: X-Request-ID: 550e8400-e29b-41d4-a716-446655440000
 
 ---
 
-## Error Handling
+## 🛡 Обработка ошибок
 
-### Custom Exception Handlers
+### Пользовательские обработчики исключений
 
 ```python
 # backend/app/main.py
@@ -671,7 +671,7 @@ async def unhandled_exception_handler(request: Request, exc: Exception):
     )
 ```
 
-### Standard Error Response Format
+### Стандартный формат ответа об ошибке
 
 ```json
 {
@@ -680,30 +680,30 @@ async def unhandled_exception_handler(request: Request, exc: Exception):
 }
 ```
 
-### Common HTTP Status Codes
+### Основные коды статуса HTTP
 
-| Code | Meaning | Usage |
+| Код | Значение | Использование |
 |------|---------|-------|
-| `200` | OK | Successful request |
-| `400` | Bad Request | Invalid input (missing file, empty file) |
-| `404` | Not Found | Resource not found (result ID, disease ID) |
-| `413` | Payload Too Large | File exceeds size limit |
-| `415` | Unsupported Media Type | Invalid file extension |
-| `500` | Internal Server Error | Server-side error (model loading, prediction) |
+| `200` | OK | Успешный запрос |
+| `400` | Bad Request | Некорректный вход (нет файла, пустой файл) |
+| `404` | Not Found | Ресурс не найден (ID результата, ID заболевания) |
+| `413` | Payload Too Large | Файл превышает допустимый размер |
+| `415` | Unsupported Media Type | Недопустимое расширение файла |
+| `500` | Internal Server Error | Ошибка на стороне сервера (загрузка модели, предсказание) |
 
 ---
 
-## AI Service Implementation
+## 🔧 Реализация сервиса ИИ
 
-### Preprocessing Pipeline
+### Конвейер препроцессинга
 
-The preprocessing pipeline matches the training pipeline exactly:
+Конвейер препроцессинга в точности соответствует обучающему:
 
-1. **Load and convert to RGB** - Ensures consistent 3-channel input
-2. **Scale to 256** - Shortest side scaled to 256 pixels (maintains aspect ratio)
-3. **Center crop to 224×224** - Focuses on central ocular region
-4. **Normalize to [0, 1]** - Divides pixel values by 255.0
-5. **Expand dimensions** - Adds batch dimension for inference
+1. **Загрузка и преобразование в RGB** — обеспечивает единообразный вход из 3 каналов
+2. **Масштабирование до 256** — короткая сторона масштабируется до 256 пикселей (с сохранением пропорций)
+3. **Центральный кроп до 224×224** — фокус на центральной области глаза
+4. **Нормализация до [0, 1]** — значения пикселей делятся на 255.0
+5. **Расширение размерностей** — добавление измерения батча для инференса
 
 ```python
 # backend/app/services/ai_service.py
@@ -745,9 +745,9 @@ def preprocess_image(image_path: str | Path) -> np.ndarray:
     return np.expand_dims(arr, axis=0)
 ```
 
-### Disease Classification Labels
+### Метки классификации заболеваний
 
-All disease labels follow a consistent naming convention (lowercase with underscores):
+Все метки заболеваний следуют единообразной соглашённости об именовании (строчными с подчёркиваниями):
 
 ```python
 CLASS_NAMES = (
@@ -760,9 +760,9 @@ CLASS_NAMES = (
 
 ---
 
-## Testing
+## 🧪 Тестирование
 
-### Running Tests
+### Запуск тестов
 
 ```bash
 cd backend
@@ -770,14 +770,14 @@ pip install pytest pillow
 pytest tests/ -v
 ```
 
-### Test Coverage
+### Покрые тестами
 
-| Module | Tests | Coverage |
+| Модуль | Тесты | Покрытие |
 |--------|-------|----------|
-| `test_predict.py` | Image validation, format support, dimension constraints | Prediction endpoint |
-| `test_ai_service.py` | Preprocessing pipeline, class name normalization, confidence thresholds | AI service |
+| `test_predict.py` | Валидация изображений, поддержка форматов, ограничения размеров | Эндпоинт предсказания |
+| `test_ai_service.py` | Конвейер препроцессинга, нормализация имён классов, пороги достоверности | Сервис ИИ |
 
-### Example Test
+### Пример теста
 
 ```python
 # backend/tests/test_ai_service.py
@@ -801,11 +801,11 @@ class TestPreprocessingPipeline:
 
 ---
 
-## Best Practices
+## 💡 Лучшие практики
 
-### 1. Database Session Management
+### 1. Управление сессиями базы данных
 
-Always use dependency injection for database sessions:
+Всегда используйте внедрение зависимостей для сессий базы данных:
 
 ```python
 @router.get("/results")
@@ -814,9 +814,9 @@ async def list_results(db: Session = Depends(get_db)):
     pass  # Session automatically closed after request
 ```
 
-### 2. Input Validation
+### 2. Валидация входных данных
 
-Use Pydantic models for request/response validation:
+Используйте модели Pydantic для валидации запросов/ответов:
 
 ```python
 class PredictionSchema(BaseModel):
@@ -832,9 +832,9 @@ class PredictionSchema(BaseModel):
         }
 ```
 
-### 3. Error Handling
+### 3. Обработка ошибок
 
-Always handle exceptions gracefully:
+Всегда корректно обрабатывайте исключения:
 
 ```python
 try:
@@ -851,9 +851,9 @@ except Exception:
     )
 ```
 
-### 4. Logging
+### 4. Логирование
 
-Use proper logging for debugging and monitoring:
+Используйте корректное логирование для отладки и мониторинга:
 
 ```python
 logger = logging.getLogger(__name__)
@@ -863,9 +863,9 @@ logger.warning(f"Failed to preload DL model: {e}")
 logger.error(f"Unhandled exception: {exc}")
 ```
 
-### 5. Type Hints
+### 5. Подсказки типов
 
-Always use type hints for better code clarity:
+Всегда используйте подсказки типов для ясности кода:
 
 ```python
 def predict_image(image_path: str | Path) -> Tuple[str, float]:
@@ -875,7 +875,7 @@ def predict_image(image_path: str | Path) -> Tuple[str, float]:
 
 ### 6. Async/Await
 
-Use async for I/O-bound operations:
+Используйте async для операций, связанных с вводом-выводом:
 
 ```python
 @router.post("/predict")
@@ -889,9 +889,9 @@ async def run_prediction(
 
 ---
 
-## Testing the API
+## 🧪 Тестирование API
 
-### Using curl
+### С помощью curl
 
 ```bash
 # Health check
@@ -908,7 +908,7 @@ curl http://localhost:8000/api/v1/results
 curl http://localhost:8000/api/v1/library
 ```
 
-### Using Python requests
+### С помощью Python requests
 
 ```python
 import requests
@@ -930,9 +930,9 @@ print(response.json())
 
 ---
 
-## Running the Backend
+## ▶ Запуск бэкенда
 
-### Development Mode
+### Режим разработки
 
 ```bash
 cd backend
@@ -942,7 +942,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### Production Mode
+### Продакшен-режим
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
@@ -958,37 +958,37 @@ docker run -p 8000:8000 ophthalmology-api
 
 ---
 
-*For questions about the backend, contact the Backend team lead.*
+*По вопросам бэкенда обращайтесь к тимлиду команды бэкенда.*
 
-*Last Updated: May 3, 2026*  
-*Document Version: 1.2*
+*Последнее обновление: 3 мая 2026*  
+*Версия документа: 1.2*
 
 ---
 
-## Changelog
+## 📝 История изменений
 
-### Version 1.2 (May 3, 2026)
+### Версия 1.2 (3 мая 2026)
 
-- **Updated**: Preprocessing pipeline now uses scale-then-crop approach (scale to 256, then center crop to 224)
-- **Updated**: Model file renamed to `Eye_Disease_model_v3.keras`
-- **Improved**: Enhanced confidence thresholds (HIGH=0.80, MEDIUM=0.60, LOW=0.45)
-- **Added**: Normalized entropy metric for uncertainty detection
-- **Added**: Confidence margin tracking for ambiguity detection
-- **Fixed**: Class name normalization with alias mapping for training labels
+- **Обновлено**: конвейер препроцессинга теперь использует подход «сначала масштабирование, затем кроп» (масштабирование до 256, затем центральный кроп до 224)
+- **Обновлено**: файл модели переименован в `Eye_Disease_model_v3.keras`
+- **Улучшены**: пороги достоверности (HIGH=0.80, MEDIUM=0.60, LOW=0.45)
+- **Добавлено**: метрика нормализованной энтропии для обнаружения неопределённости
+- **Добавлено**: отслеживание маржи достоверности для обнаружения неоднозначности
+- **Исправлено**: нормализация имён классов с сопоставлением псевдонимов для меток обучения
 
-### Version 1.1 (April 29, 2026)
+### Версия 1.1 (29 апреля 2026)
 
-- **Fixed**: Standardized disease class names (`conjunctivitis`, `cataract` instead of inconsistent names)
-- **Added**: Request ID tracking middleware for end-to-end request tracing
-- **Added**: Pagination support for `/api/v1/results` endpoint
-- **Added**: Image dimension validation (min 50×50, max 4096×4096 pixels)
-- **Improved**: Enhanced error handling with descriptive messages
-- **Improved**: Production-ready Docker configuration with multi-stage build
-- **Added**: Comprehensive test suite with pytest
+- **Исправлено**: стандартизированы имена классов заболеваний (`conjunctivitis`, `cataract` вместо несогласованных имён)
+- **Добавлено**: middleware отслеживания Request ID для сквозной трассировки запросов
+- **Добавлена**: поддержка пагинации для эндпоинта `/api/v1/results`
+- **Добавлена**: валидация размеров изображений (минимум 50×50, максимум 4096×4096 пикселей)
+- **Улучшена**: обработка ошибок с информативными сообщениями
+- **Улучшена**: конфигурация Docker, готовая к продакшену, с многостадийной сборкой
+- **Добавлен**: полный набор тестов на pytest
 
-### Version 1.0 (Initial Release)
+### Версия 1.0 (первый выпуск)
 
-- Initial implementation of FastAPI backend
-- AI inference with TensorFlow/Keras model
-- SQLite database with SQLAlchemy ORM
-- CRUD operations for predictions, library items, content sections, and questions
+- Первоначальная реализация бэкенда на FastAPI
+- Инференс ИИ с моделью TensorFlow/Keras
+- База данных SQLite с ORM SQLAlchemy
+- CRUD-операции для предсказаний, элементов библиотеки, разделов контента и вопросов
